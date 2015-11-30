@@ -1,0 +1,1194 @@
+\documentclass[8pt]{beamer}
+\usepackage[nobglogo]{beamerthemedmi-owled}
+\usepackage[utf8x]{inputenc}
+\usepackage{default}
+\usepackage{url}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{mathrsfs}
+\usepackage[official]{eurosym}
+
+%\usepackage{listings}
+
+
+\mode<presentation>
+{
+  \usetheme{dmi-owled}
+  %\usetheme{Warsaw}
+  % or ...
+
+  \setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+
+\title{Introduzione agli Open Data\\
+Dati Strutturati}
+
+\author{Cristiano Longo\\ 
+{\small{longo@dmi.unict.it}}}
+
+
+
+\date{Universit\`a di Catania}
+
+\begin{document}
+\maketitle
+\setcounter{tocdepth}{1}
+
+\begin{frame}
+ \frametitle{Dati Strutturati}
+ 
+ Alcuni dataset vengono forniti attraverso formati pi\`u strutturati,
+ che consentono ad esempio svariati livelli di annidamento.
+ \vspace{\baselineskip}
+ 
+ Vedremo i formati XML e JSON.
+\end{frame}
+
+\section{XML}
+
+\begin{frame}
+ \frametitle{XML}
+ Il linguaggio \emph{eXtended Markup Language} (in breve \emph{XML})\footnote{\url{http://www.w3.org/XML/}} 
+ \`e un liguaggio di marcatura basato su SGML ed \`e alla base del 
+ linguaggio HTML (in particolare xHTML). XML \`e una specifica
+ w3c, attualmente alla versione 1.1.\footnote{\url{http://www.w3.org/TR/2006/REC-xml11-20060816/}}
+ \vspace{\baselineskip}
+
+\uncover<2->{
+ Un documento XML \`e un documento di testo (codificato in UTF-8 o UTF16) 
+ che rispetta le regole di produzione indicate nella specifica. 
+ Un validatore per XML \`e disponibile al seguente indirizzo.
+\begin{center}
+\begin{small}
+  \url{http://www.w3schools.com/xml/xml_validator.asp}
+\end{small} 
+\end{center}
+ \vspace{\baselineskip}
+}
+
+\uncover<3->{
+ Escludendo le dichiarazioni, un documento XML \`e strutturato ad albero.
+ Ogni nodo dell'albero pu\`o essere un \emph{elemento}, che pu\`o
+ a sua volta contenere altri elementi, o un nodo di testo(TextNode).\footnote{Alcuni 
+ esempi sono disponibili in \url{http://www.w3schools.com/xml/}}
+}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{Sintassi XML - Elementi}
+
+ 
+ Un elemento \`e caratterizzato da un \emph{element name}
+ ed \`e delimitato da uno \emph{start tag} e un \emph{end tag},
+ tranne nel caso di elementi vuoti.
+ Un esempio di elemento con element name \texttt{myElement} \`e
+ il seguente:
+\begin{verbatim}
+  <myElement>
+    just a text content
+  </myElement>
+\end{verbatim}
+
+ L'esempio seguente mostra un elemento vuoto.
+\begin{verbatim}
+  <emptyElement />
+\end{verbatim}
+  
+ Ogni elemento pu\`o avere altri nodi come figli.
+ Nell'esempio seguente viene mostrato un elemento 
+ di tipo \texttt{myElement} con due nodi figli:
+ un secondo element di tipo \texttt{elementChild}
+ ed un nodo di testo.
+\begin{verbatim}
+  <myElement>
+    <elementChild>child text content</elementChild>
+    another text node
+  </myElement>
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{XML - Attributi}
+ Ogni elemento pu\`o avere degli \emph{attributi}.
+ Un attributo di un elemento \`e una coppia nome-valore. 
+ Nell'esempio seguente viene mostrato un elemento vuoto 
+ di tipo \texttt{myElement} con un attributo \texttt{myAttr} 
+ con valore \texttt{attrValue}.
+\begin{verbatim}
+  <myElement myAttribute="attrValue" />
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{XML - Struttura}
+ Un \emph{documento XML} \`e suddiviso in due parti: prologo e 
+ contenuto. Il prologo deve contenere la \emph{XML Declaration},
+ mentre il contenuto \`e riservato agli elementi e deve contenere
+ almeno un elemento (la radice).
+ \vspace{\baselineskip}
+
+ Riportiamo un esempio di documento XML:\footnote{Esempio da \url{http://www.w3schools.com/xml/xml_tree.asp} e lievemente modificato.}
+\begin{small}
+\begin{verbatim}
+<?xml version="1.1" encoding="UTF-16"?> <!-- Prologo -->
+
+<!-- Contenuto -->
+<bookstore> <!-- Elemento radice -->
+  <book category="COOKING">
+    <title lang="en">Everyday Italian</title>
+    <author>Giada De Laurentiis</author>
+    <year>2005</year>
+    <price>30.00</price>
+  </book>
+  <book category="WEB">
+    <title lang="en">Learning XML</title>
+    <author>Erik T. Ray</author>
+    <year>2003</year>
+    <price>39.95</price>
+  </book>
+</bookstore> 
+\end{verbatim}
+\end{small}
+\end{frame}
+
+\begin{frame}
+ \frametitle{XML - Entit\`a}
+ 
+ Le \emph{Entity References} sono particolari token che 
+ vengono sostituiti con dei valori predefiniti (o dichiarati nel prologo)
+ quando viene effettuato il parsing XML. Le entity references possono 
+ comparire nei nodi di testo e come valore degli attributi degli elementi.
+ \vspace{\baselineskip}
+ 
+ Una entity reference inizia con il carttere \texttt{\&} e termina con \texttt{;}.
+ Le entit\`a predefinite nel linguaggio XML sono le seguenti:
+\[
+ \begin{array}{|c|c|}
+  \hline
+    Entity Reference & Carattere \\
+    \hline
+    \mathtt{\&lt;} & \mathtt{<} \\
+    \mathtt{\&gt;} & \mathtt{>} \\
+    \mathtt{\&amp;} & \mathtt{\&}\\ 
+    \mathtt{\&apos;} & \mathtt{'}\\
+    \mathtt{\&quot;} & \mathtt{"}\\
+  \hline
+ \end{array}
+\]
+ \vspace{\baselineskip}
+
+ Inoltre, \`e possibile fare riferimento ad uno specifico carattere
+ mediante il codice attraverso il quale \`e identificato il carattere.
+ In questo caso, si usa la sintassi \texttt{\&\#code;}, sostituendo 
+ a \texttt{<code>} il codice unicode del carattere che si vuole inserire
+ nel documento
+ ad esempio, tutte le occorrenze di \texttt{\&\#8364;} verranno 
+ sostituite con il carattere \texttt{\euro} durante il parsing di un 
+ documento.
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{XML - Entit\`a - Esempio}
+ Riportiamo un esempio di documento XML che contiene delle entit\`a:
+ \vspace{\baselineskip}
+ 
+ \emph{Documento Originale}
+\begin{small}
+\begin{verbatim}
+<?xml version="1.1" encoding="UTF-16"?>
+<message>
+  Non usare il tag &lt;euro /&gt; &#33;
+</message>
+\end{verbatim}
+\end{small}
+
+ \emph{Documento Interpretato} (33 \`e il codice unicode per \texttt{!})
+\begin{small}
+\begin{verbatim}
+<?xml version="1.1" encoding="UTF-16"?>
+<message>
+  Non usare il tag <euro /> !
+</message>
+\end{verbatim}
+\end{small} 
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{XML - Document Type Declaration (1/3)}
+Nel prologo di un documento XML pu\`o essere specificata una
+\emph{Document Type Declaration}. 
+\vspace{\baselineskip}
+
+La document type declaration
+specifica il \emph{tipo} di documento in termini di struttura
+(tipi elementi, possibili annidamenti, attributi degli elementi).
+\vspace{\baselineskip}
+
+Riportiamo un esempio di documento xml che segue la specifica
+(leggi \emph{\'e di tipo}) HTML5:\footnote{\url{http://www.w3.org/TR/html5/}}
+
+\begin{small}
+\begin{verbatim}
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE html> <!-- the doctype declaration -->
+
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Title of the document</title>
+   </head>
+   <body>
+     Content of the document......
+   </body>
+</html> 
+\end{verbatim}
+\end{small}
+\vspace{\baselineskip}
+
+NB: nei documenti HTML5 la XML Declaration pu\`o essere omessa.
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{XML - Document Type Declaration (2/3)}
+ 
+ La struttura pu\`o essere specificata:
+ \vspace{\baselineskip}
+ 
+ - usando i formati DTD e XML Schema;
+ \vspace{\baselineskip}
+
+ - internamente alla Document Type Declaration, ad esempio\footnote{Esempio da \url{http://www.w3schools.com/xml/xml_dtd_intro.asp} .}
+\begin{small}
+\begin{verbatim}
+<!DOCTYPE note [
+  <!ELEMENT note (to,from,heading,body)>
+  <!ELEMENT to (#PCDATA)>
+  <!ELEMENT from (#PCDATA)>
+  <!ELEMENT heading (#PCDATA)>
+  <!ELEMENT body (#PCDATA)>
+]> 
+\end{verbatim}
+\end{small}
+
+ - o come risorsa esterna al documento, ad esempio
+\begin{small}
+\begin{verbatim}
+<!DOCTYPE note SYSTEM "note.dtd">
+\end{verbatim}
+\end{small}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{XML - Document Type Declaration (3/3)}
+ Inoltre, all'interno della document type declaration possono essere
+ specificate nuove entity refence.
+
+\begin{small}
+\begin{verbatim}
+<!DOCTYPE rdf:RDF [
+    <!ENTITY org "http://www.w3.org/ns/org#" >
+    <!ENTITY dcterms "http://purl.org/dc/terms/" >
+    <!ENTITY locn "http://www.w3.org/ns/locn#" >
+    <!ENTITY foaf "http://xmlns.com/foaf/0.1/" >
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY geo "http://www.w3.org/2003/01/geo/wgs84_pos#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY odt "http://www.dmi.unict.it/~longo/opendatatour/" >
+    <!ENTITY event "http://purl.org/NET/c4dm/event.owl#" >
+    <!ENTITY time "http://www.w3.org/2006/time#" >
+    <!ENTITY cct "http://www.comune.catania.it/comunect.owl/" >
+]>
+\end{verbatim}
+\end{small}
+\end{frame}
+
+\begin{frame}
+ \frametitle{XML - Contratti Pubblici}
+ 
+ Tra gli adempimenti previsti dalla legge 190/2012
+ vi \`e quello per le pubbliche amministrazioni di pubblicare
+ un riepilogo delle gare d'appalto, degli affidamenti e dello 
+ stato contratti stipulati mediante queste.
+ \vspace{\baselineskip}
+ 
+ Tale elenco deve essere pubblicato nella sezione \emph{Amministrazione
+ Trasparente} del sito di ogni pubblica amministrazione in formato 
+ XML che rispetti gli schemi XML creati all'uopo.\footnote{\url{http://dati.avcp.it/schema/datasetAppaltiL190.xsd}}
+ 
+ Le modalit\`a di pubblicazione sono indicate alla seguente pagina
+ \begin{center}
+  \begin{small}
+   \url{http://www.anticorruzione.it/portal/public/classic/Servizi/ServiziOnline/DichiarazioneAdempLegge190} .
+  \end{small}
+ \end{center}
+ ed \`e anche disponibile l'elenco delle amministrazioni il cui file sia stato 
+ correttamente recepito dall'Autorit\`a Nazionale AntiCorruzione (ANAC).
+ \begin{center}
+  \begin{small}
+   \url{http://dati.anticorruzione.it/L190.html} .
+  \end{small}
+ \end{center} 
+ 
+ Le \emph{specifiche tecniche}\footnote{\url{http://www.anticorruzione.it/portal/rest/jcr/repository/collaboration/Digital\%20Assets/anacdocs/Servizi/ServiziOnline/AdempimentoLegge190/SpecificheTecnicheL190v1.1.pdf}}
+ contengono una descrizione esplicativa del formato XML da usare e degli esempi.
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{XML - Contratti Pubblici - Metadati}
+ Un file per la comunicazione di gare \`e contratti \`e costituito 
+ da una sezione contenente i \emph{metadati} del file (data pubblicazione,
+ anno di riferimento, ...) ed una riguardante i \emph{lotti}.
+ Riportiamo qui un estratto dell'esempio contenuto nelle
+ specifiche tecniche. 
+\begin{small}
+\begin{verbatim}
+<?xml version="1.0" encoding="UTF-8"?> 
+<legge190:pubblicazione xsi:schemaLocation="legge190_1_0 datasetAppaltiL190.xsd" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:legge190="legge190_1_0"> 
+ <metadata> 
+   <titolo> Pubblicazione 1 legge 190</titolo> 
+   <abstract> Pubblicazione 1 legge 190 anno 1 rif. 2010</abstract> 
+   <dataPubbicazioneDataset>2012-08-13</dataPubbicazioneDataset> 
+   <entePubblicatore>ANAC</entePubblicatore> 
+   <dataUltimoAggiornamentoDataset>2012-09-15</dataUltimoAggiornamentoDataset> 
+   <annoRiferimento>2012</annoRiferimento> 
+   <urlFile>http://www.pubblicazione.it/dataset1.xml </urlFile> 
+   <licenza>IODL</licenza> 
+ </metadata> 
+ <data> 
+   <lotto> 
+     <cig>4939483E4E</cig> 
+     <strutturaProponente> 
+        <codiceFiscaleProp> 97584460584</codiceFiscaleProp>  
+     ...
+\end{verbatim}
+\end{small}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{XML - Contratti Pubblici - Lotti}
+ Per ogni lotto si indica innanzitutto il \emph{codice identificativo gara}.
+ Tale codice \`e lo stesso che identifica la gara nel sistema \emph{Sistema 
+ Informativo Monitoraggio Gare} (in breve SIMOG) dell'ANAC.
+ 
+ \begin{small}
+\begin{verbatim}
+<?xml version="1.0" encoding="UTF-8"?> 
+<legge190:pubblicazione xsi:schemaLocation="legge190_1_0 datasetAppaltiL190.xsd" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:legge190="legge190_1_0"> 
+ <metadata> 
+ ...
+ </metadata>
+ <data>
+   <lotto>
+     <cig>4939483E4E</cig>
+     ...
+\end{verbatim}
+\end{small}
+
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{XML - Contratti Pubblici - Gara}
+ Successivamente, troviamo le indicazioni sulla stazione appaltante e gli estremi della gara. 
+ 
+\begin{small}
+\begin{verbatim}
+<?xml version="1.0" encoding="UTF-8"?> 
+<legge190:pubblicazione xsi:schemaLocation="legge190_1_0 datasetAppaltiL190.xsd"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:legge190="legge190_1_0">
+...
+ <data>
+   <lotto>
+     <cig>4939483E4E</cig>
+     <strutturaProponente>
+        <codiceFiscaleProp>97584460584</codiceFiscaleProp>
+        <denominazione>Autorità Nazionale Anticorruzione </denominazione> 
+     </strutturaProponente> 
+     <oggetto>Gara a procedura aperta per l’affidamento della Fornitura di infrastrutture 
+     informatiche per il programma AVCPass
+     </oggetto>
+     <sceltaContraente>17-AFFIDAMENTO DIRETTO EX ART. 5 DELLA LEGGE N.381/91</sceltaContraente>
+     ...
+ \end{verbatim}
+\end{small}
+  Si noti che il contenuto dell'elemento \texttt{sceltaContraente} varia in un insieme finito
+  di valori, come indicato nello schema XML.
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{XML - Contratti Pubblici - Partecipanti alla Gara}
+ Per ogni gara vengono indicati i partecipanti, singoli o raggruppamenti.
+ Successivamente, troviamo le indicazioni sulla stazione appaltante e gli estremi della gara. 
+ 
+\begin{small}
+\begin{verbatim}
+<?xml version="1.0" encoding="UTF-8"?> 
+<legge190:pubblicazione xsi:schemaLocation="legge190_1_0 datasetAppaltiL190.xsd"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:legge190="legge190_1_0">
+...
+ <data>
+   <lotto>
+     ...
+     <partecipanti>
+       <raggruppamento>
+         <membro>
+            <codiceFiscale>00000000001</codiceFiscale>
+            <ragioneSociale>Azienda 1</ragioneSociale>
+            <ruolo>04-CAPOGRUPPO</ruolo>
+         </membro>
+         <membro>
+            <codiceFiscale>00000000002</codiceFiscale>
+            <ragioneSociale>Azienda 2</ragioneSociale>
+            <ruolo>03-ASSOCIATA</ruolo>
+         </membro>
+       </raggruppamento>
+      <partecipante>
+         <codiceFiscale>00000000003</codiceFiscale>
+         <ragioneSociale>Azienda Individuale 1</ragioneSociale>
+      </partecipante>
+    </partecipanti>
+     ...
+ \end{verbatim}
+\end{small}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{XML - Contratti Pubblici - Aggiudicatari del Contratto}
+ Nel caso in cui la gara abbia esito positivo, viene specificato l'aggiudicatario
+ e l'importo del contratto.
+ 
+\begin{small}
+\begin{verbatim}
+<?xml version="1.0" encoding="UTF-8"?> 
+<legge190:pubblicazione xsi:schemaLocation="legge190_1_0 datasetAppaltiL190.xsd"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:legge190="legge190_1_0">
+...
+ <data>
+   <lotto>
+     ...
+     <aggiudicatari>
+       <aggiudicatarioRaggruppamento>
+         <membro>
+           <codiceFiscale>00000000001</codiceFiscale>
+           <ragioneSociale>Azienda 1</ragioneSociale>
+           <ruolo>04-CAPOGRUPPO</ruolo>
+         </membro>
+         <membro>
+           <codiceFiscale>00000000002</codiceFiscale>
+           <ragioneSociale>Azienda 2</ragioneSociale>
+           <ruolo>03-ASSOCIATA</ruolo>
+         </membro>
+       </aggiudicatarioRaggruppamento>
+   </aggiudicatari>
+   <importoAggiudicazione>1000.00</importoAggiudicazione>
+   ...
+ \end{verbatim}
+\end{small}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{XML - Contratti Pubblici - Svolgimento dei Lavori}
+ Per i contratti in essere e completati, si indica la data di inizio dei lavori.
+ Per quelli completati si indica anche la data di chiusura e l'importo complessivo
+ liquidato, al netto dell'IVA.
+\begin{small}
+\begin{verbatim}
+<?xml version="1.0" encoding="UTF-8"?> 
+<legge190:pubblicazione xsi:schemaLocation="legge190_1_0 datasetAppaltiL190.xsd"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:legge190="legge190_1_0">
+...
+ <data>
+   <lotto>
+     ...
+     <tempiCompletamento>
+       <dataInizio>2012-08-13</dataInizio>
+       <dataUltimazione>2012-08-13</dataUltimazione>
+     </tempiCompletamento>
+     <importoSommeLiquidate>1000.00</importoSommeLiquidate>
+   </lotto>
+   ...
+ \end{verbatim}
+\end{small}
+\end{frame}
+
+\begin{frame}
+ \frametitle{XML - Contratti Pubblici - Esempi}
+ Il dataset su bandi e contratti (anni 2013 e 2014) del comune di Catania \`e
+ disponibile al seguente indirizzo:
+\begin{center}
+ \begin{small}
+  \url{http://www.comune.catania.it/pubblicitaappalti/opendata.aspx} .
+ \end{small}
+\end{center}
+
+ Un tool realizzato a partire dal dataset ANAC e dalle comunicazioni XML 
+ su bandi e contratti \'e \emph{Public Contracts}\footnote{\url{http://public-contracts.nexacenter.org/}} 
+ del centro NEXA del Politecnico di Torino. 
+\end{frame}
+
+\section{Javascript}
+
+\begin{frame}[fragile]
+ \frametitle{Il Linguaggio Javascript}
+ Il linguaggio \emph{Javascript}\footnote{\url{http://www.ecma-international.org/publications/standards/Ecma-262.htm}}
+ \`e un linguaggio di programmazione imperativo che viene solitamente inserito
+ all'interno di pagine HTML per essere \emph{interpretato} ed eseguito dai browser.
+ \vspace{\baselineskip} 
+ 
+ Uno \emph{script} viene specificato all'interno 
+ del documento HTML usando un elemento di tipo \texttt{script}.
+ Nel caso di codice javascript, l'attributo type,
+ che rappresenta il tipo MIME del contenuto,
+ dell'elemento \texttt{script} deve avere come valore la 
+ stringa \texttt{text/javascript}. 
+ \vspace{\baselineskip} 
+ 
+ Riportiamo nel seguito un esempio di pagina html
+ che incorpora uno script che visualizza una finestra
+ con un testo usando la funzione \texttt{alert}.
+ \begin{small}
+ \begin{verbatim}
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/javascript">
+      alert("This is an alert window created via JS");
+    </script>
+  </head>
+<body>
+  an empty body
+</body>
+</html>  
+ \end{verbatim}
+ \end{small}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{Javascript - Script esterni}
+ Oltre ad essere specificato all'interno della pagina, uno script
+ pu\`o essere caricato da una fonte esterna speficandone la URI
+ con l'attributo \texttt{src}.
+ \begin{small}
+ \begin{verbatim}
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="externalScript.js" type="text/javascript"></script>
+  </head>
+<body>
+  an empty body
+</body>
+</html>  
+ \end{verbatim}
+ \end{small}
+ 
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{Javascript - Esecuzione}
+ Gli script vengono solitamente eseguiti durante il rendering della pagina 
+ non appena il motore di rendering incontra il tag script. Nel caso
+ in cui sia specificato l'attributo \texttt{defer} nel tag script,
+ lo script sar\`a eseguito invece al termine del caricamento della pagina.
+ Nota bene che il deferimento funziona solo per script esterni.
+ \begin{small}
+ \begin{verbatim}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Javascript Defer Example</title>
+  </head>
+  <body>
+    The first part of the page, now the rendering will stop waiting the script execution.
+    <script src="ext1.js" type="text/javascript"></script>
+    <script src="ext2.js" type="text/javascript" defer></script>
+    You can see this just after the former script completes. 
+  </body>
+</html> 
+ \end{verbatim}
+ \end{small} 
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{Javascript - Eventi}
+ Inoltre l'esecuzione di codice javascript pu\`o essere collegata al verificarsi 
+ di un evento. Nell'esempio seguente il codice specificato come valore dell'attributo 
+ \texttt{onclick} viene eseguito quando si preme sull'elemento \texttt{a} corrispondente.
+ 
+ \begin{small}
+ \begin{verbatim}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Event Driven Javascript</title>
+  </head>
+  <body>
+    <p><a href="#" onclick="alert('Click!')">Click here to open a alert window</a></p>
+  </body>
+</html> 
+ \end{verbatim}
+ \end{small}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{Javascript - Funzioni}
+ \`E anche possibile definire delle funzioni, che potranno essere richiamate
+ all'interno di script o al verificarsi di determinati eventi, e delle variabili.
+ 
+ \begin{small}
+ \begin{verbatim}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Event Driven Javascript</title>
+    <script type="text/javascript">
+      var alertStr="Click!";
+      function myAlert(){
+        alert(alertStr);
+      }
+    </script>
+  </head>
+  <body>
+    <p><a href="#" onclick="myAlert()">Click here to open a alert window</a></p>
+  </body>
+</html> 
+ \end{verbatim}
+ \end{small}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{Javascript - Oggetti (1/2)}
+ Il linguaggio Javascript appartiene alla famiglia dei linguaggi 
+ \emph{prototype-based}.\footnote{\url{https://developer.mozilla.org/it/docs/Web/JavaScript/Introduzione_al_carattere_Object-Oriented_di_JavaScript}}
+ In questo paradigma non esistono le classi, ma \`e possibile comunque
+ creare degli oggetti ai quali collegare metodi e attributi.
+ \vspace{\baselineskip}
+
+ Javascript fornisce alcuni oggetti direttamente nel core.\footnote{\url{http://www.w3schools.com/jsref/default.asp}}
+ \vspace{\baselineskip}
+
+ Per definire nuovi oggetti vengono utilizzate le funzioni,
+ che fungono da \emph{costruttore} quando l'oggetto viene istanziato.
+ con la parola chiave \texttt{new}. Nell'esempio 
+ seguente vengono creati due oggetti di \emph{classe} \texttt{TheClass}.
+ \begin{small}
+ \begin{verbatim}
+function MyClass(){ //empty }
+var o1 = new MyClass();
+var o2 = new MyClass();
+ \end{verbatim}
+ \end{small}
+ 
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{Javascript - Oggetti (2/2)}
+ 
+ \`E possibile poi definire metodi e attributi dell'oggetto
+ con una istruzione di assegnazione. La sintassi per accedere ai 
+ metodi e agli attributi di un oggetto \`e quella consueta. Nell'esempio
+ seguente viene aggiunto un metodo \texttt{showAlert} all'oggetto \texttt{o}.
+ Nota che il nuovo metodo viene specificato attraverso una \emph{funzione 
+ anonima}.
+
+ \begin{small}
+ \begin{verbatim}
+ function MyClass(){ } //empty constructor
+ var o = new MyClass();
+ o.showAlert = function(){
+   alert("Showing Alert!");
+ } 
+ \end{verbatim}
+ \end{small}
+ 
+ All'interno dei costruttori e dei metodi 
+ di un oggetto \`e possibile fare riferimento 
+ allo stesso mediante la parola chiave \texttt{this}.
+ \begin{small}
+ \begin{verbatim}
+ function MyClass(name){ 
+   this.name=name; //set the attribute name of the object
+   this.printName = function(){ //set a method which access the name attribute
+      alert(this.name);
+   }
+ }
+ var o = new MyClass("my name");
+ o.printName(); //show the name
+ \end{verbatim}
+ \end{small}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Javascript - Document Object Model}
+
+ La specifica \emph{Document Object Model} (in breve DOM)\footnote{\url{http://www.w3.org/TR/dom/}}
+ definisce un modello (oggetti, metodi, ...) indipendente dal linguaggio
+ per accedere agli elementi di un documento specificato in un linguaggio di
+ markup (solitamente HTML o XML).
+ \vspace{\baselineskip}
+ 
+ Uno script javascript all'interno di un documento HTML pu\`o
+ accedere al documento stesso attraverso la variabile \texttt{document},\footnote{\url{http://www.w3schools.com/jsref/dom_obj_document.asp}}
+ e all'elemento radice del documento attraverso \texttt{document.documentElement} (elemento
+ di tipo \texttt{html} nel caso di documenti HTML).
+ \vspace{\baselineskip}
+ 
+ Dalla radice \`e possibile navigare e modificare tutto 
+ il contenuto del documento attraverso i metodi di cui sono
+ equipaggiati i suoi elementi.\footnote{\url{http://www.w3schools.com/jsref/dom_obj_all.asp}}
+ Ad esempio, dato un elemento \texttt{e}
+ \begin{itemize}
+  \item \texttt{e.children} restituisce tutti gli elementi figli;
+  \item \texttt{e.getElementsByTagName("<tag>")} restituisce tutti gli elementi figli di 
+  tipo \texttt{<tag>};
+  \item \texttt{e.getElementsByByID("<id>")} restituisce l'elemento figlio con identificativo
+  \texttt{<id>}.  
+ \end{itemize}
+
+ Si noti che i metodi \texttt{getElementsByTagName} e \texttt{getElementsByByID} 
+ sono disponibili anche per l'oggetto \texttt{document}.
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{Javascript - Esempio}
+ Il seguente esempio mostra come aggiungere elementi ad
+ una lista non ordinata (\texttt{ul}) con identificativo
+ \texttt{theList}.
+ 
+\begin{small}
+\begin{verbatim}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DOM Example</title>
+    <script type="text/javascript">
+var counter=0;
+
+function addItem(listId){
+  var list = document.getElementById(listId);
+  var e = document.createElement("li");
+  var t = document.createTextNode("Item "+counter);
+  e.appendChild(t);
+  list.appendChild(e);
+  counter++;
+}
+  </script>
+  </head>
+  <body>
+    <p>
+      <a href="#" onclick="addItem('theList')">
+       Click here to add a list item
+      </a>
+    </p>
+    <ul id="theList" />
+  </body>
+</html> 
+ \end{verbatim} 
+\end{small}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{XML e Javascript}
+ 
+ Solitamente XML viene utilizzato come formato di ritorno da molti servizi
+ web. Per effettuare una chiamata HTTP il core Javascript mette a disposizione
+ l'oggetto \texttt{XMLHttpRequest}. 
+ \vspace{\baselineskip}
+ 
+ Per effettuare il parsing di un documento XML \`e possibile
+ istanziare un oggetto \texttt{DOMParser}, che fornisce il metodo 
+ \texttt{parseFromString}. I metodi per ispezionare e modificare 
+ il documento XML sono quelli previsti nella specifica DOM vista 
+ prima.
+ \vspace{\baselineskip}
+
+ Il seguente esempio effettua il parsing di una stringa in 
+ un documento XML e ne stampa il tipo di elemento della radice.
+\begin{small}
+\begin{verbatim}
+    var xmlAsText ="\<?xml version=\"1.1\" encoding=\"UTF-16\" ?\>\n";
+    xmlAsText+="<anEmptyElement />"
+    var p = new DOMParser();
+    var doc=p.parseFromString(xmlAsText,"text/xml");
+    alert(doc.documentElement.tagName); 
+\end{verbatim}
+\end{small}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{Javascript e Servizi Web}
+ 
+ Javascript pu\`o essere utilizzato per interrogare direttamente i servizi web. 
+ Per effettuare una chiamata HTTP il core Javascript mette a disposizione
+ l'oggetto \texttt{XMLHttpRequest}. 
+ \vspace{\baselineskip}
+
+\begin{small}
+\begin{verbatim}
+    var url = "ComunediCatania-2014-DatasetLegge190.xml";
+    var xmlhttp = new XMLHttpRequest();
+    var p = new DOMParser();
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            var doc = p.parseFromString(xmlhttp.responseText, "text/xml");
+            alert(doc.getElementsByTagName("lotto").length);
+        }
+    }
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+\end{verbatim}
+\end{small}
+
+Nel caso in cui la richiesta riguardi un servizio posto in un dominio differente
+dalla pagina web cui si fa riferimento \`e necessario che il server remoto supporti
+la specifica \emph{Cross-Origin Resource Sharing} (in breve, CORS).\footnote{\url{http://www.w3.org/TR/cors/}} 
+In caso contrario il browser segnaler\`a un errore.
+\vspace{\baselineskip}
+
+Per aggirare questo problema \`e sufficiente creare un proxy sullo stesso dominio
+della pagina web che si occupi di scaricare il file.
+\end{frame}
+
+%TODO strumenti del browser
+%TODO ID in xml
+
+\section{JSON}
+
+\begin{frame}
+ \frametitle{Il linguaggio JSON}
+ 
+ Unaltro tra i pi\`u diffusi formati \`e \emph{JSON},\footnote{\url{http://json.org/}}
+ generalmente pi\`u \emph{leggero} di XML.
+ \vspace{\baselineskip}
+
+ Un documento JSON \`e un file di testo (con encoding UTF-8) che rispetta la seguente grammatica:
+
+\begin{small}
+\[
+  \begin{array}{ccl}
+object & \rightarrow & \{\}\\
+&&\{members\}\\
+members & \rightarrow & pair \\
+&&pair , members \\
+pair & \rightarrow & string : value \\
+array & \rightarrow & [] \\
+&&[ elements ] \\
+elements & \rightarrow & value \\ 
+&&value , elements \\
+value & \rightarrow & string \\
+&&number\\
+&&object\\
+&&array\\
+&&\mathtt{true}\\
+&&\mathtt{false}\\
+&&\mathtt{null} 
+\end{array}
+\]
+\end{small}
+ \vspace{\baselineskip}
+
+ Un esempio di file JSON \`e disponibile al seguente indirizzo:
+\begin{center}
+ \begin{small}
+  \url{http://json.org/example}
+ \end{small}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{JSON e Javascript (1/3)}
+ Il formato JSON \`e supportato nella maggior parte dei liguaggi di programmazione,
+ il particolare in quelli orientati al web. Il linguaggio \emph{Javascript} offre 
+ un supporto nativo a JSON.\footnote{Vedi \url{http://www.json.org/js.html} .}
+ \vspace{\baselineskip}
+ 
+%\uncover<2->{
+\`E possibile dichiarare un oggetto JSON all'interno di uno script javascript:
+\begin{verbatim}
+var obj = { "name" : "Cristiano",
+  "familyname" : "Longo",
+  "email" : [ "mailto://cristianolongo@gmail.com", 
+  "mailto://longo@dmi.unict.it"] }
+\end{verbatim}
+
+\`E possibile accedere ai campi di un oggetto con la sintassi $<obj>.<field>$.
+Ad esempio il valore del campo familyname dell'oggetto obj si ottiene 
+come segue:
+\begin{verbatim}
+var fn=obj.familyname;
+\end{verbatim}
+
+Per gli elementi di un array si usa invece la sintassi $arr[index]$. La
+prima mail definita in $obj$ si pu\`o ottenere come segue:
+
+\begin{verbatim}
+var firstmail=obj.email[0];
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{JSON e Javascript (2/3)}
+ 
+ Il metodo $parse$ dell'oggetto $JSON$ si utilizza per ottenere
+ il corrispondente oggetto JSON da una stringa.
+\begin{verbatim}
+var obj = JSON.parse("{\"name\" : \"Cristiano\",  \"familyname\" : \"Longo\"});
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{JSON e Javascript (2/3)}
+ 
+Il seguente esempio mostra come utilizzare la replica JSON ottenuta da 
+una chiamata HTTP GET.\footnote{Questo esempio \`e da \url{http://www.w3schools.com/json/json_http.asp} .}
+\begin{verbatim}
+var xmlhttp = new XMLHttpRequest();
+var url = "http://example.org";
+
+xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        var obj = JSON.parse(xmlhttp.responseText);
+        alert(obj.name);
+    }
+}
+xmlhttp.open("GET", url, true);
+xmlhttp.send();
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{JSON e Javascript - Esempio: linee Bus}
+ Un esempio di open data in formato JSON sono le informazioni su linee, 
+ orari e percorsi dei BUS fornite da AMT Catania.\footnote{\url{http://www.amt.ct.it/?page_id=4623}}
+ Questo servizio non supporta CORS.
+ 
+\begin{verbatim}
+{"Lines":
+  {"Line":[
+    {"id":1,
+     "name":"101",
+     "description":["Ognina","Barriera","San G. Galermo"],
+     "timetables":{
+       "weekdays":["06:40","07:45","08:50","09:50","10:40",
+         "11:30","12:30","13:40","14:35"],
+       "holidays":["Circolare Non Esercita"]},
+       "routes":["Via Mon. D. Orlando","V.le Ulisse",...],
+       "note":[],
+       "polyline":[[37.532129128297,15.108727463789],...]
+    },
+    {"id":2,
+     "name":"1-4",
+     ...
+    }
+  }
+}
+\end{verbatim}
+
+\begin{small}
+NB: il frammento viene presentato abbreviato. I tre punti rappresentano le parti omesse. 
+\end{small}
+\end{frame}
+
+\section{GeoJSON}
+
+\begin{frame}
+ \frametitle{GeoJSON}
+ Il formato \emph{GeoJSON}\footnote{\url{http://geojson.org/}} \`e basato su JSON
+ e permette la rappresentazione di dati geospaziali (punti, linee, aree).
+ \vspace{\baselineskip}
+
+\uncover<2->{
+ Un documento GeoJSON contiene sempre un unico oggetto, con un attributo \texttt{type}
+ che pu\`o assumere uno dei seguenti valori:
+ \begin{itemize}
+  \item \texttt{Point} - un singolo punto nello spazio;
+  \item \texttt{MultiPoint} - un insieme di punti;
+  \item \texttt{LineString} - un segmento o un insieme di segmenti contigui (spezzata);
+  \item \texttt{MultiLineString} - un insieme di \texttt{LineString};
+  \item \texttt{Polygon} - un poligono;
+  \item \texttt{MultiPolygon} - un insieme di poligoni;
+  \item \texttt{GeometryCollection} - un array di elementi dei tipi precedenti;
+  \item \texttt{Feature} - permette di associare ad un elemento dei tipi precedenti alcuni metadati 
+  (ad esempio il nome) e un identificativo;
+  \item \texttt{FeatureCollection} - un insieme di \texttt{Feature}.
+ \end{itemize}
+ 
+ Esempi esplicativi sono disponibili su \url{https://it.wikipedia.org/wiki/GeoJSON}.
+}
+
+\uncover<3->{
+  Un oggetto GeoJSON pu\`o avere un attributo \texttt{crs} per indicare il
+  sistema di coordinate utilizzate. Nel seguito indicheremo col termine \emph{position}
+  un array di coordinate, la cui lunghezza dipende dal sistema di coordinate in uso.
+}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{GeoJSON - Point}
+ Gli elementi di tipo \texttt{Point} hanno un attributo \texttt{coordinates} cui \`e associata una 
+ posizione.
+ 
+\begin{verbatim}
+{ "type": "Point", "coordinates": [100.0, 0.0] } 
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{GeoJSON - MultiPoint}
+ Gli elementi di tipo \texttt{MultiPoint} hanno un attributo \texttt{coordinates} 
+ il cui valore \`e un array di almeno due coordinate. Si utilizza per rappresentare
+ insiemi di punti.
+  
+\begin{verbatim}
+{ "type": "MultiPoint",
+    "coordinates": [ [100.0, 0.0], [101.0, 1.0] ]
+    }
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{GeoJSON - LineString}
+ Gli elementi di tipo \texttt{Point} hanno un attributo \texttt{coordinates} 
+ il cui valore \`e un array di almeno due coordinate. Esse indicano i nodi
+ della spezzata.
+  
+\begin{verbatim}
+{ "type": "LineString",
+    "coordinates": [ [100.0, 0.0], [101.0, 1.0] ]
+    }
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{GeoJSON - MultiLineString}
+ Gli elementi di tipo \texttt{Point} hanno un attributo \texttt{coordinates} 
+ il cui valore \`e un array di array di coordinate. Ogni elemento dell'array
+ principale rappresenta una \texttt{LineString}.
+  
+\begin{verbatim}
+{ "type": "MultiLineString",
+    "coordinates": [
+        [ [100.0, 0.0], [101.0, 1.0] ],
+        [ [102.0, 2.0], [103.0, 3.0] ]
+      ]
+    }
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{GeoJSON - Polygon}
+ Con \texttt{LinearRing} indichiamo gli array di coordinate nei quali
+ il primo elemento coincide con l'ultimo.
+ \vspace{\baselineskip}
+ 
+ Gli elementi di tipo \texttt{Polygon} hanno un attributo \texttt{coordinates} 
+ il cui valore \`e un array non vuoto di \texttt{LinearRing}. Ogni elemento dell'array
+ rappresenta gli \emph{anelli} del poligono, dal pi\`u esterno al pi\`u interno.
+ 
+\begin{verbatim}
+{ "type": "Polygon",
+    "coordinates": [
+      [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0] ],
+      [ [100.2, 0.2], [100.8, 0.2], [100.8, 0.8], [100.2, 0.8], [100.2, 0.2] ]
+      ]
+   }
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{GeoJSON - MultiPolygon}
+ Gli elementi di tipo \texttt{MultiPolygon} hanno un attributo \texttt{coordinates} 
+ il cui valore \`e un array non vuoto di elementi che rappresentano poligoni (si veda 
+ come sono rappresentate le coordinate per i poligoni).
+\begin{verbatim}
+{ "type": "MultiPolygon",
+    "coordinates": [
+      [[[102.0, 2.0], [103.0, 2.0], [103.0, 3.0], [102.0, 3.0], [102.0, 2.0]]],
+      [[[100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0]],
+       [[100.2, 0.2], [100.8, 0.2], [100.8, 0.8], [100.2, 0.8], [100.2, 0.2]]]
+      ]
+    }
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{GeoJSON - GeometryCollection}
+ Gli elementi di tipo \texttt{GeometryCollection} hanno un attributo \texttt{geometries} 
+ il cui valore \`e un array non vuoto di oggetti dei tipi visti in precedenza.
+\begin{verbatim}
+{ "type": "GeometryCollection",
+    "geometries": [
+      { "type": "Point",
+        "coordinates": [100.0, 0.0]
+        },
+      { "type": "LineString",
+        "coordinates": [ [101.0, 0.0], [102.0, 1.0] ]
+        }
+    ]
+  }
+\end{verbatim}
+\end{frame}
+
+\begin{frame}
+ \frametitle{GeoJSON - Feature}
+ Un oggetto di tipo \texttt{Feature} permette di associare ad un elemento
+ geometrico (un oggetto GeoJSON di uno dei tipi visti prima), specificato
+ mediante l'attributo \texttt{geometry} un insiemi di meta-dati, indicati 
+ da un generico oggetto JSON associato alla feature mediantre l'attributo 
+ \texttt{properties}.
+ \vspace{\baselineskip}
+
+\uncover<2->{
+ Una \texttt{FeatureCollection} \`e un insieme di oggetti di tipo \texttt{Feature}
+ specificati come array associato alla \texttt{FeatureCollection} mediante la
+ propriet\`a \texttt{features}.
+}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{GeoJSON - Esempio: Farmacie Comune di Catania}
+ Nel portale open data del comune di catania \`e disponibile l'elenco delle farmacie
+ in formato GeoJSON.
+
+\begin{center}
+ \begin{small}
+  \url{http://opendata.comune.catania.gov.it/dataset/test-geo}
+\end{small} 
+\end{center}
+ 
+Ne riportiamo un frammento. 
+\begin{small}
+\begin{verbatim}
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "FID": "Farmacie.47",
+                "OBJECTID": "91",
+                "RECAPITO": "VIA MEDAGLIE D'ORO DELLE 13",
+                "NOME": "BELLINAZZI DANILO - FRANCAVIGLIA",
+                "NUMERO": "74",
+                "CODICE": "19426",
+                "MUNI": "8",
+                "PROPRIETA": "BELLINAZZI DANILO"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    15.069901081722616,
+                    37.50463603412214
+                ]
+            }
+        },
+     ...]
+}     
+\end{verbatim}
+\end{small}
+\end{frame}
+\end{document}

@@ -1,0 +1,491 @@
+\documentclass[8pt]{beamer}
+\usepackage[nobglogo]{beamerthemedmi-owled}
+\usepackage[utf8x]{inputenc}
+\usepackage{default}
+\usepackage{url}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{mathrsfs}
+\usepackage[official]{eurosym}
+
+%\usepackage{listings}
+
+
+\mode<presentation>
+{
+  \usetheme{dmi-owled}
+  %\usetheme{Warsaw}
+  % or ...
+
+  \setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+
+\title{Introduzione agli Open Data\\
+Stumenti per dati a 2 e 3 stelle}
+
+\author{Cristiano Longo\\ 
+{\small{longo@dmi.unict.it}}}
+
+
+
+\date{Universit\`a di Catania}
+
+\begin{document}
+\maketitle
+\setcounter{tocdepth}{1}
+
+\begin{frame}
+\frametitle{Riepilogo - 5 stelle}
+Classificazione a 5 stelle:\footnote{vedi anche \url{http://5stardata.info/}}
+\begin{enumerate}
+ \item dati disponibili rilasciati con una licenza aperta;
+ \item dati in un formato leggibile da un agente automatico;
+ \item dati in un formato aperto;
+ \item dati resi disponibili con le tecnologie del web semantico;
+ \item dati collegati ad altri dataset.
+\end{enumerate}
+
+\uncover<2->{
+Vedremo alcuni strumenti per trattare dati a 2 e 3 stele.
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Dati ad una e due stelle}
+
+Esempi di dati ad una e due stelle: files pdf.
+\vspace{\baselineskip}
+
+\uncover<2->{
+Le scansioni pdf non sono trattabili. Vedi ad esempio
+
+\begin{center}
+\begin{small}
+\url{http://www.comune.messina.it/informazioni/trasparenza-valutazione-e-merito/allegato/pubblicazione-art-1-c-735-lf-2007.pdf} .
+\end{small} 
+\end{center}
+}
+
+\uncover<3->{
+Le tabelle dentro i PDF \emph{selezionabili} (PDFa) possono invece essere estratte. Vedi ad esempio
+\begin{center}
+\begin{small}
+\url{http://www.comune.messina.it/informazioni/trasparenza-valutazione-e-merito/dati-relativi-a-incarichi-e-consulenze/allegati/report-dipendenti-2010.pdf} .
+\end{small} 
+\end{center}
+}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Da due a tre stelle: Tabula}
+\emph{Tabula}\footnote{\url{http://tabula.technology/}} \`e uno strumento open source che permette di 
+estrarre le tabelle nei files pdf e convertirle in formato CSV.
+\vspace{\baselineskip}
+
+Sul sito principale sono presenti i pacchetti per mac e windows. Per gli altri sistemi operativi
+\`e necessario scaricare \texttt{tabula-jar.zip}. 
+
+\uncover<2->{
+Per avviare l'applicazione, scompattare il pacchetto ed eseguire
+il seguente comando
+
+\begin{quote}
+java -Dfile.encoding=utf-8 -Xms256M -Xmx1024M -jar tabula.jar 
+\end{quote}
+}
+
+\uncover<3->{
+Nella form disponibile al seguente indirizzo, importare il file PDF da convertire:
+\begin{center}
+\begin{small}
+\url{http://127.0.0.1:8080/} .
+\end{small} 
+\end{center}
+}
+
+\uncover<4->{
+Nell'anteprima, selezionare le aree contenenti le tabelle da convertire.
+Se l'anteprima dell'import non mostra problemi, scaricare il CSV. Nel caso in
+cui la tabella sia su pi\`u pagine, \`e possibile selezionare pi\`u di un'area.
+Quando tutte le aree di interesse sono state selezionate, premere su \emph{Download all data}.
+}
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{Trattamento di Dati Tabellari - Datawrapper}
+ \emph{Datawrapper}\footnote{\url{https://datawrapper.de/}} \`e uno
+ strumento open-source per la creazione di grafici a partire da dati 
+ tabellari in formato CSV. I grafici creati con il servizio online possono essere
+ visualizzati nelle proprie pagine web.
+ \vspace{\baselineskip} 
+ 
+ \uncover<2->{
+ Per creare un nuovo grafico \`e necessario innanzitutto caricare un 
+ file CSV che contiene i dati da mostrare. \`E necessario specificare
+ la fonte, che poi verrà riportata nel grafico finale come meta-dato.
+ \vspace{\baselineskip} 
+ }
+ 
+ \uncover<3->{
+  Il secondo passo \`e speficare i tipi delle colonne, nel caso in cui
+  il detect automatico non abbia funzionato. \`E necessario che sia presente
+  almeno un campo con tipo number.
+ \vspace{\baselineskip} 
+ }
+ 
+ \uncover<4->{
+ Infine si sceglie il tipo di grafico e si esporta in PDF o altro formato.
+ }
+ 
+\end{frame}
+
+\begin{frame}
+ \frametitle{Trattamento di Dati Tabellari - Datawrapper - incidenti stradali}
+ 
+ Vediamo come usare Datawrapper per visualizzare i dati sugli incidenti stradali
+ nel comune di catania. In particolare evidenziamo il numero di incidenti per mese,
+ tralasciando invece il numero di morti e feriti.
+ \vspace{\baselineskip} 
+ 
+ \uncover<2->{
+ \emph{Passo 1} - scaricare i dati in CSV dal seguente indirizzo
+ \begin{center}
+   \begin{small}
+      \url{http://opendata.comune.catania.gov.it/dataset/incidenti-2012} .
+   \end{small}
+ \end{center}
+ }
+ 
+ \uncover<3->{
+ \emph{Passo 2} - creare un nuovo grafico su Datawrapper, caricando il dataset 
+ e indicando la fonte. 
+ \vspace{\baselineskip} 
+ }
+
+ \uncover<4->{
+ \emph{Passo 3} - accertarsi che le colonne \emph{INCIDENTI CON FERITI} e \emph{INCIDENTI MORTALI} siano
+ rilevate come colonne numeriche. Eliminare le due colonne \emph{FERITI} e \emph{MORTI} dalla visualizzazione.
+ \vspace{\baselineskip} 
+ }
+
+ \uncover<5->{
+ \emph{Passo 4} - Inserire il titolo (scheda \emph{Annotate}) e selezionare il tipo di grafico 
+ (scelta consigliata: istogramma raggruppato). 
+ Per confrontare il numero di incidenti mortali e con feriti per mese \`e conveniente trasporre
+ il grafico.
+ \vspace{\baselineskip} 
+ }
+
+  \uncover<6->{
+ \emph{Passo 5} - Infine pubblicare o esportare il grafico.
+ \vspace{\baselineskip} 
+ }
+\end{frame}
+
+\begin{frame}
+ \frametitle{Trattamento di Dati Tabellari - Datawrapper - Risultati Elettorali}
+ 
+ Vediamo come usare Datawrapper per visualizzare i risultati elettorali delle
+ elezioni amministrative del 2013 del comune di Catania.
+ \vspace{\baselineskip} 
+ 
+ \uncover<2->{
+ I dati sono disponibili in CSV al seguente indirizzo
+ \begin{center}
+   \begin{small}
+      \url{http://opendata.comune.catania.gov.it/dataset/elezioni-amministrative-2013-voti-liste-consiglio-comunale} .
+   \end{small}
+ \end{center}
+ }
+ 
+ \uncover<3->{
+ Si crea il grafico con Data Wrapper come visto prima. La prima colonna deve essere nascosta e di dati trasposti.  
+ \vspace{\baselineskip} 
+ }
+
+ \uncover<4->{
+ \emph{Passo 3} - accertarsi che le colonne \emph{INCIDENTI CON FERITI} e \emph{INCIDENTI MORTALI} siano
+ rilevate come colonne numeriche. Eliminare le due colonne \emph{FERITI} e \emph{MORTI} dalla visualizzazione.
+ \vspace{\baselineskip} 
+ }
+
+ \uncover<5->{
+ \emph{Passo 4} - Inserire il titolo (scheda \emph{Annotate}) e selezionare il tipo di grafico 
+ (scelta consigliata: istogramma raggruppato). 
+ Per confrontare il numero di incidenti mortali e con feriti per mese \`e conveniente trasporre
+ il grafico.
+ \vspace{\baselineskip} 
+ }
+
+  \uncover<6->{
+ \emph{Passo 5} - Infine pubblicare o esportare il grafico.
+ \vspace{\baselineskip} 
+ }
+\end{frame}
+
+\begin{frame}
+ \frametitle{Trattamento di Dati Tabellari - Pulizia}
+ A volte, anche se forniti in formati tabellari aperti, i dati non sono adatti ad essere 
+ processati automaticamente. Ad esempio, lo stesso nome pu\`o essere indicato tutto in
+ maiuscolo e, nella stessa tabella, solo con la prima lettera maiuscola. 
+ \vspace{\baselineskip}
+ 
+ Nell'esempio visto prima riguardante gli incarichi del comune di messina, il simbolo 
+ dell'euro e l'utilizzo della virgola come separatore della parte decimale per i compensi
+ rende impossibile il trattamento di questi dati con Datawrapper.
+\end{frame}
+
+\begin{frame}
+ \frametitle{Trattamento di Dati Tabellari - Pulizia - Open Refine (1/3)}
+ \emph{Open Refine}\footnote{\url{http://openrefine.org}} \`e un progetto open-source
+ che, assieme ad altre funzionalit\`a, fornisce alcuni strumenti per la pulizia e 
+ la trasformazione dei dati.
+ \vspace{\baselineskip}
+ 
+ \uncover<2>{
+ Per utilizzare open-refine \`e sufficiente scompattare il pacchetto fornito sul sito
+ e avviare l'applicatovo \texttt{refine}. All'avvio viene comunicato l'indirizzo 
+ attraverso il quale accedere all'applicativo.\footnote{Solitamente \url{http://127.0.0.1:3333/} .} 
+ }
+\end{frame}
+
+\begin{frame}
+ \frametitle{Trattamento di Dati Tabellari - Pulizia - Open Refine (2/3)}
+ Su Open Refine \`e possibile caricare i dati da diverse tipologie di fonti (web, file locale, \ldots).
+ Carichiamo il file sugli incarichi al comune di Messina precedentemente creato con Tabula. In questa fase \`e
+ necessario specificare che la prima riga contiene l'header e che il file \`e in formato CSV con i campi
+ separati da virgole.
+ \vspace{\baselineskip}
+ 
+ \uncover<2->{
+ Quando l'anteprima non rileva errori o imprecisioni, scegliere un nome e creare il progetto.
+ \vspace{\baselineskip}
+ }
+ 
+\uncover<3->{
+  Effettuiamo le operazioni di pulizia. Nel nostro caso dobbiamo rimuovere il simbolo dell'euro e sostituire
+  la virgola con il punto nella colonna \texttt{Importo Erogato}. Per fare questo selezionare 
+  \texttt{Edit Cells - Transform} nel men\`u a tendina relativo alla colonna. Si apre a questo punto una
+  form nella quale specificare le modifiche da effettuare in linguaggio GREL.\footnote{Per il linguaggio gRel vedi 
+  \url{https://github.com/OpenRefine/OpenRefine/wiki/Understanding-Expressions} e \url{https://github.com/OpenRefine/OpenRefine/wiki/GREL-Functions} .}
+  Nel nostro caso inserire la seguente espressione:
+  \begin{center}
+   \begin{small}
+   value.replace("\euro{}","").replace(".","").replace(",",".").trim()    
+   \end{small}
+  \end{center}
+ \vspace{\baselineskip}
+ }
+
+ \uncover<4->{
+ Infine, si esporta il progetto in formato CSV.
+ }
+\end{frame}
+
+\begin{frame}
+ \frametitle{Trattamento di Dati Tabellari - Pulizia - Open Refine (3/3)}
+ 
+ Altre caratteristiche interessanti di Open Refine sono:
+ 
+ \begin{itemize}[<+->]
+  \item \emph{esportazione dei template}  che permette di riapplicare le stesse trasformazioni ad un file
+  di formato simile in termini di colonne;
+  \item \emph{suddivisione di celle} ad esempio per separare nome e cognome, o via e numero civico;
+  \item \emph{conversione in maiuscolo}.
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Trattamento di Dati Tabellari - Pulizia - Clustering}
+ 
+ Una delle funzionalit\`a pi\`u utilizzate di Open Refine \`e il clustering.
+ \vspace{\baselineskip}
+ 
+ Il \emph{clustering} permette di accorpare, usando delle euristiche predefinite, 
+ campi con valori differenti ma che, secondo le informazioni ottenute utilizzando
+ le suddette euristiche, rappresentano lo stesso oggetto.
+ \vspace{\baselineskip}
+ 
+ Ad esempio, le stringhe ``\texttt{Cristiano Longo}'', ``\texttt{Longo, Cristiano}'',
+ ``\texttt{cristiano longo}'' sarano identificate come appartententi allo stesso cluster,
+ e sar\`a possibile sostituirle con un'unica stringa (ad esempio, ``\texttt{Cristiano Longo}''). 
+\end{frame}
+
+\begin{frame}
+ \frametitle{Trattamento di Dati Tabellari - Pulizia - Esempi di Clustering: Basi Dati delle PA}
+
+ La tecnica del clustering \`e stata utilizzata per raffinare
+ le basi dati della Pubblica Amministrazione comunicati all'Agenzia 
+ dell'Italia Digitale.
+  \begin{center}
+    \begin{small}
+      \url{http://basidati.agid.gov.it/catalogo/download.html} 
+    \end{small} 
+  \end{center}
+
+\uncover<2->{
+  Tra tutti i file disponibili, consideriamo quello relativo alle
+  \emph{Basi di Dati}. Cliccando sulla colonna amministrazione
+  e selezionando Edit cells - Cluster and edit si apre la piattaforma
+  di clustering.  
+ \vspace{\baselineskip}
+}  
+
+\uncover<3->{
+  Tra i vari cluster riconosciuti, il primo contiene i seguenti valori:
+  \texttt{ISTITUTO COMPRENSIVO}, \texttt{ISTITUTO COMPRENSIVO - ISTITUTO COMPRENSIVO},
+  \texttt{Istituto Comprensivo}. \`E possibile decidere di sostituire tutti
+  questi valori con un'unica stringa, specificata nell'ultima colonna, 
+  selezionando il flag \texttt{Merge}.
+ \vspace{\baselineskip}
+}
+
+\uncover<4->{
+  Il processo di clustering pu\`o essere applicato iterativamente.
+}
+\end{frame}
+
+\section{Dati Geografici}
+
+\begin{frame}
+ \frametitle{Dati Geografici}
+ 
+ I dati geospaziali e geolocalizzati rappresentano una grossa fetta degli open data disponibili.
+ Vengono forniti in diversi formati e modalit\`a. Vedi come esempio l'elenco delle farmacie
+ pubblicato dal comune di catania.\footnote{\url{http://opendata.comune.catania.gov.it/dataset/test-geo}}
+ \vspace{\baselineskip}
+ 
+ Esamineremo alcuni tool per l'utilizzo di dati geo-referenziati.
+ \vspace{\baselineskip}
+ 
+ Spesso la posizione di alcuni oggetti di interesse (scuole, asili, discariche, ...) viene fornita
+ senza le coordinate geospaziali. Vedremo alcuni servizi di \emph{geocoding} per ottenere le coordinate
+ dagli indirizzi.
+\end{frame}
+
+\begin{frame}
+ \frametitle{Dati Geografici - CartoDB - Importare un Dataset}
+ Sono disponibili alcuni strumenti online per visualizzare dati geografici.
+ \emph{CartoDB}\footnote{\url{https://cartodb.com/}} \`e un servizio web che permette di realizare mappe da esporre sul
+ proprio sito realizzate a partire da dataset contenenti informazioni georeferenziate.
+ \vspace{\baselineskip}
+
+ \uncover<2->{
+ Una volta entrati nel proprio account, CartoDB fornisce due viste: una per le mappe 
+ ed una per i dataset. Un dataset pu\`o essere caricato da file o importato da diverse
+ sorgenti (Dropbox, Google sheet, ...), recuperato online oppure caricato da un file
+ locale.
+ }
+ \vspace{\baselineskip}
+ 
+ \uncover<3->{
+ I dataset cos\`i ottenuti vengono salvati su un database relazionale interno a
+ CartoDB. \`E possibile selezionare gli oggetti da mostrare attraverso dei filtri
+ in linguaggio SQL.
+ }
+\end{frame}
+
+\begin{frame}
+ \frametitle{Trattamento di Dati Geografici - CartoDB - Creare Mappe}
+ La vista \emph{Maps} permette invece di realizzare delle mappe. \`E possibile
+ collegare una mappa ad un dataset quando la mappa viene creata, oppure 
+ specificare il dataset in un momento successivo.
+ \vspace{\baselineskip}
+ 
+
+ \uncover<2->{
+ Per creare una mappa, selezionare innanzitutto la \emph{cartografia} da utilizzare 
+ (\emph{change base-map}). Inoltre, specificare i contenuti degli info-box.
+ } 
+ \vspace{\baselineskip}
+ 
+  \uncover<3->{
+  Infine, si pu\`o pubblicare la mappa. Fatto questo sar\`a possibile includerla
+  nel proprio sito.
+  } 
+\end{frame}
+
+\begin{frame}
+ \frametitle{Trattamento di Dati Geografici - uMap}
+
+ \emph{uMap}\footnote{\url{https://umap.openstreetmap.fr}} \`e un servizio
+ libero e open source per la creazione e fruizione di mappe basate su
+ \emph{Open Street Map}.\footnote{\url{http://www.openstreetmap.org/}}
+ \vspace{\baselineskip}
+
+ Open Street Map \`e un database collaborativo realizzato sul modello di
+ wikipedia (tutti gli utenti possono aggiungere contenuti). Tutti i dati 
+ presenti su Open Street Map sono rilasciati con licenza aperta.
+\end{frame}
+ 
+\begin{frame}
+ \frametitle{Trattamento di Dati Geografici - uMap - Creare Mappe}
+
+ Con uMap \`e possibile creare mappe personalizzate da conservare nel
+ proprio account.
+ \vspace{\baselineskip}
+ 
+\uncover<2->{
+ Oltre ad aggiungere punti di interesse (POI) manualmente, \`e possibile
+ importare punti caricando file in diversi formati o importandone alcuni
+ disponibili sul web.
+}
+ \vspace{\baselineskip}
+
+\uncover<3->{
+ I marker relativi ai punti di interesse sono personalizzabili in 
+ termini di forma, colori ed eventuali simboli. ATTENZIONE: \`e possibile
+ inserire una immagine solo per marker di tipo \emph{derivato}.
+}
+ \vspace{\baselineskip}
+
+\uncover<4->{
+ Infine, anche la mappa utilizzata come sfondo pu\`o essere 
+ selezionata tra quelle disponibili.
+}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Trattamento di Dati Geografici - Geocoding}
+ 
+ Nei dataset geografici a volte non sono indicate le coordinate,
+ ma solo gli indirizzi. Un esempio \`e il dataset 
+ \emph{ANAGRAFE DEGLI EDIFICI PUBBLICI}\footnote{\url{http://www.comune.palermo.it/opendata_dld.php?id=319}}
+ del comune di Palermo.
+ \vspace{\baselineskip}
+
+ Col termine \emph{geocoding} si intende un processo che permetta
+ di ottenere da un indirizzo (stato, citt\`a, via, civico) le
+ corrispondenti coordinate.
+ \vspace{\baselineskip}
+ 
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{Trattamento di Dati Geografici - Geocoding - Esempio: Beni Confiscati Palermo}
+
+ I beni confiscati in gestione al comune di Palermo sono indicati nel dataset
+ \emph{ANAGRAFE DEGLI EDIFICI PUBBLICI}\footnote{\url{http://www.comune.palermo.it/opendata_dld.php?id=319}}
+ del comune di Palermo. Vediamo come visualizzarli usando CartoDB.
+ \vspace{\baselineskip}
+
+ Innanzitutto si importi su CartoDB il dataset visto prima. Successivamente
+ selezioniamo tra quelli importati solo i beni confiscati. Questi sono quelli
+ che nella tabella rilasciata dal comune contengono riferimenti alla legge
+ 575/65. La query da effettuare \`e la seguente:
+ \begin{verbatim}
+ SELECT * FROM _4 WHERE destinazione LIKE '%575/65%'
+ \end{verbatim}
+ \vspace{\baselineskip}
+
+ Alla creazione della mappa viene richiesto su quali colonne effettuare
+ il geocoding. Selezionare l'opzione \texttt{Street Addresses} e indicare
+ \texttt{indirizzo} come Street Address e \texttt{no.civico} come componente
+ aggiuntiva dell'indirizzo (tasto ``+''). L'applicazione del geocoding aggiunger\`a
+ dei campi con le indicazioni geografiche nel dataset.
+\end{frame}
+
+\end{document}

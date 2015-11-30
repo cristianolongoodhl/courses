@@ -1,0 +1,615 @@
+\documentclass[8pt]{beamer}
+\usepackage[nobglogo]{beamerthemedmi-owled}
+\usepackage[utf8x]{inputenc}
+\usepackage{default}
+\usepackage{url}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{mathrsfs}
+\usepackage{dl}
+\usepackage{mls}
+%\usepackage{listings}
+
+
+\mode<presentation>
+{
+  \usetheme{dmi-owled}
+  %\usetheme{Warsaw}
+  % or ...
+
+  \setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+
+\title{Introduzione agli Open Data - Vocabolari}
+
+\author{Cristiano Longo\\ 
+{\small{longo@dmi.unict.it}}}
+
+
+
+\date{Universit\`a di Catania}
+\newcommand{\urlsingle}[1]{{\small {\center {\url{#1}}}}}
+\newcommand{\CNames}{N_C}
+\newcommand{\PNames}{N_P}
+\newcommand{\INames}{N_I}
+\newcommand{\VNames}{V}
+
+
+\begin{document}
+\maketitle
+\setcounter{tocdepth}{1}
+
+\section{Vocabolari}
+
+
+\begin{frame}
+\frametitle{Definizione di Ontologia}
+
+Siano $\CNames$, $\PNames$, $\INames$ tre insiemi infiniti, numerabili e 
+a due a due disgiunti di nomi di \emph{classe}, \emph{propriet\`a} e \emph{individuo},
+rispettivamente.
+\vspace{\baselineskip}
+
+
+Definizione di \emph{ontologia}: insieme finito di asserzioni dei seguenti tipi:
+\[
+ \begin{array}{l|l|l}
+  & Sintassi & Semantica \\
+  \hline
+  &&\\
+  \mbox{Constraints} & C \Issub D & (\forall x)(x \in C \rightarrow x \in D) \\
+  & R \Issub S & (\forall x, y)([x, y] \in R \rightarrow [x,y] \in S) \\
+  & \dom(R) \Issub C & (\forall x, y)([x, y] \in R \rightarrow x \in C) \\
+  & \range(R) \Issub C & (\forall x, y)([x, y] \in R \rightarrow y \in C) \\
+  &&\\
+  \hline
+  &&\\
+  \mbox{Class Assertions} & C(a) & a \in C\\
+  &&\\
+  \hline
+  &&\\
+  \mbox{Property Assertions} & a\,P\,b\;(\mbox{equivalente }P(a,b)) & [a,b] \in P \\
+  &&\\
+  \hline  
+ \end{array}
+\]
+dove $C, D \in \CNames$, $R, S \in \PNames$ e $a, b \in \INames$.
+\end{frame}
+
+\begin{frame}
+\frametitle{Vocabolari}
+
+Nomi di classe e propriet\`a vengono raggruppati in \emph{vocabolari}
+che trattano specifici domini di conoscenza (eg. organizzazioni, 
+pubblica amministrazione, biologia, commercio, etc.). 
+\vspace{\baselineskip}
+
+\uncover<2->{
+Un vocabolario
+pu\`o contenere anche \emph{vincoli} inerenti classi e le propriet\`a 
+del vocabolario stesso.
+\vspace{\baselineskip}
+}
+
+\uncover<3->{
+L'utilizzo di vocabolari condivisi permette lo sviluppo di applicazioni
+riguardanti specifici domini di conoscenza, ma indipendenti dai dati
+e dai dataset.
+\vspace{\baselineskip}
+}
+
+\uncover<4->{
+Si ricordi che nel Web Semantico, nomi di classi, di propriet\`a ed di individui
+vanno specificati con delle URI.
+\vspace{\baselineskip}
+}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Vocabolari - Namespace}
+
+Ricordiamo che nel Web Semantico, nomi di classi, di propriet\`a ed di individui
+vanno specificati con delle URI.
+\vspace{\baselineskip}
+
+Solitamente, in un vocabolario tutti i \emph{nomi} vengono definiti da URI che
+condividono lo stesso prefisso. Tale prefisso \`e
+detto \emph{namespace} (o anche \emph{base prefix}) del vocabolario.
+\vspace{\baselineskip}
+
+\phantom{
+Tale namespace pu\`o essere anche omesso.
+}
+
+\begin{verbatim}
+http://example.org/class1 
+http://example.org/class1 
+http://example.org/property 
+\end{verbatim}
+ 
+Namespace del vocabolario di esempio: \url{http://example.org/}.
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Vocabolari - Namespace}
+
+Ricordiamo che nel Web Semantico, nomi di classi, di propriet\`a ed di individui
+vanno specificati con delle URI.
+\vspace{\baselineskip}
+
+Solitamente, in un vocabolario tutti i \emph{nomi} vengono definiti da URI che
+condividono lo stesso prefisso. Tale prefisso \`e
+detto \emph{namespace} (o anche \emph{base prefix}) del vocabolario.
+\vspace{\baselineskip}
+
+\phantom{
+Tale namespace pu\`o essere anche omesso,
+o abbreviato.
+}
+
+\begin{verbatim}
+http://example.org/class1 
+http://example.org/class1 
+http://example.org/property 
+\end{verbatim}
+ 
+Namespace del vocabolario di esempio: \url{http://example.org/}.
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Vocabolari - Namespace}
+
+Ricordiamo che nel Web Semantico, nomi di classi, di propriet\`a ed di individui
+vanno specificati con delle URI.
+\vspace{\baselineskip}
+
+Solitamente, in un vocabolario tutti i \emph{nomi} vengono definiti da URI che
+condividono lo stesso prefisso. Tale prefisso \`e
+detto \emph{namespace} (o anche \emph{base prefix}) del vocabolario.
+\vspace{\baselineskip}
+
+Tale namespace pu\`o essere anche omesso,
+\phantom{
+o abbreviato.
+}
+
+\begin{verbatim}
+class1 
+class1 
+property 
+\end{verbatim}
+ 
+Namespace del vocabolario di esempio: \url{http://example.org/}.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Vocabolari - Namespace}
+
+Ricordiamo che nel Web Semantico, nomi di classi, di propriet\`a ed di individui
+vanno specificati con delle URI.
+\vspace{\baselineskip}
+
+Solitamente, in un vocabolario tutti i \emph{nomi} vengono definiti da URI che
+condividono lo stesso prefisso. Tale prefisso \`e
+detto \emph{namespace} (o anche \emph{base prefix}) del vocabolario.
+\vspace{\baselineskip}
+
+Tale namespace pu\`o essere anche omesso,
+o abbreviato.
+
+\begin{verbatim}
+ex:class1 
+ex:class1 
+ex:property 
+\end{verbatim}
+ 
+Namespace del vocabolario di esempio  
+\begin{verbatim}
+  ex : http://example.org/ 
+\end{verbatim}
+\end{frame}
+
+\begin{frame}
+\frametitle{Definizione di Vocabolario}
+Una definizione di vocabolario pu\`o essere la seguente:
+\[
+ V = (C, P, \Omega)
+\]
+dove
+\begin{enumerate}
+ \item $C$ \`e un insieme finito di nomi di classe,
+ \item $P$ \`e un insieme finito di nomi di propriet\`a,
+ \item $\Omega$ \`e un insieme finito di vincoli che coinvolgano solo
+ nomi di classi in $C$ e nomi di propriet\`a in $P$.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Trattare i vocabolari con suite Prot\'eg\'e}
+
+  \emph{Prot\'eg\'e}\footnote{\url{http://protege.stanford.edu/products.php}} 
+  \`e una suite per la modellazione di ontologie del Web Semantico. 
+  \vspace{\baselineskip}
+
+  \`E disponibile sia in versione web, che in versione installabile 
+  localmente \emph{Prot\'eg\'e Desktop}.\footnote{\url{http://protege.stanford.edu/products.php}} 
+  Noi useremo la versione Desktop \texttt{Protege-5.0.0-beta-17}.
+  
+  ATTENZIONE: per usarla \`e necessario avere installato una \emph{Java Runtime Environment}.
+  \vspace{\baselineskip} 
+\end{frame}
+
+\begin{frame}
+  \frametitle{Il Vocabolario FOAF}
+  Uno dei primi e pi\`u utilizzati vocabolari definiti nell'ambito
+  del Web semantico \`e \emph{Friend OF A Friend} (\emph{FOAF}, vedi \url{http://foaf-project.org}).
+  \vspace{\baselineskip}
+
+  \begin{quote}
+  FOAF is a project devoted to linking people and information using the Web. 
+  \end{quote}
+  \vspace{\baselineskip}
+
+  \uncover<2->{
+  Il vocabolario \`e disponibile alla URL
+  \begin{center}
+    http://xmlns.com/foaf/spec/index.rdf  
+  \end{center}
+  \vspace{\baselineskip}
+  }
+
+  \uncover<3->{
+  Il namespace del vocabolario FOAF \`e \url{http://xmlns.com/foaf/0.1/}
+  \vspace{\baselineskip}
+  }
+  
+  \uncover<4->{
+  \texttt{foaf-a-matic}\footnote{\url{http://www.ldodds.com/foaf/foaf-a-matic.html}} \`e uno strumento \emph{giocattolo} che permette di realizzare facilmente
+  una ontologia che usa il vocabolario FOAF.
+  }
+\end{frame}
+
+\begin{frame}
+\frametitle{Annotazioni nei Vocabolari}
+Le classi e le propriet\`a definite in un vocabolario vengono spesso fornite
+di \emph{Annotazioni} nel vocabolario stesso.
+\begin{itemize}[<+->]
+ \item \emph{label} che rappresenta il nome col quale mostrare l'elemento nelle interfaccie utente;
+ \item \emph{description} che fornisce una descrizione intuitiva di ci\`o che la classe o la propriet\`a
+ rappresentano, nelle intenzioni dell'autore;
+\end{itemize}
+
+\uncover<2->{
+  Si noti che queste annotazioni non hanno alcuna valenza semantica.
+}
+\end{frame}
+
+\newcommand{\foafcore}{\mathtt{FOAFCore}}
+\begin{frame}
+  \frametitle{FOAF Core}
+
+  In questa sede ci limiteremo solo alla parte \emph{Core}.
+  \vspace{\baselineskip}
+  
+  Il vocabolario \emph{Foaf Core} \`e definito come segue:
+\[
+ \begin{array}{ccl}
+ \foafcore & \defAs & (C_{foaf}, P_{foaf}, \Omega_{foaf}) \\
+ &&\\
+ C_{foaf} & \defAs & \{Agent, Person, Project, Organization, Group, Document, Image\}\\
+ &&\\
+ P_{foaf} & \defAs & \{name, title, img, depiction, depicts, familyName, givenName, knows,\\
+ && \phantom{\}} based\_near, age, made, maker, primaryTopic, primaryTopicOf, member \}\\
+ \Omega_{foaf} & \defAs & \{ Person \Issub Agent, Group \Issub Agent, Organization \Issub Agent, \\
+ && \phantom{\{} Image \Issub Document, \dom(title) \Issub Document, \\
+ && \phantom{\{}\range(depiction) \Issub Image, img \Issub depiction, \dom(img) \Issub Person,\\
+ && \phantom{\{}\dom(knows) \Issub Person, \range(knows) \Issub Person, \ldots \}\\
+ \end{array}
+\]
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{FOAF Core - classi}
+  Nel seguito lasceremo ometteremo il prefisso delle URI, dando per scontato che sia 
+  quello del vocabolario FOAF.
+  \vspace{\baselineskip}
+  
+  Nel \emph{core} del vocabolario FOAF vengono definte le seguenti classi:
+  
+  \begin{itemize}[<+->]
+   \item \emph{Agent} - appartengono a questa classe tutte quelle entit\`a in grado di compiere azioni
+   (persone, gruppi, software, robot, ...);   
+   \item \emph{Person} ($Person \Issub Agent$) - persone (vive o morte, reali o immaginarie);
+   \item \emph{Group} ($Group \Issub Agent$) - insiemi di agenti;
+   \item \emph{Organization} ($Organization \Issub Agent$) - insiemi di persone che rappresenta una \emph{istituzione sociale} (azienda, associazione, ministero, ...);
+   \item \emph{Document} sono i documenti, nel senso comune del termine (atti, leggi, carte di identit\`a, ...);
+   \item \emph{Image} - ($Image \Issub Document$) - i documenti che sono immagini, sia digitali che non;
+   \item \emph{Project} - un incontro collettivo di qualche tipo.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{FOAF Core - Propriet\`a}
+  Elenchiamo ora le propriet\`a nel FOAF Core:
+  
+  \begin{itemize}[<+->]
+%    \item \emph{homepage} ($\range(homepage) \Issub Document$) - la pagina principale che descrive qualcosa;
+   \item \emph{name} - il nome di qualcosa;
+   \item \emph{title} - titolo onorifico di una person (Mr, Mrs, Ms, Dr. etc);
+   \item \emph{familyName} ($\dom(familyName) \Issub Person$) - il cognome di una persona;
+   \item \emph{givenName} - prima parte del nome completo di una persona;
+   \item \emph{img} ($\dom(img) \Issub Person$, $\range(img) \Issub Image$) - mette in relazione una persona con 
+   una immagine che la rappresenta;
+   \item \emph{based\_near} ($\dom(based\_near) \Issub Spatial_Thing$, $\range(based_near) \Issub Spatial_Thing$) - 
+    indica che due cose sono \emph{vicine} in termini spaziali;
+   \item \emph{age} ($\dom(age) \Issub Agent$) - l'et\`a, espressa in numero di anni, di un agente;    
+   \item \emph{knows} ($\dom(knows) \Issub Person$, $\range(knows) \Issub Person$) - indica che \`e avvenuta interazione
+   di qualche tipo tra due persone;
+   \item \emph{primaryTopicOf} ($\dom(primaryTopicOf) \Issub Document$) - indica l'oggetto principale di un documento;
+   \item \emph{isPrimaryTopicOf} ($\range(isPrimaryTopicOf) \Issub Document$) - mette in relazione un oggetto con i 
+    documenti che lo rigurdano;
+   \item \emph{made} ($\dom(made) \Issub Agent$) - mette in relazione un agente con qualcosa 
+   che ha prodotto;
+   \item \emph{maker} ($\range(made) \Issub Agent$) - mette in relazione un oggetto con gli agenti
+   che hanno contribuito a crearlo; 
+   \item \emph{member} ($\dom(member) \Issub Group$, $\range(member) \Issub Agent$) - mette in relazione un
+   gruppo con i suoi membri.
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Vocabolari Compositi}
+
+\`E possibile costruire un vocabolario \emph{estendendone} uno o pi\`u altri.
+Ad esempio, il vocabolario \emph{Organization Ontology} 
+estende FOAF con classi e propriet\`a, per modellare le strutture organizzative 
+di organizzazioni.
+\vspace{\baselineskip}
+
+\uncover<2->{
+Formalmente, dati due vocabolari
+\[
+ \begin{array}{lcl}
+ V & \defAs & (C, P, \Omega) \\ 
+ V' & \defAs & (C', P', \Omega')
+ \end{array}
+\]
+si dice che $V'$ \emph{importa} (o \emph{estende}) $V$ se e 
+solo se
+\[
+ \begin{array}{rcl}
+ C & \subseteq & C' \\
+ P & \subseteq & P' \\
+ \Omega & \subseteq & \Omega'  
+\end{array} 
+\]
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Il Vocabolario Organization Ontology}
+
+\emph{Organization Ontology},in breve \emph{ORG},\footnote{\url{http://www.w3.org/TR/vocab-org/}}
+estende FOAF con classi e propriet\`a, per modellare in dettaglio 
+le strutture organizzative di aziende, associazioni e tutte le forme 
+di organizzazioni.
+\vspace{\baselineskip}
+
+\uncover<2->{
+Il vocabolario \`e disponibile alle URL 
+\begin{center}
+  \url{http://www.w3.org/ns/org.rdf} 
+\end{center}
+
+\begin{center}
+  \url{http://www.w3.org/ns/org.ttl} 
+\end{center}
+}
+
+\uncover<3->{
+Il namespace del vocabolario ORG \`e
+\begin{center}
+ org: \url{http://www.w3.org/ns/org\#} .
+\end{center}
+}
+\end{frame}
+
+\newcommand{\org}{\mathtt{ORG}}
+
+\begin{frame}
+\frametitle{Organization Ontology - Definizione}
+
+Il vocabolario ORG pu\'o essere definito come segue:\footnote{In realt\`a il vocabolario importa
+altri vocabolari oltre FOAF, che non sono presi in considerazione qui.}
+\[
+ \begin{array}{ccl}
+ \org & \defAs & (C_{org}, P_{org}, \Omega_{org}) \\
+ &&\\
+ C_{org} & \defAs & C_{foaf} \cup \{FormalOrganization, OrganizationalUnit,  Site \\
+ && \phantom{C_{foaf} \cup \{}Post, Role, \ldots \}\\
+ &&\\
+ P_{org} & \defAs & P_{foaf} \cup \{ basedAt, classification, hasPost, hasPrimarySite, \\
+ &&\phantom{P_{foaf} \cup \{}hasRegisteredSite, hasSite, hasSubOrganization, \\
+ &&\phantom{P_{foaf} \cup \{}hasUnit, headOf, heldBy, holds, location, postIn,\\
+ &&\phantom{P_{foaf} \cup \{}purpose, role, siteAddress, siteOf, unitOf, \\ 
+ &&\phantom{P_{foaf} \cup \{}subOrganizationOf,  transitiveSubOrganizationOf, \ldots \}\\ 
+ &&\phantom{P_{foaf} \cup \{}  \\
+ &&\\
+ \Omega_{org} & \defAs & \Omega_{foaf} \cup \{ FormalOrganization \Issub Organization, \\
+ &&\phantom{\Omega_{foaf} \cup \{}OrganizationalUnit \Issub Organization,\\
+ &&\phantom{\Omega_{foaf} \cup \{}headOf \Issub member, \dom(hasUnit)\Issub Organization, \\ 
+ &&\phantom{\Omega_{foaf} \cup \{}\range(hasUnit) \Issub OrganizationalUnit, \ldots \}
+ \end{array}
+\]
+
+\uncover<2->{
+NB: alcuni vincoli semantici in $\Omega_{org}$ definiscono la relazione tra ORG e FOAF
+(e.g. $FormalOrganization \Issub Organization$).
+}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Organization Ontology - Overview}
+  I termini del vocabolario ORG permettono di descrivere una organizzazione
+  nei seguenti aspetti (moduli dell'ontolgia):
+  \begin{itemize}[<+->]
+  \item \emph{Struttura} - la struttura principale ed eventuali sottostrutture (ad esempio 
+  unit\`a organizzative);
+  \item \emph{Membri} - membri dell'organizzazione, ruoli, posizioni previste e ricoperte,
+  struttura di \emph{reporting};
+  \item \emph{Locazioni} - sedi nelle quali l'organizzazione svolge le sue attivit\`a;
+  \item \emph{Informazioni Storiche} - fusioni e smembramenti. 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Organization Ontology - (Macro) Struttura delle Organizzazioni - Classi}
+  
+  Per descrivere le organizzazioni, l'ontologia ORG offre le seguenti classi:  
+  \begin{itemize}[<+->]
+   \item \emph{Organization} rappresenta un insieme di persone organizzate in una
+   qualche struttura sociale (associazioni, gruppi informali, pubbliche amministrazioni, \ldots),
+   un esempio \`e l'individuo che rappresenta la Camera dei Deputati (\url{http://dati.camera.it/ocd/Organization.rdf/cd})
+   nel dataset della stessa proprio dataset;\footnote{\url{http://dati.camera.it/sparql}}
+   \item \emph{FormalOrganization} ($FormalOrganization \Issub Organization$) una organizzazione 
+   formalmente riconosciuta in qualche giurisdizione (associazioni costituite, governi, chiese, \ldots);
+   \item \emph{OrganizationalUnit} ($OrganizationalUnit \Issub Organization$) unit\`a organizzativa
+   all'interno di una organizzazione pi\`u grande, non pu\`o essere riconosciuta come persona giuridica,
+   vedi ad esempio \`e l'\emph{Ufficio Fatturazione}\footnote{\url{http://spcdata.digitpa.gov.it/UnitaOrganizzativa/camera-UFMX8Q}}
+   rappresentato come unit\`a operativa della camera nel dataset spcdata.\footnote{\url{http://spcdata.digitpa.gov.it:8899/sparql}}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Organization Ontology - (Macro) Struttura delle Organizzazioni - Propriet\`a}
+  
+  ORG offre inoltre seguenti propriet\`a per le organizzazioni:  
+  \begin{itemize}[<+->]
+   \item \emph{subOrganizationOf} indica che una organizzazione \`e contenuta in un'altra;
+   \item \emph{hasSubOrganization} inversa di subOrganizationOf;
+   \item \emph{transitiveSubOrganizationOf} chiusura transitiva di subOrganizationOf, viene utilizzata
+   ad esempio per ricavare tutte le strutture del Comune di Catania, che suddivide le direzioni in
+   due aree principali;
+   \item \emph{purpose} per indicare lo scopo dell'associazione, \`e opportuno che faccia riferimento
+   ad una gerarchia di scopi ufficiale;
+   \item \emph{classification} indica il tipo dell'associazione (e.g. associazione culturale, associazione di
+   promozione sociale, Spa, Governo), preferibilmente facendo riferimento ad una classificazione ufficiale;
+   \item \emph{identifier} per un valore che pu\`o essere utilizzato per identificare univocamente l'organizzazione
+   (ad esempio la partita IVA);
+   \item \emph{linkedTo} per stabilire un generico collegamento tra due organizzazioni;
+   \item \emph{unitOf} ($\domain(unitOf)\Issub OrganizationalUnit$ corrispondente di subOrganizationOf per
+   le unit\`a organizzative;
+   \item \emph{hasUnit} ($\range(hasUnit) \Issub OrganizationalUnit$) corrispondente di hasSubOrganization per
+   le unit\`a organizzative.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Organization Ontology - Mebri - Classi}
+  
+  Per descrivere i membri e le posizioni all'interno dell'organizzazioni, il vocabolario ORG offre le seguenti classi:  
+  \begin{itemize}[<+->]
+   \item \emph{Membership} per rappresentare l'appartenenza di un membro ad una organizzazione, \`e un esempio
+   di \emph{reificazione} e permette di specificare alcune \emph{meta-propriet\`a} della relazione di appartenenza (ad esempio
+   il periodo);
+   \item \emph{Role} per indicare un ruolo (astratto) che pu\`o essere ricoperto da un membro all'interno di una organizzazione (e.g. membro
+   fondatore o ordinario);
+   \item \emph{Post} per rappresentare una posizione all'interno dell'organizzazione (presidente, direttore, segretarion, \ldots);   
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Organization Ontology - Mebri - Propriet\`a (1/2)}
+  
+  Per descrivere le relazioni tra i membri e tra i membri e l'organizzazione ORG offre le seguenti propriet\`a:  
+  \begin{itemize}[<+->]
+   \item \emph{memberOf} idica l'appartenenza di un agente (persona o altra organizzazione) all'organizzazione;
+   \item \emph{hasMember} inverso di memberOf;
+   \item \emph{headOf} per dichiarare il presidente (o figura analoga) di una organizzazione, un esempio
+   \`e l'\emph{head} dell'Ufficio Fatturazione PA visto prima;
+   \item \emph{membership, organizzation} concorrono a definire una versione \emph{reificata} di una asserzione di
+   membership insieme ad una istanza della classe Membership, ad esempio $alice\,memberOf\,myOrg$ viene
+   reificata come segue
+\[
+  Membership(m), \quad m\,member\,Alice, \quad m\,organization\,myOrg ;
+\]
+  \item \emph{hasMembership} inversa di member;
+  \item \emph{memberDuring} meta-properiet\`a di una asserzione di membership reificata, indica il periodo
+  di riferimento;
+  \item \emph{remuneration} ($\domain(remuneration) \Issub Role$) indica la remunerazione prevista per 
+  chi ricopre un certo ruolo;
+   \item \emph{role} per specificare il ruolo di una posizione o di una istanza di Membership 
+   all'interno dell'organizzazione;
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Organization Ontology - Mebri - Propriet\`a (2/2)}
+  
+  \begin{itemize}[<+->]
+   \item \emph{holds} ($\range(holds) \Issub Post$) per indicare chi ricopre attualmente 
+   una specifica posizione;
+   \item \emph{heldBy} inverso di holds;
+   \item \emph{postIn} per rappresentare una istanza di $Post$ a quale organizzazione si riferisce;
+   \`e l'\emph{hasPost} inversa di postIn;
+   \item \emph{reportsTo} permette di collegare un membro, una organizzazione o una posizione
+   al diretto superiore nella struttura gerarchica;
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Organization Ontology - Locazioni}
+  
+  Per descrivere i \emph{luoghi} relativi ad una organizzazione, il vocabolario ORG
+  fornisce la classe
+  \vspace{\baselineskip}
+  \emph{Site} una locazione (fisica o virtuale) nella disponibilit\`a dell'organizzazione per svolgere
+  le proprie attivit\`a.
+  
+  Il vocabolario fornisce inoltre le seguenti propriet\`a:
+  \begin{itemize}[<+->]
+   \item \emph{siteAddress} per indicare l'indirizzo dela sede, \`e necessario fare riferimento ad altri
+   vocabolari per specificare l'indirizzo;
+   \item \emph{hasSite} per indicare una locazione (istanza di Site) di una organzzazione;
+   \item \emph{siteOf} inversa di hasSite;
+   \item \emph{hasPrimarySite} indica il sito principale dell'organizzazione;
+   \item \emph{hasRegisteredSite} per rappresentare una sede legale dell'organizzazione;
+   \item \emph{basedAt} per indicare il sito dell'organizzazione nel quale uno specifico membro (persona)
+   svolge le sue attivit\`a;
+   \item \emph{location} collega il sito dell'organizzazione nel quale un membro svolge 
+   le sue attiviti\`a con una descrizione \emph{human readadle} dell'indirizzo dello stesso.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Organization Ontology - Informazioni Storiche - Classi}
+  Infine, il vocabolario fornisce le seguenti classi per rappresentare alcuni tipi di eventi che 
+  coinvolgono l'organizzazione:
+  \begin{itemize}[<+->]
+   \item \emph{OrganizationalCollaboration} una collaborazione occasionale (di durata limitata nel tempo)
+   tra due o pi\`u organizzazioni, si rappresenta come se fosse una normale organizzazione strutturata
+   in sotto-organizzazioni;
+   \item \emph{ChangeEvent} un evento che comporta una modifica sostanziale dell'organizzazione
+   (fusioni, scissioni, ...).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Organization Ontology - Informazioni Storiche - Propriet\`a}
+  Per questi eventi (in particolare alle istanze di ChangeEvent) \`e possibile specificare 
+  le segueti propriet\`a
+  \begin{itemize}[<+->]
+   \item \emph{originalOrganization} una o pi\`u organizzazioni che esistevano prima del ChangeEvent;
+   \item \emph{resultingOrganization} le organizzazioni che sono state create o modificate dall'evento;
+   esistevano prima del ChangeEvent;
+   \item \emph{changedBy} collega una organizzazione agli eventi che la hanno modificata;
+   \item \emph{resultedFrom} collega una organizzazione all'evento che la ha generata.
+  \end{itemize}
+\end{frame}
+
+\end{document}
