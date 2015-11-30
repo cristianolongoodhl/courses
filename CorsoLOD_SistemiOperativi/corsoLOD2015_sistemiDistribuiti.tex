@@ -1,0 +1,1691 @@
+\documentclass[8pt]{beamer}
+\usepackage[nobglogo]{beamerthemedmi-owled}
+\usepackage[utf8x]{inputenc}
+\usepackage{default}
+\usepackage{url}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{mathrsfs}
+\usepackage{dl}
+\usepackage{mls}
+\usepackage{fancyvrb}
+
+%\usepackage{listings}
+
+
+\mode<presentation>
+{
+  \usetheme{dmi-owled}
+  %\usetheme{Warsaw}
+  % or ...
+
+  \setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+
+\title{Introduzione ai Linked Open Data e al Web Semantico}
+
+\author{Cristiano Longo\\ 
+{\small{longo@dmi.unict.it}}}
+
+
+
+\date{Universit\`a di Catania, 11 Giugno 2015}
+\newcommand{\urlsingle}[1]{{\small {\center {\url{#1}}}}}
+
+\begin{document}
+\maketitle
+\setcounter{tocdepth}{1}
+
+\section{Introduzione}
+
+\begin{frame}
+\frametitle{Argomenti}
+Questa presentazione tratter\`a i seguenti argomenti:
+\begin{itemize}
+ \item Motivazioni del Web Semantico
+ \item Definizione formale di Ontologie
+ \item Interrogazioni sulle Ontologie
+ \item Vocabolari
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Definizione di Open Data - Open Knowledge Foundation}
+
+\begin{quote}
+Open means anyone can freely access, use, modify, and share for any purpose (subject, at most, to requirements that preserve provenance and openness).\footnote{\url{http://opendefinition.org}} 
+\end{quote}
+
+da \emph{Open Knowledge Foundation: The Open Definition}
+\end{frame}
+
+\begin{frame}
+\frametitle{Definizione di Open Data - Agenzia per l'Italia Digitale}
+
+Nelle \emph{LINEE GUIDA NAZIONALI PER LA VALORIZZAZIONE DEL PATRIMONIO INFORMATIVO PUBBLICO},
+emanate dall'\emph{Agenzia per l'Italia Digitale (AgID)} vengono riportate le seguenti
+definizioni
+\uncover<2->{
+a) \emph{formato dei dati di tipo aperto}, un formato di dati reso pubblico, documentato esaustivamente e neutro rispetto agli
+strumenti tecnologici necessari per la fruizione dei dati stessi;
+\vspace{\baselineskip}
+}
+
+\uncover<3->{
+b) \emph{dati di tipo aperto}, i dati che presentano le seguenti caratteristiche:
+1) sono disponibili secondo i termini di una licenza che ne permetta l'utilizzo da parte di chiunque, anche per
+finalità commerciali, in formato disaggregato;
+}
+\uncover<4->{
+2) sono accessibili attraverso le tecnologie dell'informazione e della comunicazione, ivi comprese le reti telematiche
+pubbliche e private, 
+}
+\uncover<5->{
+in formati aperti ai sensi della lettera a), sono adatti all'utilizzo automatico da parte di
+programmi per elaboratori 
+}
+\uncover<6->{
+e sono provvisti dei relativi \emph{metadati};
+\vspace{\baselineskip}
+}
+
+\uncover<7->{
+3) sono resi disponibili gratuitamente attraverso le tecnologie dell'informazione e della comunicazione, ivi comprese
+le reti telematiche pubbliche e private, oppure sono resi disponibili ai costi marginali sostenuti per la loro
+riproduzione e divulgazione. L'Agenzia per l'Italia digitale deve stabilire, con propria deliberazione, i casi
+eccezionali, individuati secondo criteri oggettivi, trasparenti e verificabili, in cui essi sono resi disponibili a tariffe
+superiori ai costi marginali. [...]
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Limiti del World Wide Web (1/4)}
+
+Tecnicamente, \`e sufficiente pubblicare le informazioni su un sito web o come documenti
+\emph{non strutturati}, ma usando formati aperti?
+
+\uncover<2->{
+\begin{quote}
+The Web was designed as an information space, with the goal that it should be 
+useful not only for human-human communication, but also that machines would be
+able to participate and help. One of the major obstacles to this has been the
+fact \textbf{that most information on the Web is designed for human consumption}, and 
+even if it was derived from a database with well defined meanings (in at least 
+some terms) for its columns, that \textbf{the structure of the data is not evident to 
+a robot browsing the web.}  
+\end{quote}
+\vspace{\baselineskip}
+\emph{Semantic Web Roadmap}, Tim Berners-Lee, 1998.
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Limiti del World Wide Web (2/4)}
+Alcuni problemi nell'interpretazione di testi derivano da:
+\begin{description}
+ \item[Lingue Differenti] e.g. $Parigi$ e $Paris$ possono indicare la stessa citt\`a.
+ \item[Omonimie] e.g. esistono svariate citt\`a chiamate 
+ \emph{Paris} nel mondo (Arkansas, Idaho, Illinois, Kentucky,
+ Maine, Michigan, Missouri, New York, \ldots);
+\end{description}
+\end{frame}
+
+\begin{frame}
+\frametitle{Limiti del World Wide Web (3/4)}
+
+La situazione si complica in presenza di contenuti multimediali.
+
+\begin{figure}
+    \includegraphics[width=250px]{unrecognizable.jpg} 
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Limiti del World Wide Web (4/4)}
+Come conseguenza, spesso \`e impossibile eseguire su web ricerce 
+\emph{complesse} ottenendo risultati accurati. Ad esempio, cercando sul web
+\emph{``Federico II places''} non si ottengono risultati in prima pagina su 
+Federico II, ma solo sull'omonima universit\`a:
+  
+  \begin{small}
+    \begin{enumerate}
+   \item Universit\`a degli Studi di Napoli "Federico II" | OPEN Places
+   \item AOU - Policlinico "Federico II" - Napoli, Italy - Hospital | Facebook
+   \item Federico II Ingegneria Via Claudio - College and University | Facebook
+   \item MARIA CATERINA FONTE - www.docenti.unina.it
+  \end{enumerate}
+  \end{small}
+\end{frame}
+
+% \begin{frame}
+% \frametitle{World Wide Web Consortium}
+% Le tecnologie del \emph{Web Semantico} rispondono ad un insieme di
+% standard e protocolli promossi e mantenuti dal \emph{World Wide Web Consortium} 
+% (in breve \emph{W3C}, vedi \url{http://www.w3.org}).
+% \vspace{\baselineskip}
+% 
+% Il W3C \`e un consorzio di standardizzazione per il Web che
+% conta 403 membri tra aziende e organizzazioni governative: CNR,
+% Microsoft Corporation, Apple Inc., Intel Corporation, Facebook, Google Inc., \ldots
+% \vspace{\baselineskip}
+% 
+% Altri standard sviluppati in seno al W3C sono: URL, HTTP, XML, HTML, CSS, SOAP, 
+% WSDL, Javascript. 
+% \end{frame}
+
+\begin{frame}
+\frametitle{Il Web Semantico}
+\begin{quote}
+[\ldots] the Semantic Web approach instead develops languages for expressing
+information in a machine processable form. 
+\end{quote}
+\emph{Semantic Web Roadmap}, Tim Berners-Lee, 1998.
+
+\begin{figure}
+    \includegraphics[width=250px]{federicoII_dbpedia.png} 
+    \caption{Federico II su dbpedia.org}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Linked Open Data Cloud (1/2)}
+\begin{quote}
+The Semantic Web is a web of data, in some ways like a global database.
+\end{quote}
+\small{\emph{Semantic Web Roadmap}, Tim Berners-Lee, 1998.}
+\begin{figure}
+    \includegraphics[width=250px]{lod-cloud_colored_1000px.png} 
+    \caption{Linked Open Data Cloud}
+\end{figure}
+\end{frame}
+
+%TODO usare dopo
+% \begin{frame}
+% \frametitle{Linked Open Data Cloud (2/2)}
+% Nel \emph{Linked Open Data Cloud} sono presenti 365 dataset (fonte \url{http://stats.lod2.eu/}).
+% \vspace{\baselineskip}
+% 
+% Alcuni dataset:
+% \begin{itemize}
+%  \item \emph{DBPedia} (\url{dbpedia.org}) corrispondente a \url{wikipedia.org};
+%  \item \emph{Linked Movie Database} (\url{http://linkedmdb.org/}) controparte sul Web Semantico di \emph{Internet Movie Database} 
+%  (\url{http://www.imdb.com/});
+%  \item \emph{Linked GeoData} (\url{http://linkedgeodata.org}) 
+%   contiene i dati di \emph{OpenStreetMap} (\url{http://www.openstreetmap.org/});
+%   \item \emph{AGROVOC} (\url{http://aims.fao.org/agrovoc}) \`e il dataset della FAO (\url{http://fao.org});
+%   \item \emph{Europeana} (\url{http://pro.europeana.eu/linked-open-data}) contiene dati su beni culturali e tradizioni Europee. 
+% \end{itemize}
+% \end{frame}
+
+
+% \begin{frame}
+% \frametitle{Linked Data (2/2)}
+% \`E possibile effettuare interrogazioni che coinvolgano diversi
+% dataset (anche eterogenei).
+% \vspace{\baselineskip}
+% 
+% Ad esempio, la seguente query pu\`o essere eseguita
+% interrogando un data set contenente dati storici ed uno 
+% sulle strutture ricettive:
+% 
+% 
+% \begin{center}
+% Q = “Strutture ricettive nei luoghi di nascita di Federico II e dei suoi parenti stretti.”
+% \end{center}
+% \end{frame}
+
+\begin{frame}
+  \frametitle{Classificazione 5 Stelle}
+
+  Il w3c propone un modello per la qualit\`a degli open data denominato
+  \emph{classificazione a 5 stelle}.\footnote{\url{http://5stardata.info}}
+  Riportiamo il diagramma della classificazione 5 stelle riportato nelle linee
+  guida dall'Agid.
+  \vspace{\baselineskip}  
+  
+  \begin{figure}
+     \includegraphics[width=300px]{5stelle_classificazione.png} 
+    %\caption{Modello di classificazione per i metadati.\footnote{Dalle \emph{Linee guida nazionali per il patrimonio informativo pubblico (2014)}.}  
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Classificazione 5 Stelle - Dimensioni}
+  La classificazione 5 stelle viene estesa dall'AgID con alcune \emph{dimensioni}
+  esplicative:
+  \begin{itemize}[<+->]
+   \item \emph{INFORMAZIONE} - descrive la qualit\`a dell'informazione fornita insieme ai dati;
+   \item \emph{ACCESSO} -  descrive la facilit\`a con cui utenti e programmi riescono ad accedere ai dati;
+   \item \emph{SERVIZI} - riguarda le tipologie e l'\emph{efficienza} dei servizi che possono essere realizzati a partire 
+   dai dati.
+  \end{itemize}
+\end{frame}
+
+  
+\begin{frame}
+  \frametitle{Classificazione 5 Stelle - Una Stella}
+  
+  Una Stella: Open Licence
+  
+  \begin{figure}
+     \includegraphics[width=180px]{stella1.png} 
+    %\caption{Modello di classificazione per i metadati.\footnote{Dalle \emph{Linee guida nazionali per il patrimonio informativo pubblico (2014)}.}  
+  \end{figure}
+  
+  La \emph{prima stella} si ottiene rilasciando i dati in qualunque formato
+  ma con una \emph{licenza aperta}.
+  Rientrano in questa categoria ad esempio le scansioni dei documenti.
+  \vspace{\baselineskip}
+
+  \begin{itemize}[<+->]
+   \item \emph{INFORMAZIONE: documenti} - i dati sono incorporati all’interno di documenti senza struttura;
+   \item \emph{ACCESSO: solo umano} - solo gli umani sono in grado di leggere i documenti senza struttura 
+   e quindi dare un senso ai dati in esso presenti;
+   \item \emph{SERVIZI: nessuno} può essere abilitato a meno di significativi interventi umani 
+   di estrazione ed elaborazione;
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Classificazione 5 Stelle - Due Stelle}
+  
+    Due Stelle: Open Licence, (Machine) Readable
+
+  \begin{figure}
+     \includegraphics[width=180px]{stella2.png} 
+    %\caption{Modello di classificazione per i metadati.\footnote{Dalle \emph{Linee guida nazionali per il patrimonio informativo pubblico (2014)}.}  
+  \end{figure}
+  
+  La \emph{seconda stella} si ottiene se i dati sono forniti in un formato leggibile 
+  da un agente automatico. 
+  
+  Rientrano in questa categoria ad esempio i files in formato \emph{excel}.
+  \vspace{\baselineskip}
+
+  \begin{itemize}[<+->]
+   \item \emph{INFORMAZIONE: dati grezzi (o semi-strutturati)} - i dati sono leggibili anche da un programma 
+   ma necessita un intervento umano per interpretarli;
+   \item \emph{ACCESSO: umano e semi-automatico} - i software possono leggere i dati ma non sono in grado di
+   interpretarli automaticamente;
+   \item \emph{SERVIZI: non efficienti} - servizi realizzati ad-hoc e devono incorporare al loro
+  interno i dati;
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Classificazione 5 Stelle - Tre Stelle}
+  
+  Tre Stelle: Open Licence, (Machine) Readable, Open Format
+
+  \begin{figure}
+     \includegraphics[width=180px]{stella3.png} 
+    %\caption{Modello di classificazione per i metadati.\footnote{Dalle \emph{Linee guida nazionali per il patrimonio informativo pubblico (2014)}.}  
+  \end{figure}
+  
+  La \emph{terza stella} viene attribuita se i dati sono rilasciati in un formato \emph{aperto}.
+  Rientrano in questa categoria ad esempio i files \emph{jsono}, \emph{csv}, \emph{xml}.
+  \vspace{\baselineskip}
+
+  \begin{itemize}
+   \item \emph{INFORMAZIONE: dati grezzi (o semi-strutturati)} - i dati sono leggibili anche da un programma 
+   ma necessita un intervento umano per interpretarli;
+   \item \emph{ACCESSO: umano e semi-automatico} - i software possono leggere i dati ma non sono in grado di
+   interpretarli automaticamente;
+   \item \emph{SERVIZI: non efficienti} - servizi realizzati ad-hoc e devono incorporare al loro
+  interno i dati;
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Classificazione 5 Stelle - Quattro Stelle}
+  
+  Quattro Stelle: Open Licence, (Machine) Readable, Open Format, URI
+
+  \begin{figure}
+     \includegraphics[width=180px]{stella4.png} 
+    %\caption{Modello di classificazione per i metadati.\footnote{Dalle \emph{Linee guida nazionali per il patrimonio informativo pubblico (2014)}.}  
+  \end{figure}
+  
+  La \emph{quarta stella} si ottiene esponendo i dati con le tecnologie del web semantico (RDF e SPARQL).
+  \vspace{\baselineskip}
+
+  \begin{itemize}[<+->]
+   \item \emph{INFORMAZIONE: dati arricchiti semanticamente} - i dati sono descritti usando tecnologie del Web Semantico;
+   \item \emph{ACCESSO: umano e automatico} - i software sono in grado di elaborare i dati quasi senza ulteriori 
+   interventi umani (livelli 4 e 5);
+   \item \emph{SERVIZI: efficienti} - servizi che sfruttano accessi diretti a Web per reperire i dati.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Classificazione 5 Stelle - Cinque Stelle}
+  
+  Cinque Stelle: Open Licence, (Machine) Readable, Open Format, URI, \emph{Linked} Data
+
+  \begin{figure}
+     \includegraphics[width=180px]{stella5.png} 
+    %\caption{Modello di classificazione per i metadati.\footnote{Dalle \emph{Linee guida nazionali per il patrimonio informativo pubblico (2014)}.}  
+  \end{figure}
+  
+  La \emph{quinta stella} viene attribuita quando i dati contengono riferimenti a dataset di terze parti.
+  \vspace{\baselineskip}
+
+  \begin{itemize}[<+->]
+   \item \emph{INFORMAZIONE: dati arricchiti semanticamente} - i dati sono descritti usando tecnologie del Web Semantico;
+   \item \emph{ACCESSO: umano e automatico} - i software sono in grado di elaborare i dati quasi senza ulteriori 
+   interventi umani (livelli 4 e 5);
+   \item \emph{SERVIZI: efficienti e con mashup di dati} - servizi che sfruttano sia accessi diretti a Web 
+   sia l'informazione ulteriore catturata attraverso i \emph{link} dei dati di interesse.
+  \end{itemize}
+\end{frame}
+
+\section{Ontologie}
+\begin{frame}
+\frametitle{Ontologie}
+I dataset del Web Semantico vengono spesso definiti \emph{ontologie}.
+\vspace{\baselineskip}
+
+Una \emph{ontologia} \`e una descrizione \emph{parziale} del mondo:
+\begin{itemize}
+ \item descrive una porzione del mondo, spesso \`e limitata ad un'unico \emph{dominio di conoscenza};
+ \item non si assume che i fatti non esplicitamente presenti nell'ontologia siano falsi (\emph{Open World Assumption}).
+\end{itemize}
+\vspace{\baselineskip}
+
+Essa \`e costituita da un insieme finito di \emph{affermazioni}. Ad esempio:
+\begin{itemize}
+ \item Tutti gli esseri umani sono mortali;
+ \item Socrate \`e mortale;
+ \item Alice \`e la madre di Roberto.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Ontologie - Affermazioni}
+Le affermazioni contenute in una ontologia sono di tre tipi:
+\vspace{\baselineskip}
+
+\emph{Constraints:} impongono dei vincoli \emph{semantici} sul dominio di conoscenza 
+che si va a rappresentare. La notazione richiama quella insiemistica;
+\vspace{\baselineskip}
+\[
+ HumanBeing \Issub Mortal 
+\]
+\emph{Property Assertions}: impongono una relazione tra due elementi del dominio;
+\[
+ Alice\,motherOf\,Bob 
+\]
+\emph{Class Assertions}: indicano l'appartenenza di un elemento ad un insieme.
+\[
+ HumanBeing(Socrate) 
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{Ontologie - Reasoning}
+
+Con il termine \emph{reasoning} si intende l'attivit\`a di estrazione di 
+conoscenza \emph{implicita} in una ontologia.
+\[
+\begin{array}{ccc}
+\left \{ \begin{array}{l}
+HumanBeing \Issub Mortal , \\
+HumanBeing(Socrate)  
+\end{array} \right \}&\Longrightarrow &  Mortal(Socrate)\\
+\end{array}
+\]
+Le attivit\`a di reasoning sono rese possibili dalle \emph{semantiche formali}
+associate ai linguaggi di rappresentazione utilizzati.
+\end{frame}
+
+
+\newcommand{\CNames}{N_C}
+\newcommand{\PNames}{N_P}
+\newcommand{\INames}{N_I}
+\newcommand{\VNames}{V}
+
+\begin{frame}
+\frametitle{Ontologie - Definizione}
+
+Siano $\CNames$, $\PNames$, $\INames$ tre insiemi infiniti, numerabili e 
+a due a due disgiunti di nomi di \emph{classe}, \emph{propriet\`a} e \emph{individuo},
+rispettivamente.
+\vspace{\baselineskip}
+
+Una \emph{ontologia} \`e un insieme finito di asserzioni dei seguenti tipi:
+\[
+ \begin{array}{l|l|l}
+  & Sintassi & Semantica \\
+  \hline
+  &&\\
+  \mbox{Constraints} & C \Issub D & (\forall x)(x \in C \rightarrow x \in D) \\
+  & R \Issub S & (\forall x, y)([x, y] \in R \rightarrow [x,y] \in S) \\
+  & \dom(R) \Issub C & (\forall x, y)([x, y] \in R \rightarrow x \in C) \\
+  & \range(R) \Issub C & (\forall x, y)([x, y] \in R \rightarrow y \in C) \\
+  &&\\
+  \hline
+  &&\\
+  \mbox{Class Assertions} & C(a) & a \in C\\
+  &&\\
+  \hline
+  &&\\
+  \mbox{Property Assertions} & a\,P\,b\;(\mbox{equivalente }P(a,b)) & [a,b] \in P \\
+  &&\\
+  \hline  
+ \end{array}
+\]
+dove $C, D \in \CNames$, $R, S \in \PNames$ e $a, b \in \INames$.
+\end{frame}
+
+\newcommand{\Ont}{\mathcal{O}}
+\newcommand{\Ontp}{\mathcal{O'}}
+
+\begin{frame}
+\frametitle{Ontologie - Esempio}
+Riportiamo un esempio di ontologia. Siano $HumanBeing, Mortal \in \CNames$,
+$teacherOf \in \PNames$, $Socrate, Platone \in \INames$.
+\vspace{\baselineskip}
+
+\phantom{Mediante \emph{reasoning} \`e possibile esplicitare ulteriori 
+affermazioni.}
+\[
+ \begin{array}{clccl}
+  \Ont  =  &\{HumanBeing \Issub Mortal, & &\phantom{\Ontp =} & \phantom{\{Mortal(Socrate), }\\
+  &\phantom{\{}\range(teacherOf) \Issub HumanBeing, & \phantom{\Longrightarrow} && \phantom{\{HumanBeing(Platone)}\\
+  &\phantom{\{}HumanBeing(Socrate), &&&\phantom{\{Mortal(Platone) \}}\\
+  &\phantom{\{}Socrate\,teacherOf\,Platone \}\\
+ \end{array}
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{Ontologie - Esempio}
+Riportiamo un esempio di ontologia. Siano $HumanBeing, Mortal \in \CNames$,
+$teacherOf \in \PNames$, $Socrate, Platone \in \INames$.
+\vspace{\baselineskip}
+
+Mediante \emph{reasoning} \`e possibile esplicitare ulteriori 
+affermazioni.
+\[
+ \begin{array}{clccl}
+  \Ont  =  &\{\mathbf{HumanBeing \Issub Mortal}, & &\Ontp = & \{\mathbf{Mortal(Socrate)}, \\
+  &\phantom{\{}\range(teacherOf) \Issub HumanBeing, & \Longrightarrow&& \phantom{\{HumanBeing(Platone)}\\
+  &\phantom{\{}\mathbf{HumanBeing(Socrate)}, &&&\phantom{\{Mortal(Platone)}\}\\
+  &\phantom{\{}Socrate\,teacherOf\,Platone \}\\
+ \end{array}
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{Ontologie - Esempio}
+Riportiamo un esempio di ontologia. Siano $HumanBeing, Mortal \in \CNames$,
+$teacherOf \in \PNames$, $Socrate, Platone \in \INames$.
+\vspace{\baselineskip}
+
+Mediante \emph{reasoning} \`e possibile esplicitare ulteriori 
+affermazioni.
+\[
+ \begin{array}{clccl}
+  \Ont  =  &\{HumanBeing \Issub Mortal, & &\Ontp = & \{Mortal(Socrate), \\
+  &\phantom{\{}\mathbf{\range(teacherOf) \Issub HumanBeing}, & \Longrightarrow&& \phantom{\}}\mathbf{HumanBeing(Platone)},\\
+  &\phantom{\{}HumanBeing(Socrate), &&&\phantom{\{Mortal(Platone)}\}\\
+  &\phantom{\{}\mathbf{Socrate\,teacherOf\,Platone} \}\\
+ \end{array}
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{Ontologie - Esempio}
+Riportiamo un esempio di ontologia. Siano $HumanBeing, Mortal \in \CNames$,
+$teacherOf \in \PNames$, $Socrate, Platone \in \INames$.
+\vspace{\baselineskip}
+
+Mediante \emph{reasoning} \`e possibile esplicitare ulteriori 
+affermazioni.
+\[
+ \begin{array}{clccl}
+  \Ont  =  &\{\mathbf{HumanBeing \Issub Mortal} & &\Ontp = & \{Mortal(Socrate), \\
+  &\phantom{\{}\range(teacherOf) \Issub HumanBeing, & \Longrightarrow && \phantom{\{}\mathbf{HumanBeing(Platone)}\\
+  &\phantom{\{}HumanBeing(Socrate), &&&\phantom{\{}\mathbf{Mortal(Platone)} \}\\
+  &\phantom{\{}Socrate\,teacherOf\,Platone \}\\
+ \end{array}
+\]
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Ontologie nel Web Semantico}
+
+Le ontologie definite usando tecnologie del Web Semantico hanno particolari caratteristiche.
+
+Innanzitutto, tutti i nomi sono \emph{URI}:
+\[
+ \CNames \cup \PNames \cup \INames \subseteq URI .
+\]
+
+\uncover<2->{
+  Possono contenere dei \emph{letterali}, che vengono usati per rappresentare tipi di dato \emph{concreti},
+  come ad esempio stringhe di testo, numeri, date, \ldots
+  \vspace{\baselineskip}
+}
+
+\uncover<3->{
+  I letterali possono comparire come \emph{oggetto}
+  di una property assertion. Alcuni esempi di role assertion che coinvolgono
+  letterali sono
+  \[
+  \begin{array}{l}
+    Mario \, surname \, ``Rossi'' \\
+    Cristiano \, hasbirth \, ``March-22-1979''\\
+  \end{array}
+  \]
+  con $Mario, Cristiano \in \INames$, $surname, hasbirth \in \PNames$ e 
+  $``Rossi''$, $``March-22-1979''$ letterali.
+  \vspace{\baselineskip}
+}
+
+\uncover<4->{
+   \`E possibile vincolare una propriet\`a  ad avere come codominio
+   solo \emph{letterali} con un certo data type (\emph{datatype property}).
+    \[
+    \begin{array}{l}
+      \range(surname) \Issub xsd:string \\
+      \range(hasbirth) \Issub xsd:date\\
+    \end{array}
+    \]
+}
+\end{frame}
+
+\section{Vocabolari}
+\begin{frame}
+\frametitle{Vocabolari}
+Classi e propriet\`a vengono raggruppati in \emph{vocabolari}
+che trattano specifici domini di conoscenza (eg. organizzazioni, 
+pubblica amministrazione, biologia, commercio, etc.). 
+\vspace{\baselineskip}
+
+Un vocabolario
+pu\`o contenere anche alcuni vincoli sulle classi e le propriet\`a 
+del vocabolario stesso.
+\vspace{\baselineskip}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Definizione di Vocabolario}
+Una definizione di vocabolario pu\`o essere la seguente:
+\[
+ V = (C, P, \Omega)
+\]
+dove
+\begin{enumerate}
+ \item $C$ \`e un sottoinsieme finito di $\CNames$,
+ \item $P$ \`e un sottoinsieme finito di $\PNames$,
+ \item $\Omega$ \`e un insieme finito di vincoli che coinvolgano solo
+ nomi di classi in $C$ e nomi di propriet\`a in $P$.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Vocabolari condivisi}
+
+L'utilizzo di vocabolari condivisi (ben noti) favorisce la 
+scalabilit\`a orizzontale delle applicazioni. 
+\vspace{\baselineskip}
+
+Ad esempio, una 
+applicazione sviluppata sull'ontologia di un comune che utilizzi 
+i vocabolari standard per le pubbliche amministrazioni (vedi le \emph{Linee 
+Guida per la Valorizzazione del Patrimonio Informativo Pubblico} dell'\emph{Agenzia per l'Italia Digitale}) 
+pu\`o essere estesa senza sforzi aggiuntivi per utilizzare i dati provenienti
+dalle ontologie di tutti i comuni.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Il Vocabolario FOAF}
+Uno dei primi e pi\`u utilizzati vocabolari definiti nell'ambito
+del Web semantico \`e \emph{Friend OF A Friend} (\emph{FOAF}, vedi \url{http://foaf-project.org}).
+\vspace{\baselineskip}
+
+
+\begin{quote}
+FOAF is a project devoted to linking people and information using the Web. 
+\end{quote}
+
+In questa sede ci limiteremo solo alla parte \emph{Core}.
+\begin{quote}
+\textbf{Core} - These classes and properties form the core of FOAF. They
+describe characteristics of people and social groups that are
+independent of time and technology; as such they can be used to
+describe basic information about people in present day, historical,
+cultural heritage and digital library contexts. In addition to various
+characteristics of people, FOAF defines classes for Project,
+Organization and Group as other kinds of agent.
+\end{quote}
+(tratto da \emph{FOAF Vocabulary Specification 0.99},
+Namespace Document 14 January 2014, Paddington Edition, \url{http://xmlns.com/foaf/spec/})
+\end{frame}
+
+\newcommand{\foafcore}{\mathtt{FOAFCore}}
+\begin{frame}
+\frametitle{FOAF Core}
+Il vocabolario \emph{Foaf Core} \`e definito come segue:
+\[
+ \begin{array}{ccl}
+ \foafcore & \defAs & (C_{foaf}, P_{foaf}, \Omega_{foaf}) \\
+ &&\\
+ C_{foaf} & \defAs & \{Agent, Person, Project, Organization, Group, Document, Image\}\\
+ &&\\
+ P_{foaf} & \defAs & \{name, title, img, depiction, depicts, familyName, givenName,\\
+ && \phantom{\}} based\_near, age, made, maker, primaryTopic, primaryTopicOf, member \}\\
+ \Omega_{foaf} & \defAs & \{ Person \Issub Agent, Group \Issub Agent, Organization \Issub Agent, \\
+ && \phantom{\{} Image \Issub Document, \dom(title) \Issub Document, \\
+ && \phantom{\{}\range(depiction) \Issub Image, img \Issub depiction, \dom(img) \Issub Person,\\
+ && \phantom{\{}\dom(knows) \Issub Person, \range(knows) \Issub Person, \ldots \}\\
+ \end{array}
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{Descrizioni Intuitive degli Elementi dei Vocabolari}
+Le classi e le propriet\`a di un vocabolario vengono spesso fornite
+di una descrizione intuitiva nel documento che descrive il vocabolario.
+Ad esempio, le classi $Agent$ e $Person$ vengono descritte come segue 
+in \url{http://xmlns.com/foaf/spec/}
+\begin{quote}
+\textbf{Agent} - The Agent class is the class of agents; things that do stuff. A well known 
+sub-class is Person, representing people. Other kinds of agents include 
+Organization and Group.
+
+The Agent class is useful in a few places in FOAF where Person would have 
+been overly specific. For example, the IM chat ID properties such as 
+jabberID are typically associated with people, but sometimes belong to 
+software bots.  
+\end{quote}
+
+\begin{quote}
+\textbf{Person} - The Person class represents people. Something is a Person if it is a person.
+We don't nitpic about whether they're alive, dead, real, or imaginary. 
+The Person class is a sub-class of the Agent class, since all people are 
+considered 'agents' in FOAF.  
+\end{quote}
+\end{frame}
+
+\begin{frame}
+\frametitle{Descrizioni Rigorose degli Elementi dei Vocabolari}
+Tuttavia, gi\`a nei vincoli di un vocabolario si trovano indicazioni importanti
+sulla \emph{semantica} dei nomi di classe e di propriet\`a del vocabolario stesso.
+\[
+\begin{array}{l}
+Person \Issub Agent\\
+\range(depiction) \Issub Image\\
+img \Issub depiction, \\
+\dom(img) \Issub Person,\\
+\dom(knows) \Issub Person,\\
+\range(knows) \Issub Person,\\
+\ldots
+\end{array}
+\]
+\end{frame}
+
+\section{Interrogazioni}
+
+\begin{frame}
+\frametitle{Interrogazioni}
+
+Il metodo pi\`u immediato per ottenere informazioni da una ontologia \`e il 
+\emph{Conjunctive Query Answering}. Consideriamo ad esempio la seguente ontologia:
+
+\begin{tabular}{cc}
+\hline
+$\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise), Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}
+ \end{array}$ & \includegraphics[width=120px]{family.png} \\
+\hline
+\end{tabular}
+
+Alcune interrogazioni che \`e possibile effettuare con il conjunctive query 
+answering sono:
+\begin{itemize}
+ \item ``Trova tutti gli individui maschi.''
+ \item ``Chi sono gli individui con almeno un figlio maschio?''
+ \item ``Chi sono i figli di $Alice$?''
+ \item ``Chi sono gli individui con almeno un figlio maschio ed una femmina?''
+ \item ``Chi sono gli individui maschi con almeno un figlio maschio?''
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Formule Atomiche}
+
+Per definire in maniera rigorosa le query congiuntive \`e necessario
+definire preliminarmente l'insieme delle \emph{formule atomiche}. 
+\vspace{\baselineskip}
+
+Sia $\VNames = \{x, y, z, ... \}$ l'insieme infinito, numerabile 
+e disgiunto da $\CNames$, $\PNames$ e $\INames$ delle \emph{variabili}.
+Le \emph{formule atomiche} sono espressioni dei due seguenti tipi:
+\[
+ C(x), \quad P(x, y)
+\]
+con $x, y \in \INames \cup \VNames$, $C \in \CNames$ e $P \in \PNames$.
+\vspace{\baselineskip}
+
+Esempi di formule atomiche sono:
+\begin{itemize}
+ \item $HumanBeing(x)$,
+ \item $x\,childOf\,Alice$,
+ \item $Bob\,childOf\,x$,
+ \item $x\,childOf\,y$,
+ \item $Mortal(Socrate)$,
+ \item $Alice\,childOf\,Elise$
+\end{itemize}
+con $HumanBeing, Mortal \in \CNames$, $childOf \in \PNames$, 
+$Alice, Bob, Elise \in \INames$ e $x, y \in \VNames$.
+\end{frame}
+
+\begin{frame}
+\frametitle{Formule Atomiche Chiuse}
+Una formula atomica nella quale non compaiano variabili si dice \emph{chiusa}.
+\vspace{\baselineskip}
+
+Negli esempi che seguono sono evidenziate le formule atomiche chiuse:
+\begin{itemize}
+ \item $HumanBeing(x)$,
+ \item $x\,childOf\,Alice$,
+ \item $Bob\,childOf\,x$,
+ \item $x\,childOf\,y$,
+ \item $Mortal(Socrate)$,
+ \item $Alice\,childOf\,Elise$
+\end{itemize}
+con $HumanBeing, Mortal \in \CNames$, $childOf \in \PNames$, 
+$Alice, Bob, Elise \in \INames$ e $x, y \in \VNames$.
+\vspace{\baselineskip}
+
+\phantom{Le asserzioni presenti nelle ontologie sono formule atomiche chiuse.}
+\end{frame}
+
+\begin{frame}
+\frametitle{Formule Atomiche Chiuse}
+Una formula atomica nella quale non compaiano variabili si dice \emph{chiusa}.
+\vspace{\baselineskip}
+
+Negli esempi che seguono sono evidenziate le formule atomiche chiuse:
+\begin{itemize}
+ \item $HumanBeing(x)$,
+ \item $x\,childOf\,Alice$,
+ \item $Bob\,childOf\,x$,
+ \item $x\,childOf\,y$,
+ \item $\mathbf{Mortal(Socrate)}$,
+ \item $\mathbf{Alice\,childOf\,Elise}$
+\end{itemize}
+con $HumanBeing, Mortal \in \CNames$, $childOf \in \PNames$, 
+$Alice, Bob, Elise \in \INames$ e $x, y \in \VNames$.
+\vspace{\baselineskip}
+
+Le asserzioni presenti nelle ontologie sono formule atomiche chiuse.
+\end{frame}
+
+\begin{frame}
+\frametitle{Query Congiuntive}
+Una \emph{query congiuntiva} \`e una congiunzione finita di formule atomiche $T_1 \wedge \ldots \wedge T_n$.
+\vspace{\baselineskip}
+
+Alcuni esempi di query congiuntive:
+\begin{itemize}
+ \item ``Trova tutti gli individui maschi.''
+ \[
+  Male(x)
+ \]
+ \item ``Chi sono gli individui con almeno un figlio maschio?''
+\[
+ y\,childOf\,x\,\wedge\,Male(y)  
+\]
+ \item ``Chi sono i figli di $Alice$?''
+\[
+ x\,childOf\,Alice
+\]
+%  \item ``Chi sono gli individui con almeno un figlio maschio ed una femmina?''
+% \[
+%  y\,childOf\,x\,\wedge\,Male(y)\,\wedge\,z\,childOf\,x\,\wedge\,Female(z)   
+% \]
+%  \item ``Chi sono gli individui maschi con almeno un figlio maschio?''
+% \[
+%  Male(x)\,\wedge\,y\,childOf\,x\,\wedge\,Male(y)
+% \]
+con $x, y \in \VNames$, $Male, Female \in \CNames$, $childOf \in \PNames$ e $Alice \in \INames$.
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Sostituzioni (1/2)}
+
+Per definire le \emph{soluzioni} (risposte) delle query congiuntive introduciamo la
+nozione di \emph{sostituzione}.
+\vspace{\baselineskip}
+
+Una \emph{sostituzione} $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$
+($x_1, \ldots, x_n \in \VNames$, $a_1, \ldots, a_n \in \INames$)
+\`e una mappa finita che associa nomi di individui a variabili.
+\vspace{\baselineskip}
+
+Sia $T$ una formula atomica e $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$
+una sostituzione. L'\emph{applicazione} $T\sigma$ di $\sigma$ a $T$ \`e la formula atomica 
+che si ottiene sostituendo in $T$ ad ogni occorrenza della variabile $x_i$ il
+corrispondente nome di individuo $a_i$, per ogni $1\leq i\leq n$.
+\vspace{\baselineskip}
+
+Alcuni esempi:
+\[
+ \begin{array}{lcl}
+  Male(x)[x \rightarrow Bob] & = & Male(Bob) \\
+  Male(x)[y \rightarrow Bob] & = & \phantom{Male(x)} \\
+  (x\,childOf\,y)[x \rightarrow Alice] & = & \phantom{Alice\,childOf\,y} \\
+  (x\,childOf\,y)[x \rightarrow Alice, y \rightarrow Elise] & = & \phantom{Alice\,childOf\,Elise}
+ \end{array}
+\]
+con $x,y \in \VNames$, $Male \in \CNames$, $childOf \in \PNames$ e $Alice, Bob, Elise \in \INames$.
+\end{frame}
+
+\begin{frame}
+\frametitle{Sostituzioni (1/2)}
+
+Per definire le \emph{soluzioni} (risposte) delle query congiuntive introduciamo la
+nozione di \emph{sostituzione}.
+\vspace{\baselineskip}
+
+Una \emph{sostituzione} $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$
+($x_1, \ldots, x_n \in \VNames$, $a_1, \ldots, a_n \in \INames$)
+\`e una mappa finita che associa nomi di individui a variabili.
+\vspace{\baselineskip}
+
+Sia $T$ una formula atomica e $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$
+una sostituzione. L'\emph{applicazione} $T\sigma$ di $\sigma$ a $T$ \`e la formula atomica 
+che si ottiene sostituendo in $T$ ad ogni occorrenza della variabile $x_i$ il
+corrispondente nome di individuo $a_i$, per ogni $1\leq i\leq n$.
+\vspace{\baselineskip}
+
+Alcuni esempi:
+\[
+ \begin{array}{lcl}
+  Male(x)[x \rightarrow Bob] & = & Male(Bob) \\
+  Male(x)[y \rightarrow Bob] & = & Male(x) \\
+  (x\,childOf\,y)[x \rightarrow Alice] & = & \phantom{Alice\,childOf\,y} \\
+  (x\,childOf\,y)[x \rightarrow Alice, y \rightarrow Elise] & = & \phantom{Alice\,childOf\,Elise}
+ \end{array}
+\]
+con $x,y \in \VNames$, $Male \in \CNames$, $childOf \in \PNames$ e $Alice, Bob, Elise \in \INames$.
+\end{frame}
+
+\begin{frame}
+\frametitle{Sostituzioni (1/2)}
+
+Per definire le \emph{soluzioni} (risposte) delle query congiuntive introduciamo la
+nozione di \emph{sostituzione}.
+\vspace{\baselineskip}
+
+Una \emph{sostituzione} $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$
+($x_1, \ldots, x_n \in \VNames$, $a_1, \ldots, a_n \in \INames$)
+\`e una mappa finita che associa nomi di individui a variabili.
+\vspace{\baselineskip}
+
+Sia $T$ una formula atomica e $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$
+una sostituzione. L'\emph{applicazione} $T\sigma$ di $\sigma$ a $T$ \`e la formula atomica
+che si ottiene sostituendo in $T$ ad ogni occorrenza della variabile $x_i$ il
+corrispondente nome di individuo $a_i$, per ogni $1\leq i\leq n$.
+\vspace{\baselineskip}
+
+Alcuni esempi:
+\[
+ \begin{array}{lcl}
+  Male(x)[x \rightarrow Bob] & = & Male(Bob) \\
+  Male(x)[y \rightarrow Bob] & = & Male(x) \\
+  (x\,childOf\,y)[x \rightarrow Alice] & = & Alice\,childOf\,y \\
+  (x\,childOf\,y)[x \rightarrow Alice, y \rightarrow Elise] & = & \phantom{Alice\,childOf\,Elise}
+ \end{array}
+\]
+con $x,y \in \VNames$, $Male \in \CNames$, $childOf \in \PNames$ e $Alice, Bob, Elise \in \INames$.
+\end{frame}
+
+\begin{frame}
+\frametitle{Sostituzioni (1/2)}
+
+Per definire le \emph{soluzioni} (risposte) delle query congiuntive introduciamo la
+nozione di \emph{sostituzione}.
+\vspace{\baselineskip}
+
+Una \emph{sostituzione} $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$
+($x_1, \ldots, x_n \in \VNames$, $a_1, \ldots, a_n \in \INames$)
+\`e una mappa finita che associa nomi di individui a variabili.
+\vspace{\baselineskip}
+
+Sia $T$ una formula atomica e $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$
+una sostituzione. L'\emph{applicazione} $T\sigma$ di $\sigma$ a $T$ \`e la formula atomica
+che si ottiene sostituendo in $T$ ad ogni occorrenza della variabile $x_i$ il
+corrispondente nome di individuo $a_i$, per ogni $1\leq i\leq n$.
+\vspace{\baselineskip}
+
+Alcuni esempi:
+\[
+ \begin{array}{lcl}
+  Male(x)[x \rightarrow Bob] & = & Male(Bob) \\
+  Male(x)[y \rightarrow Bob] & = & Male(x) \\
+  (x\,childOf\,y)[x \rightarrow Alice] & = & Alice\,childOf\,y \\
+  (x\,childOf\,y)[x \rightarrow Alice, y \rightarrow Elise] & = & Alice\,childOf\,Elise
+ \end{array}
+\]
+con $x,y \in \VNames$, $Male \in \CNames$, $childOf \in \PNames$ e $Alice, Bob, Elise \in \INames$.
+\end{frame}
+
+\begin{frame}
+\frametitle{Sostituzioni (2/2)}
+
+L'applicazione di sostituzioni a query congiuntive si definisce come segue.
+\vspace{\baselineskip}
+
+Sia $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$ una sostituzione
+e siano $T_1, \ldots, T_m$ formule atomiche. Allora
+\[
+ (T_1 \wedge \ldots \wedge T_m)\sigma \defAs T_1\sigma \wedge \ldots \wedge T_m\sigma . 
+\]
+\vspace{\baselineskip}
+
+Alcuni esempi:
+\[
+ \begin{array}{lcl}
+ (y\,childOf\,x\,\wedge\,Male(y))[x \rightarrow Alice] & \defAs & \phantom{y\,childOf\,Alice\,\wedge\,Male(y)}  \\
+ (y\,childOf\,x\,\wedge\,Male(y))[x \rightarrow Alice, z \rightarrow Bob] & \defAs & \phantom{y\,childOf\,Alice\,\wedge\,Male(y)}  \\
+ (y\,childOf\,x\,\wedge\,Male(y))[x \rightarrow Alice, y \rightarrow Bob] & \defAs & \phantom{Bob\,childOf\,Alice\,\wedge\,Male(Bob)}  \\
+ \end{array}
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{Sostituzioni (2/2)}
+
+L'applicazione di sostituzioni a query congiuntive si definisce come segue.
+\vspace{\baselineskip}
+
+Sia $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$ una sostituzione
+e siano $T_1, \ldots, T_m$ formule atomiche. Allora
+\[
+ (T_1 \wedge \ldots \wedge T_m)\sigma \defAs T_1\sigma \wedge \ldots \wedge T_m\sigma . 
+\]
+\vspace{\baselineskip}
+
+Alcuni esempi:
+\[
+ \begin{array}{lcl}
+ (y\,childOf\,x\,\wedge\,Male(y))[x \rightarrow Alice] & \defAs & y\,childOf\,Alice\,\wedge\,Male(y)  \\
+ (y\,childOf\,x\,\wedge\,Male(y))[x \rightarrow Alice, z \rightarrow Bob] & \defAs & \phantom{y\,childOf\,Alice\,\wedge\,Male(y)}  \\
+ (y\,childOf\,x\,\wedge\,Male(y))[x \rightarrow Alice, y \rightarrow Bob] & \defAs & \phantom{Bob\,childOf\,Alice\,\wedge\,Male(Bob)}  \\
+ \end{array}
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{Sostituzioni (2/2)}
+
+L'applicazione di sostituzioni a query congiuntive si definisce come segue.
+\vspace{\baselineskip}
+
+Sia $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$ una sostituzione
+e siano $T_1, \ldots, T_m$ formule atomiche. Allora
+\[
+ (T_1 \wedge \ldots \wedge T_m)\sigma \defAs T_1\sigma \wedge \ldots \wedge T_m\sigma . 
+\]
+\vspace{\baselineskip}
+
+Alcuni esempi:
+\[
+ \begin{array}{lcl}
+ (y\,childOf\,x\,\wedge\,Male(y))[x \rightarrow Alice] & \defAs & y\,childOf\,Alice\,\wedge\,Male(y)  \\
+ (y\,childOf\,x\,\wedge\,Male(y))[x \rightarrow Alice, z \rightarrow Bob] & \defAs & y\,childOf\,Alice\,\wedge\,Male(y)  \\
+ (y\,childOf\,x\,\wedge\,Male(y))[x \rightarrow Alice, y \rightarrow Bob] & \defAs & \phantom{Bob\,childOf\,Alice\,\wedge\,Male(Bob)}  \\
+ \end{array}
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{Sostituzioni (2/2)}
+
+L'applicazione di sostituzioni a query congiuntive si definisce come segue.
+\vspace{\baselineskip}
+
+Sia $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$ una sostituzione
+e siano $T_1, \ldots, T_m$ formule atomiche. Allora
+\[
+ (T_1 \wedge \ldots \wedge T_m)\sigma \defAs T_1\sigma \wedge \ldots \wedge T_m\sigma . 
+\]
+\vspace{\baselineskip}
+
+Alcuni esempi:
+\[
+ \begin{array}{lcl}
+ (y\,childOf\,x\,\wedge\,Male(y))[x \rightarrow Alice] & \defAs & y\,childOf\,Alice\,\wedge\,Male(y)  \\
+ (y\,childOf\,x\,\wedge\,Male(y))[x \rightarrow Alice, z \rightarrow Bob] & \defAs & y\,childOf\,Alice\,\wedge\,Male(y)  \\
+ (y\,childOf\,x\,\wedge\,Male(y))[x \rightarrow Alice, y \rightarrow Bob] & \defAs & Bob\,childOf\,Alice\,\wedge\,Male(Bob)  \\
+ \end{array}
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{Soluzioni per una Query}
+Siano $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$ una sostituzione,
+$Q=T_1 \wedge \ldots \wedge T_m$ una query congiuntiva e $\Ont$ una ontologia.
+\vspace{\baselineskip}
+
+$\sigma$ \`e detta essere una \emph{soluzione} per $Q$ rispetto ad $\Ont$ se
+e solo se $T_1\sigma, \ldots, T_2\sigma$ compaiono in $\Ont$. 
+\vspace{\baselineskip}
+
+Consideriamo l'ontologia $\Ont$ e la query $Q$ definite come segue:
+\[
+\begin{array}{ll}
+  \begin{array}{cl}
+    \Ont  =  &  \{Female(Elise), Female(Alice), Male(Bob), \\
+    &\phantom{\{}Male(Charlie), Male(Daniel), \\
+    &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+    &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+    &\phantom{\{}Francis\,childOf\,Charlie \}\\
+    &\\
+    Q = & y\,childOf\,x\,\wedge\,Male(y) 
+  \end{array} & 
+  \includegraphics[width=130px]{family_ex1.png} \\
+ \end{array}
+\]
+Sia $\sigma_1=[x \rightarrow Alice, y \rightarrow Daniel]$. $\sigma_1$ \`e una soluzione per $Q$
+rispetto ad $\Ont$?
+\end{frame}
+
+\begin{frame}
+\frametitle{Soluzioni per una Query - Esempio 1}
+Siano $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$ una sostituzione,
+$Q=T_1 \wedge \ldots \wedge T_m$ una query congiuntiva e $\Ont$ una ontologia.
+\vspace{\baselineskip}
+
+$\sigma$ \`e detta essere una \emph{soluzione} per $Q$ rispetto ad $\Ont$ se
+e solo se $T_1\sigma, \ldots, T_2\sigma$ compaiono in $\Ont$. 
+\vspace{\baselineskip}
+
+Consideriamo l'ontologia $\Ont$ e la query $Q$ (``Chi sono gli individui con almeno un figlio maschio?'') definite come segue:
+\[
+\begin{array}{ll}
+  \begin{array}{cl}
+    \Ont  =  &  \{Female(Elise), Female(Alice), Male(Bob), \\
+    &\phantom{\{}Male(Charlie), \mathbf{Male(Daniel)}, \\
+    &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+    &\phantom{\{}\mathbf{Daniel\,childOf\,Alice}, Daniel\,childOf\,Bob, \\
+    &\phantom{\{}Francis\,childOf\,Charlie \}\\
+    &\\
+    Q = & y\,childOf\,x\,\wedge\,Male(y) 
+  \end{array} & 
+  \includegraphics[width=130px]{family_ex1.png} \\
+ \end{array}
+\]
+Sia $\sigma_1=[x \rightarrow Alice, y \rightarrow Daniel]$. $\sigma_1$ \`e una soluzione per $Q$
+rispetto ad $\Ont$? \textbf{SI}.
+\[
+ Q\sigma_1 = Daniel\,childOf\,Alice\,\wedge\,Male(Daniel) .
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{Soluzioni per una Query - Esempio 2}
+Siano $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$ una sostituzione,
+$Q=T_1 \wedge \ldots \wedge T_m$ una query congiuntiva e $\Ont$ una ontologia.
+\vspace{\baselineskip}
+
+$\sigma$ \`e detta essere una \emph{soluzione} per $Q$ rispetto ad $\Ont$ se
+e solo se $T_1\sigma, \ldots, T_2\sigma$ compaiono in $\Ont$. 
+\vspace{\baselineskip}
+
+Consideriamo l'ontologia $\Ont$ e la query $Q$ definite come segue:
+\[
+\begin{array}{ll}
+  \begin{array}{cl}
+    \Ont  =  &  \{Female(Elise), Female(Alice), Male(Bob), \\
+    &\phantom{\{}Male(Charlie), Male(Daniel), \\
+    &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+    &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+    &\phantom{\{}Francis\,childOf\,Charlie \}\\
+    &\\
+    Q = & y\,childOf\,x\,\wedge\,Male(y) .
+  \end{array} & 
+  \includegraphics[width=130px]{family_ex2.png} \\
+ \end{array}
+\]
+Sia $\sigma_2=[x \rightarrow Alice, y \rightarrow Bob]$. $\sigma_2$ \`e una soluzione per $Q$
+rispetto ad $\Ont$?
+\end{frame}
+
+\begin{frame}
+\frametitle{Soluzioni per una Query - Esempio 2}
+Siano $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$ una sostituzione,
+$Q=T_1 \wedge \ldots \wedge T_m$ una query congiuntiva e $\Ont$ una ontologia.
+\vspace{\baselineskip}
+
+$\sigma$ \`e detta essere una \emph{soluzione} per $Q$ rispetto ad $\Ont$ se
+e solo se $T_1\sigma, \ldots, T_2\sigma$ compaiono in $\Ont$. 
+\vspace{\baselineskip}
+
+Consideriamo l'ontologia $\Ont$ e la query $Q$ (``Chi sono gli individui con almeno un figlio maschio?'') definite come segue:
+\[
+\begin{array}{ll}
+  \begin{array}{cl}
+    \Ont  =  &  \{Female(Elise), Female(Alice), Male(Bob), \\
+    &\phantom{\{}Male(Charlie), Male(Daniel), \\
+    &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+    &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+    &\phantom{\{}Francis\,childOf\,Charlie \}\\
+    &\\
+    Q = & y\,childOf\,x\,\wedge\,Male(y) .
+  \end{array} & 
+  \includegraphics[width=130px]{family_ex2.png} \\
+ \end{array}
+\]
+Sia $\sigma_2=[x \rightarrow Alice, y \rightarrow Bob]$. $\sigma_2$ \`e una soluzione per $Q$
+rispetto ad $\Ont$? \textbf{NO}.
+\[
+ Q\sigma_2 = \mathbf{Bob\,childOf\,Alice}\,\wedge\,Male(Bob) .
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{Soluzioni per una Query - Esempio 3}
+Siano $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$ una sostituzione,
+$Q=T_1 \wedge \ldots \wedge T_m$ una query congiuntiva e $\Ont$ una ontologia.
+\vspace{\baselineskip}
+
+$\sigma$ \`e detta essere una \emph{soluzione} per $Q$ rispetto ad $\Ont$ se
+e solo se $T_1\sigma, \ldots, T_2\sigma$ compaiono in $\Ont$. 
+\vspace{\baselineskip}
+
+Consideriamo l'ontologia $\Ont$ e la query $Q$ definite come segue:
+\[
+ \begin{array}{ll}
+  \begin{array}{cl}
+    \Ont  =  &  \{Female(Elise), Female(Alice), Male(Bob), \\
+    &\phantom{\{}Male(Charlie), Male(Daniel), \\
+    &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+    &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+    &\phantom{\{}Francis\,childOf\,Charlie \}\\
+    &\\
+    Q = & y\,childOf\,x\,\wedge\,Male(y) .
+  \end{array} & 
+  \includegraphics[width=130px]{family_ex3.png} \\
+ \end{array}
+\]
+Sia $\sigma_3=[x \rightarrow Charlie, y \rightarrow Francis]$. $\sigma_3$ \`e una soluzione per $Q$
+rispetto ad $\Ont$?
+\end{frame}
+
+\begin{frame}
+\frametitle{Soluzioni per una Query - Esempio 3}
+Siano $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$ una sostituzione,
+$Q=T_1 \wedge \ldots \wedge T_m$ una query congiuntiva e $\Ont$ una ontologia.
+\vspace{\baselineskip}
+
+$\sigma$ \`e detta essere una \emph{soluzione} per $Q$ rispetto ad $\Ont$ se
+e solo se $T_1\sigma, \ldots, T_2\sigma$ compaiono in $\Ont$. 
+\vspace{\baselineskip}
+
+Consideriamo l'ontologia $\Ont$ e la query $Q$ (``Chi sono gli individui con almeno un figlio maschio?'') definite come segue:
+\[
+ \begin{array}{ll}
+  \begin{array}{cl}
+    \Ont  =  &  \{Female(Elise), Female(Alice), Male(Bob), \\
+    &\phantom{\{}Male(Charlie), Male(Daniel), \\
+    &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+    &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+    &\phantom{\{}Francis\,childOf\,Charlie \}\\
+    &\\
+    Q = & y\,childOf\,x\,\wedge\,Male(y) .
+  \end{array} & 
+  \includegraphics[width=130px]{family_ex3.png} \\
+ \end{array}
+\]
+Sia $\sigma_3=[x \rightarrow Charlie, y \rightarrow Francis]$. $\sigma_2$ \`e una soluzione per $Q$
+rispetto ad $\Ont$? \textbf{NO}.
+\[
+ Q\sigma_3 = Francis\,childOf\,Charlie\,\wedge\,\mathbf{Male(Francis)} .
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{Soluzioni Minimali per una Query}
+Siano $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$ 
+una sostituzione, $Q$ una query congiuntiva e $\Ont$ una ontologia.
+\vspace{\baselineskip}
+
+$\sigma$ \`e una \emph{soluzione minimale} per $Q$ rispetto a $\Ont$
+se e solo se:
+\begin{enumerate}
+ \item $\sigma$ \`e una soluzione per $Q$ rispetto ad $\Ont$ e inoltre
+ \item tutte le variabili $x_1, \ldots, x_n$ che compaiono in $\sigma$
+ compaiono anche in $Q$ (criterio di minimalit\`a).
+\end{enumerate}
+Consideriamo ad esempio
+\[
+\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise), Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}\\
+  &\\
+  Q = & y\,childOf\,x\,\wedge\,Male(y) .
+ \end{array}
+\]
+$\sigma_5=[x \rightarrow Elise, y \rightarrow Charlie, z \rightarrow Francis]$ \`e una 
+soluzione minimale per $Q$ rispetto a $\Ont$? \phantom{\textbf{NO}.}
+\vspace{\baselineskip}
+
+\phantom{$\sigma_6=[x \rightarrow Elise, y \rightarrow Charlie]$ \`e una 
+soluzione minimale per $Q$ rispetto a $\Ont$? \textbf{SI}.}
+\end{frame}
+
+\begin{frame}
+\frametitle{Soluzioni Minimali per una Query}
+Siano $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$ 
+una sostituzione, $Q$ una query congiuntiva e $\Ont$ una ontologia.
+\vspace{\baselineskip}
+
+$\sigma$ \`e una \emph{soluzione minimale} per $Q$ rispetto a $\Ont$
+se e solo se:
+\begin{enumerate}
+ \item $\sigma$ \`e una soluzione per $Q$ rispetto ad $\Ont$ e inoltre
+ \item tutte le variabili $x_1, \ldots, x_n$ che compaiono in $\sigma$
+ compaiono anche in $Q$ (criterio di minimalit\`a).
+\end{enumerate}
+Consideriamo ad esempio
+\[
+\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise), Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}\\
+  &\\
+  Q = & y\,childOf\,x\,\wedge\,Male(y) .
+ \end{array}
+\]
+$\sigma_5=[x \rightarrow Elise, y \rightarrow Charlie, \mathbf{z} \rightarrow Francis]$ \`e una 
+soluzione minimale per $Q$ rispetto a $\Ont$? \textbf{NO}.
+\vspace{\baselineskip}
+
+$\sigma_6=[x \rightarrow Elise, y \rightarrow Charlie]$ \`e una 
+soluzione minimale per $Q$ rispetto a $\Ont$? \phantom{\textbf{SI}}.
+\end{frame}
+
+\begin{frame}
+\frametitle{Soluzioni Minimali per una Query}
+Siano $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$ 
+una sostituzione, $Q$ una query congiuntiva e $\Ont$ una ontologia.
+\vspace{\baselineskip}
+
+$\sigma$ \`e una \emph{soluzione minimale} per $Q$ rispetto a $\Ont$
+se e solo se:
+\begin{enumerate}
+ \item $\sigma$ \`e una soluzione per $Q$ rispetto ad $\Ont$ e inoltre
+ \item tutte le variabili $x_1, \ldots, x_n$ che compaiono in $\sigma$
+ compaiono anche in $Q$ (criterio di minimalit\`a).
+\end{enumerate}
+Consideriamo ad esempio
+\[
+\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise), Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}\\
+  &\\
+  Q = & y\,childOf\,x\,\wedge\,Male(y) .
+ \end{array}
+\]
+$\sigma_5=[x \rightarrow Elise, y \rightarrow Charlie, \mathbf{z} \rightarrow Francis]$ \`e una 
+soluzione minimale per $Q$ rispetto a $\Ont$? \textbf{NO}.
+\vspace{\baselineskip}
+
+$\sigma_6=[x \rightarrow Elise, y \rightarrow Charlie]$ \`e una 
+soluzione minimale per $Q$ rispetto a $\Ont$? \textbf{SI}.
+\end{frame}
+
+\begin{frame}
+\frametitle{Conjunctive Query Answering}
+Il problema del \emph{Conjunctive Query Answering} consiste nel trovare
+tutte le soluzioni minimali di una query congiuntiva rispetto ad una ontologia.
+\vspace{\baselineskip}
+
+\begin{center}
+Esempio 1:``Trova tutti gli individui maschi.'' 
+\end{center}
+%\vspace{\baselineskip}
+
+\begin{tabular}{lc}
+$\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise),  Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}\\
+\end{array}$ &   \includegraphics[width=130px]{family.png} \\
+ $Q=Male(x)$ &
+ $\begin{array}{|c|}
+  \hline
+  x\\
+  \hline
+  Bob\\
+  Charlie\\
+  Daniel\\
+  \hline
+\end{array}$ \\
+\end{tabular}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Conjunctive Query Answering - Esempio 2}
+\begin{center}
+``Chi sono gli individui con almeno un figlio maschio?'' 
+\end{center}
+
+\begin{tabular}{lc}
+$\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise),  Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}\\
+\end{array}$ &   \includegraphics[width=130px]{family.png} \\
+ $Q=y\,childOf\,x\,\wedge\,Male(y)$ &
+$\begin{array}{|c|c|}
+  \hline
+  x & y\\
+  \hline
+  Elise&Charlie\\
+  Alice&Daniel\\
+  Bob&Daniel\\
+  \hline
+\end{array}$\\
+\end{tabular}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Conjunctive Query Answering - Esempio 3}
+\begin{center}
+``Chi sono i figli di $Elise$?''
+\end{center}
+
+\begin{tabular}{lc}
+$\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise),  Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}\\
+\end{array}$ & \includegraphics[width=130px]{family.png} \\
+$Q=x\,childOf\,Elise$ &
+$\begin{array}{|c|}
+  \hline
+  x\\
+  \hline
+  \phantom{Alice}\\
+  \phantom{Charlie}\\
+  \hline
+\end{array}$ \\
+\end{tabular}
+\end{frame}
+
+\begin{frame}
+\frametitle{Conjunctive Query Answering - Esempio 3}
+\begin{center}
+``Chi sono i figli di $Elise$?''
+\end{center}
+
+\begin{tabular}{lc}
+$\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise),  Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}\\
+\end{array}$ & \includegraphics[width=130px]{family.png} \\
+$Q=x\,childOf\,Elise$ &
+$\begin{array}{|c|}
+  \hline
+  x\\
+  \hline
+  Alice\\
+  Charlie\\
+  \hline
+\end{array}$ \\
+\end{tabular}
+\end{frame}
+
+\begin{frame}
+\frametitle{Conjunctive Query Answering - Esempio 4}
+\begin{center}
+``Chi sono gli individui con almeno un figlio maschio ed una femmina?''
+\end{center}
+
+\begin{tabular}{lc}
+$\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise),  Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}\\
+\end{array}$ & \includegraphics[width=130px]{family.png} \\
+$\phantom{Q=y\,childOf\,x\,\wedge\,z\,childOf\,x\,\wedge\,Male(y)\,\wedge\,Female(z)}$ &
+$\begin{array}{|c|c|c|}
+  \hline
+  x&y&z\\
+  \hline
+  \phantom{Elise}&\phantom{Charlie}&\phantom{Alice}\\
+  \hline
+\end{array}$ \\
+\end{tabular}
+\end{frame}
+
+\begin{frame}
+\frametitle{Conjunctive Query Answering - Esempio 4}
+\begin{center}
+``Chi sono gli individui con almeno un figlio maschio ed una femmina?''
+\end{center}
+
+\begin{tabular}{lc}
+$\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise),  Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}\\
+\end{array}$ & \includegraphics[width=130px]{family.png} \\
+$Q=y\,childOf\,x\,\wedge\,z\,childOf\,x\,\wedge\,Male(y)\,\wedge\,Female(z)$ &
+$\begin{array}{|c|c|c|}
+  \hline
+  x&y&z\\
+  \hline
+  \phantom{Elise}&\phantom{Charlie}&\phantom{Alice}\\
+  \hline
+\end{array}$ \\
+\end{tabular}
+\end{frame}
+
+\begin{frame}
+\frametitle{Conjunctive Query Answering - Esempio 4}
+\begin{center}
+``Chi sono gli individui con almeno un figlio maschio ed una femmina?''
+\end{center}
+
+\begin{tabular}{lc}
+$\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise),  Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}\\
+\end{array}$ & \includegraphics[width=130px]{family.png} \\
+$Q=y\,childOf\,x\,\wedge\,z\,childOf\,x\,\wedge\,Male(y)\,\wedge\,Female(z)$ &
+$\begin{array}{|c|c|c|}
+  \hline
+  x&y&z\\
+  \hline
+  Elise&Charlie&Alice\\
+  \hline
+\end{array}$ \\
+\end{tabular}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Conjunctive Query Answering - Esempio 5}
+\begin{center}
+``Chi sono gli individui maschi con almeno una figlia femmina?''
+\end{center}
+
+\begin{tabular}{lc}
+$\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise), Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}\\
+\end{array}$ & \includegraphics[width=130px]{family.png} \\
+$\phantom{Q=Male(x)\,\wedge\,y\,childOf\,x\,\wedge\,Female(y)}$ &
+$\begin{array}{|c|c|}
+  \hline
+  x&y\\
+  \hline
+  &\\
+  &\\
+  \hline
+\end{array}$\\
+\end{tabular}
+\end{frame}
+
+\begin{frame}
+\frametitle{Conjunctive Query Answering - Esempio 5}
+\begin{center}
+``Chi sono gli individui maschi con almeno una figlia femmina?''
+\end{center}
+
+\begin{tabular}{lc}
+$\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise), Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}\\
+\end{array}$ & \includegraphics[width=130px]{family.png} \\
+$Q=Male(x)\,\wedge\,y\,childOf\,x\,\wedge\,Female(y)$ &
+$\begin{array}{|c|c|}
+  \hline
+  x&y\\
+  \hline
+  &\\
+  &\\
+  \hline
+\end{array}$\\
+\end{tabular}
+\end{frame}
+
+\begin{frame}
+\frametitle{Conjunctive Query Answering - Esempio 5}
+\begin{center}
+``Chi sono gli individui maschi con almeno una figlia femmina?''
+\end{center}
+
+\begin{tabular}{lc}
+$\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise), Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}\\
+\end{array}$ & \includegraphics[width=130px]{family.png} \\
+$Q=Male(x)\,\wedge\,y\,childOf\,x\,\wedge\,Female(y)$ & Nessuna soluzione\\
+\end{tabular}
+\end{frame}
+
+
+\section{SPARQL}
+
+\begin{frame}
+ \frametitle{Il protocollo SPARQL}
+ Le basi di conoscenza presenti sul Web Semantico usualmente mettono 
+ a disposizione uno \emph{SPARQL endpoint} che permette di interrogarle e,
+ ove permesso, di modificarle.
+ 
+ \begin{table}
+ \begin{tabular}{|c|l|}
+  \hline
+  \bf{Knowledge Base} & \bf{Endpoint IRI} \\
+  Europeana & \url{http://europeana.ontotext.com/sparql} \\
+  CNR & \url{http://data.cnr.it/sparql/}\\
+  Camera dei Deputati & \url{http://dati.camera.it/sparql}\\
+  DBPedia & \url{http://dbpedia.org/sparql}\\
+  \hline
+ \end{tabular} 
+ \caption{Alcuni endpoint sparql}
+ \end{table}
+
+\uncover<2->{
+Il \emph{protocollo SPARQL} (vedi \url{http://www.w3.org/TR/sparql11-protocol/})
+\`e basato sul protocollo HTTP le richieste SPARQL vengono inviate agli
+endpoint come richieste GET o POST e l'endpoint risponde con un \emph{esito}.
+}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{SPARQL Query Language}
+Le richieste di tipo \emph{query} vanno specificate nel linguaggio
+denominato \emph{SPARQL Query}.
+%
+La specifica di questo linguaggio \`e disponibile all'indirizzo
+\begin{center}
+ \url{http://www.w3.org/TR/sparql11-query/} .
+\end{center}
+
+Una \emph{query SPARQL} ha la seguente sintassi
+\begin{Verbatim}[fontsize=\small]
+SELECT ?x1 ... ?xm WHERE { Q }
+\end{Verbatim}
+dove: 
+\begin{itemize}
+ \item $?x1, \ldots, ?xm$ sono \emph{variabili} ($m>0$);
+ \item $Q$ \`e una query congiuntiva nella quale compaiono tutte le variabili
+ $?x1, \ldots, ?xm$;
+ \item le formule atomiche di tipo $C(?x)$ sono scritte come $?x\,a\,C$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{SPARQL - Esempi}
+
+Alcuni esempi di query SPARQL sono:
+  \begin{itemize}
+ \item ``Trova tutti gli individui maschi.''
+  \begin{Verbatim}[fontsize=\small]
+    SELECT ?x WHERE { ?x a <http://example.org/Male> }
+  \end{Verbatim}
+  \item ``Chi sono gli individui con almeno un figlio maschio?''
+  \begin{Verbatim}[fontsize=\small]
+    SELECT ?x WHERE { ?y <http://example.org/childOf> ?x . 
+                                      ?y a <http://example.org/Male> }
+  \end{Verbatim}
+  \item ``Chi sono i figli di $Alice$?''
+  \begin{Verbatim}[fontsize=\small]
+    SELECT ?x WHERE { ?x <http://example.org/childOf> <http://example.org/Alice> }
+  \end{Verbatim}
+ \end{itemize}
+\end{frame}
+
+\end{document}
