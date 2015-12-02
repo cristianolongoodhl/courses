@@ -533,7 +533,10 @@ Alcuni dataset:
 \section{Ontologie}
 \begin{frame}
 \frametitle{Ontologie}
-I dataset del Web Semantico vengono spesso definiti \emph{ontologie}.
+ I linguaggi di rappresentazione usati nel Web Semantico
+ si basano tutti sulla nozione di \emph{ontologia}, mutuata
+ dall'ambito dei sistemi di rappresentazione della conoscenza.
+ \vspace{\baselineskip}
 \vspace{\baselineskip}
 
 Una \emph{ontologia} \`e una descrizione \emph{parziale} del mondo:
@@ -572,23 +575,6 @@ che si va a rappresentare. La notazione richiama quella insiemistica;
 \]
 \end{frame}
 
-\begin{frame}
-\frametitle{Ontologie - Reasoning}
-
-Con il termine \emph{reasoning} si intende l'attivit\`a di estrazione di 
-conoscenza \emph{implicita} in una ontologia.
-\[
-\begin{array}{ccc}
-\left \{ \begin{array}{l}
-HumanBeing \Issub Mortal , \\
-HumanBeing(Socrate)  
-\end{array} \right \}&\Longrightarrow &  Mortal(Socrate)\\
-\end{array}
-\]
-Le attivit\`a di reasoning sono rese possibili dalle \emph{semantiche formali}
-associate ai linguaggi di rappresentazione utilizzati.
-\end{frame}
-
 
 \newcommand{\CNames}{N_C}
 \newcommand{\PNames}{N_P}
@@ -596,7 +582,10 @@ associate ai linguaggi di rappresentazione utilizzati.
 \newcommand{\VNames}{V}
 
 \begin{frame}
-\frametitle{Ontologie - Definizione}
+\frametitle{Ontologie - Sintassi}
+
+Riportiamo la definizione formale per la sintassi delle ontologie.
+\vspace{\baselineskip}
 
 Siano $\CNames$, $\PNames$, $\INames$ tre insiemi infiniti, numerabili e 
 a due a due disgiunti di nomi di \emph{classe}, \emph{propriet\`a} e \emph{individuo},
@@ -605,27 +594,23 @@ rispettivamente.
 
 Una \emph{ontologia} \`e un insieme finito di asserzioni dei seguenti tipi:
 \[
- \begin{array}{l|l|l}
-  & Sintassi & Semantica \\
-  \hline
-  &&\\
-  \mbox{Constraints} & C \Issub D & (\forall x)(x \in C \rightarrow x \in D) \\
-  & R \Issub S & (\forall x, y)([x, y] \in R \rightarrow [x,y] \in S) \\
-  & \dom(R) \Issub C & (\forall x, y)([x, y] \in R \rightarrow x \in C) \\
-  & \range(R) \Issub C & (\forall x, y)([x, y] \in R \rightarrow y \in C) \\
-  &&\\
-  \hline
-  &&\\
-  \mbox{Class Assertions} & C(a) & a \in C\\
-  &&\\
-  \hline
-  &&\\
-  \mbox{Property Assertions} & a\,P\,b\;(\mbox{equivalente }P(a,b)) & [a,b] \in P \\
-  &&\\
-  \hline  
+ \begin{array}{ll}
+  \mbox{(Constraints)} & C \Issub D\\
+  & P \Issub Q \\
+  & \dom(P) \Issub C \\
+  & \range(P) \Issub C \\
+  &\\
+  \mbox{(Class Assertions)} & C(a)\\
+  &\\
+  \mbox{Property Assertions} & a\,P\,b\;(\mbox{equivalente }P(a,b))\\
  \end{array}
 \]
-dove $C, D \in \CNames$, $R, S \in \PNames$ e $a, b \in \INames$.
+dove $C, D \in \CNames$, $P, Q \in \PNames$ e $a, b \in \INames$.
+\vspace{\baselineskip}
+
+Si noti che la grammatica per i vincoli ivi riportata \`e \emph{minimale}.
+Esistono linguaggi di rappresentazione che permettono di esprimere vincoli
+pi\`u complessi.
 \end{frame}
 
 \newcommand{\Ont}{\mathcal{O}}
@@ -633,24 +618,228 @@ dove $C, D \in \CNames$, $R, S \in \PNames$ e $a, b \in \INames$.
 
 \begin{frame}
 \frametitle{Ontologie - Esempio}
-Riportiamo un esempio di ontologia. Siano $HumanBeing, Mortal \in \CNames$,
-$teacherOf \in \PNames$, $Socrate, Platone \in \INames$.
+Riportiamo un esempio di ontologia. Siano $Human, Woman, Man, Male, Female \in
+\CNames$, $relative, child \in \PNames$, $Alice, Bob, Charlie \in \INames$.
 \vspace{\baselineskip}
 
-\phantom{Mediante \emph{reasoning} \`e possibile esplicitare ulteriori 
-affermazioni.}
 \[
- \begin{array}{clccl}
-  \Ont  =  &\{HumanBeing \Issub Mortal, & &\phantom{\Ontp =} & \phantom{\{Mortal(Socrate), }\\
-  &\phantom{\{}\range(teacherOf) \Issub HumanBeing, & \phantom{\Longrightarrow} && \phantom{\{HumanBeing(Platone)}\\
-  &\phantom{\{}HumanBeing(Socrate), &&&\phantom{\{Mortal(Platone) \}}\\
-  &\phantom{\{}Socrate\,teacherOf\,Platone \}\\
- \end{array}
+\begin{array}{ccl}
+ \Ont = & \{ & Woman \Issub Human, \\
+ &&Man \Issub Human, \\
+ &&Woman \Issub Female, \\
+ &&Man \Issub Male, \\
+ &&Woman(Alice), \\
+ &&Man(Bob),\\
+ &&Alice\,relative\,Bob,\\ 
+ &&Alice\,child\,Charlie \}
+\end{array} 
 \]
 \end{frame}
 
 \begin{frame}
-\frametitle{Ontologie - Esempio}
+\frametitle{Ontologie - L'Editor Prot\'eg\'e}
+
+  \emph{Prot\'eg\'e}\footnote{\url{http://protege.stanford.edu/products.php}} 
+  \`e una suite per la modellazione di ontologie del Web Semantico, disponibile 
+  sia in versione web, che in versione installabile localmente (\emph{Prot\'eg\'e Desktop}).
+  \vspace{\baselineskip}
+
+\uncover<2->{
+  Permette di definire gerarchie di classi (tab \emph{Classes}) a partire dalla
+  classe radice \texttt{Thing}. Per ogni classe \`e possibile definire \emph{label} 
+  e \emph{comment} come annotazioni.
+  \vspace{\baselineskip}
+}
+
+\uncover<3->{
+  Analogamente \`e possibile definire gerarchie di propriet\`a (tab \emph{Object Poperties}) 
+  a partire dalla propriet\`a radice \texttt{topObjectProperty} e di definire annotazioni
+  per le propriet\`a. Inoltre, \`e possibile imporre dei vincoli di dominio e codominio
+  per le propriet\`a.
+  \vspace{\baselineskip}
+}
+
+\uncover<4->{
+  Infine \`e possibile definire degli individui (tab \emph{Individuals}) associarli 
+  a delle classi di appartenenza e metterli in relazione tra loro attraverso delle
+  propriet\`a.
+  \vspace{\baselineskip}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Ontologie - Interpretazioni}
+
+Per definire la semantica delle ontologie \`e necessario prima introdurre
+il concetto di interpretazione. 
+\vspace{\baselineskip}
+
+Una \emph{interpretazione} $\I=(\Delta^{\I}, \cdot^{\I})$ \`e una coppia
+$\Delta^{\I}$, $\cdot^{\I}$ dove:
+\begin{itemize}
+ \item $\Delta^{\I}$ \`e un insieme non vuoto;
+ \item $\cdot^{\I}$ \`e una funzione (polimorfa) che associa
+ \begin{itemize}
+  \item ad ogni nome di concetto in $\CNames$ un sottoinsieme di $\Delta^{\I}$,
+  \item ad ogni nome di propriet\`a in $\PNames$ una relazione su $\Delta^{\I}$,
+  \item ad ogni nome di individuo in $\INames$ un elemento di $\Delta^{\I}$.
+ \end{itemize}
+\end{itemize}
+\vspace{\baselineskip}
+
+\uncover<2->{
+ Consideriamo ad esempio la seguente ontologia
+ \begin{small}
+\[
+\begin{array}{ccc}
+ \Ont = & \{ & Woman \Issub Human, Man \Issub Human, Woman \Issub Female, Man \Issub Male, \\
+ &&Woman(Alice), Man(Bob), Alice\,relative\,Bob, Alice\,child\,Charlie \}
+\end{array} 
+\]
+ \end{small}
+ Una possibile interpretazione $\I$ \`e la seguente:
+ \begin{small}
+\[
+ \begin{array}{lcl}
+    \Delta^{\I} & = & \mathbb{N}\\
+    Alice^{\I} & = & 0 \\
+    Bob^{\I} & = & 1 \\
+    Charlie^{\I} & = & 2 \\
+    Human^{\I} & = & \{ 0, 1, 2\} \\
+    Male^{\I} & = & \{ 1, 2\} \\
+    Female^{\I} & = & \{ 0 \} \\
+    Man^{\I} & = & \{ 1, 2\} \\
+    Woman^{\I} & = & \{ 0 \} \\
+ \end{array}
+\]
+ \end{small}
+ 
+ NB: \`e sufficiente prendere in considerazione ai nostri fini i simboli che compaiono 
+ nell'ontologia.
+}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ontologie - Soddisfacibilit\`a}
+  
+  La semantica formale di cui sono equipaggiate le ontologie
+  abilita l'esecuzione automatica di \emph{reasoning tasks}. Quello
+  fondamentale \`e la verifica di \emph{Soddisfacibilit\`a}, che 
+  permette di controllare che una ontologia non sia autocontraddittoria.
+  \vspace{\baselineskip}
+  
+  La nozione di soddisfacibilit\`a per le ontologie \`e definita come segue.
+  Sia $\I = (\Delta^{\I}, \cdot^{\I})$ una interpretazione.   
+\[
+\begin{array}{ccl}
+ \I\mbox{ soddisfa }C \Issub D & \Longleftrightarrow & C^{\I} \subseteq D^{\I}\\  
+ \I\mbox{ soddisfa }P \Issub Q & \Longleftrightarrow & P^{\I} \subseteq Q^{\I}\\  
+ \I\mbox{ soddisfa }\dom(P) \Issub C & \Longleftrightarrow & (\forall [x,y] \in P^{\I})(x \in C^{\I})\\  
+ \I\mbox{ soddisfa }\range(P) \Issub C & \Longleftrightarrow & (\forall [x,y] \in P^{\I})(y \in C^{\I})\\  
+ \I\mbox{ soddisfa }C(a) & \Longleftrightarrow & a^{\I} \in C^{\I}\\  
+ \I\mbox{ soddisfa }a\,P\,b & \Longleftrightarrow & [a^{\I}, a^{\I}] \in P^{\I}
+\end{array} 
+\]
+per ogni $C, D \in \CNames$, $P, Q \in PNames$, $a,b \in \INames$.
+\vspace{\baselineskip}
+
+\uncover<2->{
+  $\I$ soddisfa una ontologia $\Ont$ se e solo se $\I$ soddisfa tutti i vincoli e
+  le asserzioni in $\Ont$.
+\vspace{\baselineskip}
+}
+
+\uncover<3->{
+  Una ontologia $\Ont$ \`e detta \emph{soddisfacibile} (o anche \emph{consistente}) 
+  se e solo se esiste una interpretazione $\I$ che la soddisfa.
+}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ontologie - Soddisfacibilit\`a - Esempi (1/2)}
+  
+  Consideriamo la seguente ontologia
+\begin{small}
+\[
+  \begin{array}{cll}
+    \Ont = & \{ & \dom(teacherOf) \Issub Human, \\
+    && Socrate\,teacherOf\,Plato \}
+  \end{array} 
+\]
+\end{small}
+
+Consideriamo la seguente interpretazione (di Herbrandt) $\I$: 
+\begin{small}
+\[
+  \begin{array}{rcl}
+    Socrate^{\I} & = & Socrate\\ 
+    Plato^{\I} & = & Plato\\
+    Human^{\I} & = & \{Socrate, Plato\}\\
+    teacherOf^{\I} & = & \{ [Socrate, Plato] \}
+  \end{array}
+\]
+\end{small}
+
+\uncover<2->{
+\[
+\begin{array}{rcl}
+  \I \mbox{ soddisfa }\dom(teacherOf) \Issub Human & \Longleftrightarrow & (\forall [x,y] \in teacherOf^{\I})(x \in Human^{\I})\\
+  \I \mbox{ soddisfa }Socrate\,teacherOf\,Plato & \Longleftrightarrow & [Socrate,^{\I} Plato^{\I}] \in teacherOf^{\I}
+\end{array}
+\]
+
+  Quindi $\I$ soddisfa $\Ont$.
+}
+\vspace{\baselineskip}
+
+\uncover<3->{
+  Quindi $\Ont$ \`e soddisfacibile.
+}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ontologie - Soddisfacibilit\`a - Esempi (2/2)}
+  
+  Consideriamo la seguente ontologia
+\begin{small}
+\[
+  \begin{array}{cll}
+    \Ont = & \{ & \dom(teacherOf) \Issub Human, \\
+    && Socrate\,teacherOf\,Plato \}
+  \end{array} 
+\]
+\end{small}
+
+La seguente interpretazione (di Herbrandt) $\I_1$ NON soddisfa $\Ont$: 
+\begin{small}
+\[
+  \begin{array}{rcl}
+    Socrate^{\I_1} & = & Socrate\\ 
+    Plato^{\I_1} & = & Plato\\
+    Human^{\I_1} & = & \{Plato\}\\
+    teacherOf^{\I_1} & = & \{ [\textbf{Socrate}, Plato] \}
+  \end{array}
+\]
+\end{small}
+
+Infatti $\I_1$ non soddisfa $\dom(teacherOf) \Issub Human$ perch\`e $Socrate$ non
+\`e nell'insieme $Human$ (interpretati con $\I_1$).
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ontologie - Implicazione}
+  Date due Ontologie $\Ont$ e $\Ontp$, si dice che 
+  $\Ont$ \emph{implica} $\Ontp$ se e solo se tutte le interpretazioni
+  che soddisfano $\Ont$ soddisfano anche $\Ontp$. 
+  \vspace{\baselineskip}  
+  
+  La verifica di implicazione pu\`o essere utilizzata per ricavare
+  tutte le \emph{conseguenze logiche} di una ontologia.
+  \vspace{\baselineskip}  
+\end{frame}
+
+\begin{frame}
+\frametitle{Ontologie - Inferenze - Esempio}
 Riportiamo un esempio di ontologia. Siano $HumanBeing, Mortal \in \CNames$,
 $teacherOf \in \PNames$, $Socrate, Platone \in \INames$.
 \vspace{\baselineskip}
