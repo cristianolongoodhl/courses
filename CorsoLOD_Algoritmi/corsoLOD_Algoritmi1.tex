@@ -934,9 +934,9 @@ Sia $\VNames = \{x, y, z, ... \}$ l'insieme infinito, numerabile
 e disgiunto da $\CNames$, $\PNames$ e $\INames$ delle \emph{variabili}.
 Le \emph{formule atomiche} sono espressioni dei due seguenti tipi:
 \[
- C(x), \quad P(x, y)
+ C(\alpha), \quad P(\alpha, \beta)
 \]
-con $x, y \in \INames \cup \VNames$, $C \in \CNames$ e $P \in \PNames$.
+con $\alpha, \beta \in \INames \cup \VNames$, $C \in \CNames$ e $P \in \PNames$.
 \vspace{\baselineskip}
 
 Esempi di formule atomiche sono:
@@ -995,7 +995,7 @@ Le asserzioni presenti nelle ontologie sono formule atomiche chiuse.
 \end{frame}
 
 \begin{frame}
-\frametitle{Query Congiuntive}
+\frametitle{Query Congiuntive - }
 Una \emph{query congiuntiva} \`e una congiunzione finita di formule atomiche $T_1 \wedge \ldots \wedge T_n$.
 \vspace{\baselineskip}
 
@@ -1021,8 +1021,10 @@ Alcuni esempi di query congiuntive:
 % \[
 %  Male(x)\,\wedge\,y\,childOf\,x\,\wedge\,Male(y)
 % \]
-con $x, y \in \VNames$, $Male, Female \in \CNames$, $childOf \in \PNames$ e $Alice \in \INames$.
+% con $x, y \in \VNames$, $Male, Female \in \CNames$, $childOf \in \PNames$ e $Alice \in \INames$.
  \end{itemize}
+con $x, y \in \VNames$, $Male \in \CNames$, $childOf \in \PNames$ e $Alice \in
+\INames$.
 \end{frame}
 
 \begin{frame}
@@ -1244,7 +1246,12 @@ $Q=T_1 \wedge \ldots \wedge T_m$ una query congiuntiva e $\Ont$ una ontologia.
 \vspace{\baselineskip}
 
 $\sigma$ \`e detta essere una \emph{soluzione} per $Q$ rispetto ad $\Ont$ se
-e solo se $T_1\sigma, \ldots, T_2\sigma$ compaiono in $\Ont$. 
+e solo se 
+\[
+	\Ont \Longrightarrow T_i\sigma
+\]
+per ogni $1\leq i\leq m$. In altre parole, $T_i\sigma$ deve essere in $\Ont$ o
+deve essere una conseguenza di $\Ont$, per ogni $T_i$ nella query.
 \vspace{\baselineskip}
 
 Consideriamo l'ontologia $\Ont$ e la query $Q$ definite come segue:
@@ -2121,344 +2128,290 @@ $\begin{array}{cl}
 \end{tabular}
 \end{frame}
 
-\section{Vocabolari}
-\begin{frame}
-\frametitle{Vocabolari}
-Classi e propriet\`a vengono raggruppati in \emph{vocabolari}
-che trattano specifici domini di conoscenza (eg. organizzazioni, 
-pubblica amministrazione, biologia, commercio, etc.). 
-\vspace{\baselineskip}
-
-Un vocabolario
-pu\`o contenere anche alcuni vincoli sulle classi e le propriet\`a 
-del vocabolario stesso.
-\vspace{\baselineskip}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Definizione di Vocabolario}
-Una definizione di vocabolario pu\`o essere la seguente:
-\[
- V = (C, P, \Omega)
-\]
-dove
-\begin{enumerate}
- \item $C$ \`e un sottoinsieme finito di $\CNames$,
- \item $P$ \`e un sottoinsieme finito di $\PNames$,
- \item $\Omega$ \`e un insieme finito di vincoli che coinvolgano solo
- nomi di classi in $C$ e nomi di propriet\`a in $P$.
-\end{enumerate}
-\end{frame}
-
-\begin{frame}
-\frametitle{Vocabolari condivisi}
-
-L'utilizzo di vocabolari condivisi (ben noti) favorisce la 
-scalabilit\`a orizzontale delle applicazioni. 
-\vspace{\baselineskip}
-
-Ad esempio, una 
-applicazione sviluppata sull'ontologia di un comune che utilizzi 
-i vocabolari standard per le pubbliche amministrazioni (vedi le \emph{Linee 
-Guida per la Valorizzazione del Patrimonio Informativo Pubblico} dell'\emph{Agenzia per l'Italia Digitale}) 
-pu\`o essere estesa senza sforzi aggiuntivi per utilizzare i dati provenienti
-dalle ontologie di tutti i comuni.
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Il Vocabolario FOAF}
-Uno dei primi e pi\`u utilizzati vocabolari definiti nell'ambito
-del Web semantico \`e \emph{Friend OF A Friend} (\emph{FOAF}, vedi \url{http://foaf-project.org}).
-\vspace{\baselineskip}
-
-
-\begin{quote}
-FOAF is a project devoted to linking people and information using the Web. 
-\end{quote}
-
-In questa sede ci limiteremo solo alla parte \emph{Core}.
-\begin{quote}
-\textbf{Core} - These classes and properties form the core of FOAF. They
-describe characteristics of people and social groups that are
-independent of time and technology; as such they can be used to
-describe basic information about people in present day, historical,
-cultural heritage and digital library contexts. In addition to various
-characteristics of people, FOAF defines classes for Project,
-Organization and Group as other kinds of agent. Related work: 
-\end{quote}
-(tratto da \emph{FOAF Vocabulary Specification 0.99},
-Namespace Document 14 January 2014, Paddington Edition, \url{http://xmlns.com/foaf/spec/})
-\end{frame}
-
-\newcommand{\foafcore}{\mathtt{FOAFCore}}
-\begin{frame}
-\frametitle{FOAF Core}
-Il vocabolario \emph{Foaf Core} \`e definito come segue:
-\[
- \begin{array}{ccl}
- \foafcore & \defAs & (C_{foaf}, P_{foaf}, \Omega_{foaf}) \\
- &&\\
- C_{foaf} & \defAs & \{Agent, Person, Project, Organization, Group, Document, Image\}\\
- &&\\
- P_{foaf} & \defAs & \{name, title, img, depiction, depicts, familyName, givenName,\\
- && \phantom{\}}, based\_near, age, made, maker, primaryTopic, primaryTopicOf, member \}\\
- \Omega_{foaf} & \defAs & \{ Person \Issub Agent, Group \Issub Agent, Organization \Issub Agent, \\
- && \phantom{\{} Image \Issub Document, \dom(title) \Issub Document, \\
- && \phantom{\{}\range(depiction) \Issub Image, img \Issub depiction, \dom(img) \Issub Person,\\
- && \phantom{\{}\dom(knows) \Issub Person, \range(knows) \Issub Person, \ldots \}\\
- \end{array}
-\]
-\end{frame}
-
-\begin{frame}
-\frametitle{Descrizioni Intuitive degli Elementi dei Vocabolari}
-Le classi e le propriet\`a di un vocabolario vengono spesso fornite
-di una descrizione intuitiva nel documento che descrive il vocabolario.
-Ad esempio, le classi $Agent$ e $Person$ vengono descritte come segue 
-in \url{http://xmlns.com/foaf/spec/}
-\begin{quote}
-\textbf{Agent} - The Agent class is the class of agents; things that do stuff. A well known 
-sub-class is Person, representing people. Other kinds of agents include 
-Organization and Group.
-
-The Agent class is useful in a few places in FOAF where Person would have 
-been overly specific. For example, the IM chat ID properties such as 
-jabberID are typically associated with people, but sometimes belong to 
-software bots.  
-\end{quote}
-
-\begin{quote}
-\textbf{Person} - The Person class represents people. Something is a Person if it is a person.
-We don't nitpic about whether they're alive, dead, real, or imaginary. 
-The Person class is a sub-class of the Agent class, since all people are 
-considered 'agents' in FOAF.  
-\end{quote}
-\end{frame}
-
-\begin{frame}
-\frametitle{Descrizioni Rigorose degli Elementi dei Vocabolari}
-Tuttavia, gi\`a nei vincoli di un vocabolario si trovano indicazioni importanti
-sulla \emph{semantica} dei nomi di classe e di propriet\`a del vocabolario stesso.
-\[
-\begin{array}{l}
-Person \Issub Agent\\
-\range(depiction) \Issub Image\\
-img \Issub depiction, \\
-\dom(img) \Issub Person,\\
-\dom(knows) \Issub Person,\\
-\range(knows) \Issub Person,\\
-\ldots
-\end{array}
-\]
-\end{frame}
-
-\begin{frame}
-\frametitle{Vocabolari Compositi}
-
-\`E possibile costruire un vocabolario \emph{estendendone} un'altro.
-Ad esempio, il vocabolario \emph{Organization Ontology} (in breve \emph{ORG}, vedi \url{http://www.w3.org/TR/vocab-org/})
-estende FOAF con classi e propriet\`a, per modellare in dettaglio 
-le strutture organizzative di aziende, associazioni e tutte le forme 
-di organizzazioni.
-\vspace{\baselineskip}
-
-Formalmente, dati due vocabolari
-\[
- \begin{array}{lcl}
- V & \defAs & (C, P, \Omega) \\ 
- V' & \defAs & (C', P', \Omega')
- \end{array}
-\]
-si dice che $V'$ \emph{importa} (o \emph{estende}) $V$ se e 
-solo se
-\[
- \begin{array}{rcl}
- C & \subseteq & C' \\
- P & \subseteq & P' \\
- \Omega & \subseteq & \Omega'  
-\end{array} 
-\]
-\end{frame}
-
-\newcommand{\org}{\mathtt{ORG}}
-
-\begin{frame}
-\frametitle{Il Vocabolario Organization Ontology}
-\emph{Organization Ontology},in breve \emph{ORG},\footnote{\url{http://www.w3.org/TR/vocab-org/}}
-estende FOAF con classi e propriet\`a, per modellare in dettaglio 
-le strutture organizzative di aziende, associazioni e tutte le forme 
-di organizzazioni.
-\vspace{\baselineskip}
-
-\uncover<2->{
-Il vocabolario \`e disponibile alle URL
-\begin{center}
-  \url{http://www.w3.org/ns/org.rdf}
-\end{center}
-
-\begin{center}
-  \url{http://www.w3.org/ns/org.ttl}
-\end{center}
-}
-
-\uncover<3->{
-Il namespace del vocabolario ORG \`e
-\begin{center}
-  \url{org} : \url{http://www.w3.org/ns/org\#}
-\end{center}
-}
-
-\[
- \begin{array}{ccl}
- \org & \defAs & (C_{org}, P_{org}, \Omega_{org}) \\
- &&\\
- C_{org} & \defAs & C_{foaf} \cup \{FormalOrganization, OrganizationalUnit,  Site \\
- && \phantom{C_{foaf} \cup \{}Post, Role, \ldots \}\\
- &&\\
- P_{org} & \defAs & P_{foaf} \cup \{ basedAt, classification, hasPost, hasPrimarySite, \\
- &&\phantom{P_{foaf} \cup \{}hasRegisteredSite, hasSite, hasSubOrganization, \\
- &&\phantom{P_{foaf} \cup \{}hasUnit, headOf, heldBy, holds, location, postIn,\\
- &&\phantom{P_{foaf} \cup \{}purpose, role, siteAddress, siteOf, unitOf, \\
- &&\phantom{P_{foaf} \cup \{}subOrganizationOf,  transitiveSubOrganizationOf, \ldots \}\\
- &&\phantom{P_{foaf} \cup \{}  \\
- &&\\
- \Omega_{org} & \defAs & \Omega_{foaf} \cup \{ FormalOrganization \Issub Organization, \\
- &&\phantom{\Omega_{foaf} \cup \{}OrganizationalUnit \Issub Organization,\\
- &&\phantom{\Omega_{foaf} \cup \{}headOf \Issub member, \dom(hasUnit)\Issub Organization, \\
- &&\phantom{\Omega_{foaf} \cup \{}\range(hasUnit) \Issub OrganizationalUnit, \ldots \}
- \end{array}
-\]
-\phantom{NOTA: I vincoli semantici esplicitano la relazione tra i due vocabolari.}
-\end{frame}
-
-\begin{frame}
-\frametitle{Il Vocabolario Organization Ontology}
-Ad esempio, il vocabolario \emph{Organization Ontology} (in breve \emph{ORG}, vedi \url{http://www.w3.org/TR/vocab-org/})
-estende FOAF con classi e propriet\`a, per modellare in dettaglio 
-le strutture organizzative di aziende, associazioni e tutte le forme 
-di organizzazioni.
-
-\[
- \begin{array}{ccl}
- \org & \defAs & (C_{org}, P_{org}, \Omega_{org}) \\
- &&\\
- C_{org} & \defAs & C_{foaf} \cup \{FormalOrganization, OrganizationalUnit,  Site \\
- && \phantom{C_{foaf} \cup \{}Post, Role, \ldots \}\\
- &&\\
- P_{org} & \defAs & P_{foaf} \cup \{ basedAt, classification, hasPost, hasPrimarySite, \\
- &&\phantom{P_{foaf} \cup \{}hasRegisteredSite, hasSite, hasSubOrganization, \\
- &&\phantom{P_{foaf} \cup \{}hasUnit, headOf, heldBy, holds, location, postIn,\\
- &&\phantom{P_{foaf} \cup \{}purpose, role, siteAddress, siteOf, unitOf, \\ 
- &&\phantom{P_{foaf} \cup \{}subOrganizationOf,  transitiveSubOrganizationOf, \ldots \}\\ 
- &&\phantom{P_{foaf} \cup \{}  \\
- &&\\
- \Omega_{org} & \defAs & \Omega_{foaf} \cup \{ \mathbf{FormalOrganization \Issub Organization,} \\
- &&\phantom{\Omega_{foaf} \cup \{}\mathbf{OrganizationalUnit \Issub Organization,}\\
- &&\phantom{\Omega_{foaf} \cup \{}headOf \Issub memberOf, \dom(hasUnit)\Issub Organization, \\ 
- &&\phantom{\Omega_{foaf} \cup \{}\range(hasUnit) \Issub OrganizationalUnit, \ldots \}
- \end{array}
-\]
-NOTA: I vincoli semantici esplicitano la relazione tra i due vocabolari.
-\end{frame}
-
-\begin{frame}
-\frametitle{Vocabolari e Ontologie - Struttura del Comune di Catania}
-\`E buona norma definire ontologie facendo riferimento a vocabolari
-ben noti.
-\vspace{\baselineskip}
-
-Definiamo ad esempio una ontologia per descrivere la struttura
-organizzativa del \emph{comune di Catania} (vedi \url{http://www.dmi.unict.it/~longo/comunect/})
-a partire dal vocabolario ORG.
-\vspace{\baselineskip}
-
-Il sindaco del comune di Catania è \emph{Enzo Bianco}
-\[
-\begin{array}{rl}
-\Ont_{CT} = & \{ EnzoBianco\,headOf\,ComuneCT \\
-\end{array} 
-\]
-\end{frame}
-
-\begin{frame}
-\frametitle{Vocabolari e Ontologie - Struttura del Comune di Catania}
-\`E buona norma definire ontologie facendo riferimento a vocabolari
-ben noti.
-\vspace{\baselineskip}
-
-Definiamo ad esempio una ontologia per descrivere la struttura
-organizzativa del \emph{comune di Catania} (vedi \url{http://www.dmi.unict.it/~longo/comunect/})
-a partire dal vocabolario ORG.
-\vspace{\baselineskip}
-
-Fanno direttamente capo al comune il \emph{gabinetto del sindaco}, la \emph{polizia municipale}
-e la \emph{direzione affari legali}.
-\[
-\begin{array}{rl}
-\Ont_{CT} = \Sigma_{org}\,\cup & \{ EnzoBianco\,headOf\,ComuneCT, \\
-& ComuneCT\,hasUnit\,GabinettoDelSindaco,\\
-& ComuneCT\,hasUnit\,PoliziaMunicipale,\\
-& ComuneCT\,hasUnit\,AffariLegali,
-\end{array} 
-\]
-\end{frame}
-
-\begin{frame}
-\frametitle{Vocabolari e Ontologie - Struttura del Comune di Catania}
-\`E buona norma definire ontologie facendo riferimento a vocabolari
-ben noti.
-\vspace{\baselineskip}
-
-Definiamo ad esempio una ontologia per descrivere la struttura
-organizzativa del \emph{comune di Catania} (vedi \url{http://www.dmi.unict.it/~longo/comunect/})
-a partire dal vocabolario ORG.
-\vspace{\baselineskip}
-
-Il comune comprende inoltre diverse \emph{direzioni}, raggruppate in due macro-aree. 
-\[
-\begin{array}{rll}
-\Ont_{CT} = \Sigma_{org}\,\cup & \{ EnzoBianco\,headOf\,ComuneCT, & \\
-& ComuneCT\,hasUnit\,GabinettoDelSindaco, & \\
-& ComuneCT\,hasUnit\,PoliziaMunicipale, & \\
-& ComuneCT\,hasUnit\,AffariLegali, & \\
-& ComuneCT\,hasUnit\,Area1, & \\
-& ComuneCT\,hasUnit\,Area2, & \\
-\end{array} 
-\]
-\end{frame}
-
-\begin{frame}
-\frametitle{Vocabolari e Ontologie - Struttura del Comune di Catania}
-\`E buona norma definire ontologie facendo riferimento a vocabolari
-ben noti.
-\vspace{\baselineskip}
-
-Definiamo ad esempio una ontologia per descrivere la struttura
-organizzativa del \emph{comune di Catania} (vedi \url{http://www.dmi.unict.it/~longo/comunect/})
-a partire dal vocabolario ORG.
-\vspace{\baselineskip}
-
-Il comune comprende inoltre diverse \emph{direzioni}, raggruppate in due macro-aree. 
-\[
-\begin{array}{rll}
-\Ont_{CT} = \Sigma_{org}\,\cup & \{ EnzoBianco\,headOf\,ComuneCT, & \\
-& ComuneCT\,hasUnit\,GabinettoDelSindaco, & \\
-& ComuneCT\,hasUnit\,PoliziaMunicipale, & \\
-& ComuneCT\,hasUnit\,AffariLegali, & \\
-& ComuneCT\,hasUnit\,Area1, & \\
-& ComuneCT\,hasUnit\,Area2, & \\
-& Area1\,hasUnit\,RisorseUmane,\\
-& Area1\,hasUnit\,Istruzione,\\
-& Area1\,hasUnit\,Famiglia, \\
-& Area1\,hasUnit\,Ecologia,\\
-&Area1\,hasUnit\,Manutenzione,\\
-&Area1\,hasUnit\,LavoriPubblici,\\
-\end{array} 
-\]
-\end{frame}
-
+% \section{Vocabolari}
+% \begin{frame}
+% \frametitle{Vocabolari}
+% Classi e propriet\`a vengono raggruppati in \emph{vocabolari}
+% che trattano specifici domini di conoscenza (eg. organizzazioni, 
+% pubblica amministrazione, biologia, commercio, etc.). 
+% \vspace{\baselineskip}
+% 
+% Un vocabolario
+% pu\`o contenere anche alcuni vincoli sulle classi e le propriet\`a 
+% del vocabolario stesso.
+% \vspace{\baselineskip}
+% 
+% \end{frame}
+% 
+% \begin{frame}
+% \frametitle{Definizione di Vocabolario}
+% Una definizione di vocabolario pu\`o essere la seguente:
+% \[
+%  V = (C, P, \Omega)
+% \]
+% dove
+% \begin{enumerate}
+%  \item $C$ \`e un sottoinsieme finito di $\CNames$,
+%  \item $P$ \`e un sottoinsieme finito di $\PNames$,
+%  \item $\Omega$ \`e un insieme finito di vincoli che coinvolgano solo
+%  nomi di classi in $C$ e nomi di propriet\`a in $P$.
+% \end{enumerate}
+% \end{frame}
+% 
+% \begin{frame}
+% \frametitle{Vocabolari condivisi}
+% 
+% L'utilizzo di vocabolari condivisi (ben noti) favorisce la 
+% scalabilit\`a orizzontale delle applicazioni. 
+% \vspace{\baselineskip}
+% 
+% Ad esempio, una 
+% applicazione sviluppata sull'ontologia di un comune che utilizzi 
+% i vocabolari standard per le pubbliche amministrazioni (vedi le \emph{Linee 
+% Guida per la Valorizzazione del Patrimonio Informativo Pubblico} dell'\emph{Agenzia per l'Italia Digitale}) 
+% pu\`o essere estesa senza sforzi aggiuntivi per utilizzare i dati provenienti
+% dalle ontologie di tutti i comuni.
+% \end{frame}
+% 
+% 
+% \begin{frame}
+% \frametitle{Il Vocabolario FOAF}
+% Uno dei primi e pi\`u utilizzati vocabolari definiti nell'ambito
+% del Web semantico \`e \emph{Friend OF A Friend} (\emph{FOAF}, vedi \url{http://foaf-project.org}).
+% \vspace{\baselineskip}
+% 
+% 
+% \begin{quote}
+% FOAF is a project devoted to linking people and information using the Web. 
+% \end{quote}
+% 
+% In questa sede ci limiteremo solo alla parte \emph{Core}.
+% \begin{quote}
+% \textbf{Core} - These classes and properties form the core of FOAF. They
+% describe characteristics of people and social groups that are
+% independent of time and technology; as such they can be used to
+% describe basic information about people in present day, historical,
+% cultural heritage and digital library contexts. In addition to various
+% characteristics of people, FOAF defines classes for Project,
+% Organization and Group as other kinds of agent. Related work: 
+% \end{quote}
+% (tratto da \emph{FOAF Vocabulary Specification 0.99},
+% Namespace Document 14 January 2014, Paddington Edition, \url{http://xmlns.com/foaf/spec/})
+% \end{frame}
+% 
+% \newcommand{\foafcore}{\mathtt{FOAFCore}}
+% \begin{frame}
+% \frametitle{FOAF Core}
+% Il vocabolario \emph{Foaf Core} \`e definito come segue:
+% \[
+%  \begin{array}{ccl}
+%  \foafcore & \defAs & (C_{foaf}, P_{foaf}, \Omega_{foaf}) \\
+%  &&\\
+%  C_{foaf} & \defAs & \{Agent, Person, Project, Organization, Group, Document, Image\}\\
+%  &&\\
+%  P_{foaf} & \defAs & \{name, title, img, depiction, depicts, familyName, givenName,\\
+%  && \phantom{\}}, based\_near, age, made, maker, primaryTopic, primaryTopicOf, member \}\\
+%  \Omega_{foaf} & \defAs & \{ Person \Issub Agent, Group \Issub Agent, Organization \Issub Agent, \\
+%  && \phantom{\{} Image \Issub Document, \dom(title) \Issub Document, \\
+%  && \phantom{\{}\range(depiction) \Issub Image, img \Issub depiction, \dom(img) \Issub Person,\\
+%  && \phantom{\{}\dom(knows) \Issub Person, \range(knows) \Issub Person, \ldots \}\\
+%  \end{array}
+% \]
+% \end{frame}
+% 
+% \begin{frame}
+% \frametitle{Descrizioni Intuitive degli Elementi dei Vocabolari}
+% Le classi e le propriet\`a di un vocabolario vengono spesso fornite
+% di una descrizione intuitiva nel documento che descrive il vocabolario.
+% Ad esempio, le classi $Agent$ e $Person$ vengono descritte come segue 
+% in \url{http://xmlns.com/foaf/spec/}
+% \begin{quote}
+% \textbf{Agent} - The Agent class is the class of agents; things that do stuff. A well known 
+% sub-class is Person, representing people. Other kinds of agents include 
+% Organization and Group.
+% 
+% The Agent class is useful in a few places in FOAF where Person would have 
+% been overly specific. For example, the IM chat ID properties such as 
+% jabberID are typically associated with people, but sometimes belong to 
+% software bots.  
+% \end{quote}
+% 
+% \begin{quote}
+% \textbf{Person} - The Person class represents people. Something is a Person if it is a person.
+% We don't nitpic about whether they're alive, dead, real, or imaginary. 
+% The Person class is a sub-class of the Agent class, since all people are 
+% considered 'agents' in FOAF.  
+% \end{quote}
+% \end{frame}
+% 
+% \begin{frame}
+% \frametitle{Descrizioni Rigorose degli Elementi dei Vocabolari}
+% Tuttavia, gi\`a nei vincoli di un vocabolario si trovano indicazioni importanti
+% sulla \emph{semantica} dei nomi di classe e di propriet\`a del vocabolario stesso.
+% \[
+% \begin{array}{l}
+% Person \Issub Agent\\
+% \range(depiction) \Issub Image\\
+% img \Issub depiction, \\
+% \dom(img) \Issub Person,\\
+% \dom(knows) \Issub Person,\\
+% \range(knows) \Issub Person,\\
+% \ldots
+% \end{array}
+% \]
+% \end{frame}
+% 
+% \begin{frame}
+% \frametitle{Vocabolari Compositi}
+% 
+% \`E possibile costruire un vocabolario \emph{estendendone} un'altro.
+% Ad esempio, il vocabolario \emph{Organization Ontology} (in breve \emph{ORG}, vedi \url{http://www.w3.org/TR/vocab-org/})
+% estende FOAF con classi e propriet\`a, per modellare in dettaglio 
+% le strutture organizzative di aziende, associazioni e tutte le forme 
+% di organizzazioni.
+% \vspace{\baselineskip}
+% 
+% Formalmente, dati due vocabolari
+% \[
+%  \begin{array}{lcl}
+%  V & \defAs & (C, P, \Omega) \\ 
+%  V' & \defAs & (C', P', \Omega')
+%  \end{array}
+% \]
+% si dice che $V'$ \emph{importa} (o \emph{estende}) $V$ se e 
+% solo se
+% \[
+%  \begin{array}{rcl}
+%  C & \subseteq & C' \\
+%  P & \subseteq & P' \\
+%  \Omega & \subseteq & \Omega'  
+% \end{array} 
+% \]
+% \end{frame}
+% 
+% \newcommand{\org}{\mathtt{ORG}}
+% 
+% \begin{frame}
+% \frametitle{Il Vocabolario Organization Ontology}
+% \emph{Organization Ontology},in breve \emph{ORG},\footnote{\url{http://www.w3.org/TR/vocab-org/}}
+% estende FOAF con classi e propriet\`a, per modellare in dettaglio 
+% le strutture organizzative di aziende, associazioni e tutte le forme 
+% di organizzazioni.
+% \vspace{\baselineskip}
+% 
+% \uncover<2->{
+% Il vocabolario \`e disponibile alle URL
+% \begin{center}
+%   \url{http://www.w3.org/ns/org.rdf}
+% \end{center}
+% 
+% \begin{center}
+%   \url{http://www.w3.org/ns/org.ttl}
+% \end{center}
+% }
+% 
+% \uncover<3->{
+% Il namespace del vocabolario ORG \`e
+% \begin{center}
+%   \url{org} : \url{http://www.w3.org/ns/org\#}
+% \end{center}
+% }
+% 
+% \[
+%  \begin{array}{ccl}
+%  \org & \defAs & (C_{org}, P_{org}, \Omega_{org}) \\
+%  &&\\
+%  C_{org} & \defAs & C_{foaf} \cup \{FormalOrganization, OrganizationalUnit,  Site \\
+%  && \phantom{C_{foaf} \cup \{}Post, Role, \ldots \}\\
+%  &&\\
+%  P_{org} & \defAs & P_{foaf} \cup \{ basedAt, classification, hasPost, hasPrimarySite, \\
+%  &&\phantom{P_{foaf} \cup \{}hasRegisteredSite, hasSite, hasSubOrganization, \\
+%  &&\phantom{P_{foaf} \cup \{}hasUnit, headOf, heldBy, holds, location, postIn,\\
+%  &&\phantom{P_{foaf} \cup \{}purpose, role, siteAddress, siteOf, unitOf, \\
+%  &&\phantom{P_{foaf} \cup \{}subOrganizationOf,  transitiveSubOrganizationOf, \ldots \}\\
+%  &&\phantom{P_{foaf} \cup \{}  \\
+%  &&\\
+%  \Omega_{org} & \defAs & \Omega_{foaf} \cup \{ FormalOrganization \Issub Organization, \\
+%  &&\phantom{\Omega_{foaf} \cup \{}OrganizationalUnit \Issub Organization,\\
+%  &&\phantom{\Omega_{foaf} \cup \{}headOf \Issub member, \dom(hasUnit)\Issub Organization, \\
+%  &&\phantom{\Omega_{foaf} \cup \{}\range(hasUnit) \Issub OrganizationalUnit, \ldots \}
+%  \end{array}
+% \]
+% \phantom{NOTA: I vincoli semantici esplicitano la relazione tra i due vocabolari.}
+% \end{frame}
+% 
+% \begin{frame}
+% \frametitle{Il Vocabolario Organization Ontology}
+% Ad esempio, il vocabolario \emph{Organization Ontology} (in breve \emph{ORG}, vedi \url{http://www.w3.org/TR/vocab-org/})
+% estende FOAF con classi e propriet\`a, per modellare in dettaglio 
+% le strutture organizzative di aziende, associazioni e tutte le forme 
+% di organizzazioni.
+% 
+% \[
+%  \begin{array}{ccl}
+%  \org & \defAs & (C_{org}, P_{org}, \Omega_{org}) \\
+%  &&\\
+%  C_{org} & \defAs & C_{foaf} \cup \{FormalOrganization, OrganizationalUnit,  Site \\
+%  && \phantom{C_{foaf} \cup \{}Post, Role, \ldots \}\\
+%  &&\\
+%  P_{org} & \defAs & P_{foaf} \cup \{ basedAt, classification, hasPost, hasPrimarySite, \\
+%  &&\phantom{P_{foaf} \cup \{}hasRegisteredSite, hasSite, hasSubOrganization, \\
+%  &&\phantom{P_{foaf} \cup \{}hasUnit, headOf, heldBy, holds, location, postIn,\\
+%  &&\phantom{P_{foaf} \cup \{}purpose, role, siteAddress, siteOf, unitOf, \\ 
+%  &&\phantom{P_{foaf} \cup \{}subOrganizationOf,  transitiveSubOrganizationOf, \ldots \}\\ 
+%  &&\phantom{P_{foaf} \cup \{}  \\
+%  &&\\
+%  \Omega_{org} & \defAs & \Omega_{foaf} \cup \{ \mathbf{FormalOrganization \Issub Organization,} \\
+%  &&\phantom{\Omega_{foaf} \cup \{}\mathbf{OrganizationalUnit \Issub Organization,}\\
+%  &&\phantom{\Omega_{foaf} \cup \{}headOf \Issub memberOf, \dom(hasUnit)\Issub Organization, \\ 
+%  &&\phantom{\Omega_{foaf} \cup \{}\range(hasUnit) \Issub OrganizationalUnit, \ldots \}
+%  \end{array}
+% \]
+% NOTA: I vincoli semantici esplicitano la relazione tra i due vocabolari.
+% \end{frame}
+% 
+% \begin{frame}
+% \frametitle{Vocabolari e Ontologie - Struttura del Comune di Catania}
+% \`E buona norma definire ontologie facendo riferimento a vocabolari
+% ben noti.
+% \vspace{\baselineskip}
+% 
+% Definiamo ad esempio una ontologia per descrivere la struttura
+% organizzativa del \emph{comune di Catania} (vedi \url{http://www.dmi.unict.it/~longo/comunect/})
+% a partire dal vocabolario ORG.
+% \vspace{\baselineskip}
+% 
+% Il sindaco del comune di Catania è \emph{Enzo Bianco}
+% \[
+% \begin{array}{rl}
+% \Ont_{CT} = & \{ EnzoBianco\,headOf\,ComuneCT \\
+% \end{array} 
+% \]
+% \end{frame}
+% 
+% \begin{frame}
+% \frametitle{Vocabolari e Ontologie - Struttura del Comune di Catania}
+% \`E buona norma definire ontologie facendo riferimento a vocabolari
+% ben noti.
+% \vspace{\baselineskip}
+% 
+% Definiamo ad esempio una ontologia per descrivere la struttura
+% organizzativa del \emph{comune di Catania} (vedi \url{http://www.dmi.unict.it/~longo/comunect/})
+% a partire dal vocabolario ORG.
+% \vspace{\baselineskip}
+% 
+% Fanno direttamente capo al comune il \emph{gabinetto del sindaco}, la \emph{polizia municipale}
+% e la \emph{direzione affari legali}.
+% \[
+% \begin{array}{rl}
+% \Ont_{CT} = \Sigma_{org}\,\cup & \{ EnzoBianco\,headOf\,ComuneCT, \\
+% & ComuneCT\,hasUnit\,GabinettoDelSindaco,\\
+% & ComuneCT\,hasUnit\,PoliziaMunicipale,\\
+% & ComuneCT\,hasUnit\,AffariLegali,
+% \end{array} 
+% \]
+% \end{frame}
+% 
 % \begin{frame}
 % \frametitle{Vocabolari e Ontologie - Struttura del Comune di Catania}
 % \`E buona norma definire ontologie facendo riferimento a vocabolari
@@ -2473,12 +2426,36 @@ Il comune comprende inoltre diverse \emph{direzioni}, raggruppate in due macro-a
 % Il comune comprende inoltre diverse \emph{direzioni}, raggruppate in due macro-aree. 
 % \[
 % \begin{array}{rll}
-% \Ont_{CT} = \Sigma_{org}\,\cup & \{ EnzoBianco\,headOf\,ComuneCT, & Area2\,hasUnit\,Patrimonio\\
-% & ComuneCT\,hasUnit\,GabinettoDelSindaco, & Area2\,hasUnit\,ServiziDemografici\\
-% & ComuneCT\,hasUnit\,PoliziaMunicipale, & Area2\,hasUnit\,Turismo\\
-% & ComuneCT\,hasUnit\,AffariLegali, & Area2\,hasUnit\,Urbanistica\\
-% & ComuneCT\,hasUnit\,Area1, & Area2\,hasUnit\,AttivitaProduttive\\
-% & ComuneCT\,hasUnit\,Area2, & Area2\,hasUnit\,Economato \}\\
+% \Ont_{CT} = \Sigma_{org}\,\cup & \{ EnzoBianco\,headOf\,ComuneCT, & \\
+% & ComuneCT\,hasUnit\,GabinettoDelSindaco, & \\
+% & ComuneCT\,hasUnit\,PoliziaMunicipale, & \\
+% & ComuneCT\,hasUnit\,AffariLegali, & \\
+% & ComuneCT\,hasUnit\,Area1, & \\
+% & ComuneCT\,hasUnit\,Area2, & \\
+% \end{array} 
+% \]
+% \end{frame}
+% 
+% \begin{frame}
+% \frametitle{Vocabolari e Ontologie - Struttura del Comune di Catania}
+% \`E buona norma definire ontologie facendo riferimento a vocabolari
+% ben noti.
+% \vspace{\baselineskip}
+% 
+% Definiamo ad esempio una ontologia per descrivere la struttura
+% organizzativa del \emph{comune di Catania} (vedi \url{http://www.dmi.unict.it/~longo/comunect/})
+% a partire dal vocabolario ORG.
+% \vspace{\baselineskip}
+% 
+% Il comune comprende inoltre diverse \emph{direzioni}, raggruppate in due macro-aree. 
+% \[
+% \begin{array}{rll}
+% \Ont_{CT} = \Sigma_{org}\,\cup & \{ EnzoBianco\,headOf\,ComuneCT, & \\
+% & ComuneCT\,hasUnit\,GabinettoDelSindaco, & \\
+% & ComuneCT\,hasUnit\,PoliziaMunicipale, & \\
+% & ComuneCT\,hasUnit\,AffariLegali, & \\
+% & ComuneCT\,hasUnit\,Area1, & \\
+% & ComuneCT\,hasUnit\,Area2, & \\
 % & Area1\,hasUnit\,RisorseUmane,\\
 % & Area1\,hasUnit\,Istruzione,\\
 % & Area1\,hasUnit\,Famiglia, \\
@@ -2488,63 +2465,93 @@ Il comune comprende inoltre diverse \emph{direzioni}, raggruppate in due macro-a
 % \end{array} 
 % \]
 % \end{frame}
-
-\begin{frame}
-\frametitle{Vocabolari e Ontologie - Struttura del Comune di Catania}
-\`E buona norma definire ontologie facendo riferimento a vocabolari
-ben noti.
-\vspace{\baselineskip}
-
-Definiamo ad esempio una ontologia per descrivere la struttura
-organizzativa del \emph{comune di Catania} (vedi \url{http://www.dmi.unict.it/~longo/comunect/})
-a partire dal vocabolario ORG.
-\vspace{\baselineskip}
-
-Il comune comprende inoltre diverse \emph{direzioni}, raggruppate in due macro-aree. 
-\[
-\begin{small}
-\begin{array}{rll}
-\Ont_{CT} = \Sigma_{org}\,\cup & \{ EnzoBianco\,headOf\,ComuneCT, & \\
-& ComuneCT\,hasUnit\,GabinettoDelSindaco, & \\
-& ComuneCT\,hasUnit\,PoliziaMunicipale, & \\
-& ComuneCT\,hasUnit\,AffariLegali, & \\
-& ComuneCT\,hasUnit\,Area1, & \\
-& ComuneCT\,hasUnit\,Area2, & \\
-& Area1\,hasUnit\,RisorseUmane,\\
-& Area1\,hasUnit\,Istruzione,\\
-& Area1\,hasUnit\,Famiglia, \\
-& Area1\,hasUnit\,Ecologia,\\
-&Area1\,hasUnit\,Manutenzione,\\
-&Area1\,hasUnit\,LavoriPubblici,\\
-&Area2\,hasUnit\,Patrimonio,\\
-&Area2\,hasUnit\,ServiziDemografici,\\
-&Area2\,hasUnit\,Turismo,\\
-&Area2\,hasUnit\,Urbanistica,\\
-&Area2\,hasUnit\,AttivitaProduttive,\\
-&Area2\,hasUnit\,Economato \}
-\end{array} 
-\end{small}
-\]
-\end{frame}
-
-
-
-
 % 
-% Ad esempio, \emph{Organization Ontology} (in breve \emph{org}, vedi \url{http://www.w3.org/TR/vocab-org/})
-% fornisce gli strumenti, in termini di classi e propriet\`a, per modellare
-% le strutture organizzative di aziende, associazioni e tutte le forme 
-% di organizzazioni.
+% % \begin{frame}
+% % \frametitle{Vocabolari e Ontologie - Struttura del Comune di Catania}
+% % \`E buona norma definire ontologie facendo riferimento a vocabolari
+% % ben noti.
+% % \vspace{\baselineskip}
+% % 
+% % Definiamo ad esempio una ontologia per descrivere la struttura
+% % organizzativa del \emph{comune di Catania} (vedi \url{http://www.dmi.unict.it/~longo/comunect/})
+% % a partire dal vocabolario ORG.
+% % \vspace{\baselineskip}
+% % 
+% % Il comune comprende inoltre diverse \emph{direzioni}, raggruppate in due macro-aree. 
+% % \[
+% % \begin{array}{rll}
+% % \Ont_{CT} = \Sigma_{org}\,\cup & \{ EnzoBianco\,headOf\,ComuneCT, & Area2\,hasUnit\,Patrimonio\\
+% % & ComuneCT\,hasUnit\,GabinettoDelSindaco, & Area2\,hasUnit\,ServiziDemografici\\
+% % & ComuneCT\,hasUnit\,PoliziaMunicipale, & Area2\,hasUnit\,Turismo\\
+% % & ComuneCT\,hasUnit\,AffariLegali, & Area2\,hasUnit\,Urbanistica\\
+% % & ComuneCT\,hasUnit\,Area1, & Area2\,hasUnit\,AttivitaProduttive\\
+% % & ComuneCT\,hasUnit\,Area2, & Area2\,hasUnit\,Economato \}\\
+% % & Area1\,hasUnit\,RisorseUmane,\\
+% % & Area1\,hasUnit\,Istruzione,\\
+% % & Area1\,hasUnit\,Famiglia, \\
+% % & Area1\,hasUnit\,Ecologia,\\
+% % &Area1\,hasUnit\,Manutenzione,\\
+% % &Area1\,hasUnit\,LavoriPubblici,\\
+% % \end{array} 
+% % \]
+% % \end{frame}
+% 
+% \begin{frame}
+% \frametitle{Vocabolari e Ontologie - Struttura del Comune di Catania}
+% \`E buona norma definire ontologie facendo riferimento a vocabolari
+% ben noti.
 % \vspace{\baselineskip}
 % 
-% \emph{Classi in ORG}: $ChangeEvent$, $FormalOrganization$, $Membership$, $OrganizationalCollaboration$,
-% $OrganizationalUnit$, $Organization$, $Post$, $Role$, $Site$.
+% Definiamo ad esempio una ontologia per descrivere la struttura
+% organizzativa del \emph{comune di Catania} (vedi \url{http://www.dmi.unict.it/~longo/comunect/})
+% a partire dal vocabolario ORG.
 % \vspace{\baselineskip}
 % 
-% \emph{Propriet\`a in ORG}: $basedAt$, $changedBy$, $classification$, $hasMember$, $hasMembership$, $hasPost$,
-% $hasPrimarySite$, $hasRegisteredSite$, $hasSite$, $hasSubOrganization$, $hasUnit$, $headOf$, $heldBy$, $holds$,
-% $identifier$, $linkedTo$, $location$, $memberDuring$, $memberOf$, $member$, $organization$, 
-% $originalOrganization$, $postIn$, $purpose$, $remuneration$, $reportsTo$, $resultedFrom$, $resultingOrganization$,
-% $role$, $roleProperty$, $siteAddress$, $siteOf$, $subOrganizationOf$, $transitiveSubOrganizationOf$, $unitOf$.
+% Il comune comprende inoltre diverse \emph{direzioni}, raggruppate in due macro-aree. 
+% \[
+% \begin{small}
+% \begin{array}{rll}
+% \Ont_{CT} = \Sigma_{org}\,\cup & \{ EnzoBianco\,headOf\,ComuneCT, & \\
+% & ComuneCT\,hasUnit\,GabinettoDelSindaco, & \\
+% & ComuneCT\,hasUnit\,PoliziaMunicipale, & \\
+% & ComuneCT\,hasUnit\,AffariLegali, & \\
+% & ComuneCT\,hasUnit\,Area1, & \\
+% & ComuneCT\,hasUnit\,Area2, & \\
+% & Area1\,hasUnit\,RisorseUmane,\\
+% & Area1\,hasUnit\,Istruzione,\\
+% & Area1\,hasUnit\,Famiglia, \\
+% & Area1\,hasUnit\,Ecologia,\\
+% &Area1\,hasUnit\,Manutenzione,\\
+% &Area1\,hasUnit\,LavoriPubblici,\\
+% &Area2\,hasUnit\,Patrimonio,\\
+% &Area2\,hasUnit\,ServiziDemografici,\\
+% &Area2\,hasUnit\,Turismo,\\
+% &Area2\,hasUnit\,Urbanistica,\\
+% &Area2\,hasUnit\,AttivitaProduttive,\\
+% &Area2\,hasUnit\,Economato \}
+% \end{array} 
+% \end{small}
+% \]
+% \end{frame}
+% 
+% 
+% 
+% 
+% % 
+% % Ad esempio, \emph{Organization Ontology} (in breve \emph{org}, vedi \url{http://www.w3.org/TR/vocab-org/})
+% % fornisce gli strumenti, in termini di classi e propriet\`a, per modellare
+% % le strutture organizzative di aziende, associazioni e tutte le forme 
+% % di organizzazioni.
+% % \vspace{\baselineskip}
+% % 
+% % \emph{Classi in ORG}: $ChangeEvent$, $FormalOrganization$, $Membership$, $OrganizationalCollaboration$,
+% % $OrganizationalUnit$, $Organization$, $Post$, $Role$, $Site$.
+% % \vspace{\baselineskip}
+% % 
+% % \emph{Propriet\`a in ORG}: $basedAt$, $changedBy$, $classification$, $hasMember$, $hasMembership$, $hasPost$,
+% % $hasPrimarySite$, $hasRegisteredSite$, $hasSite$, $hasSubOrganization$, $hasUnit$, $headOf$, $heldBy$, $holds$,
+% % $identifier$, $linkedTo$, $location$, $memberDuring$, $memberOf$, $member$, $organization$, 
+% % $originalOrganization$, $postIn$, $purpose$, $remuneration$, $reportsTo$, $resultedFrom$, $resultingOrganization$,
+% % $role$, $roleProperty$, $siteAddress$, $siteOf$, $subOrganizationOf$, $transitiveSubOrganizationOf$, $unitOf$.
 
 \end{document}
