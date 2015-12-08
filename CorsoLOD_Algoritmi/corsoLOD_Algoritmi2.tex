@@ -41,6 +41,8 @@ Parte Seconda}
 \newcommand{\PNames}{N_P}
 \newcommand{\INames}{N_I}
 \newcommand{\VNames}{V}
+\newcommand{\DNames}{N_D}
+\newcommand{\LNames}{N_L}
 \newcommand{\BlankNodes}{\mathcal{B}}
 \newcommand{\IRI}{IRI}
 
@@ -57,110 +59,150 @@ Parte Seconda}
 \newcommand{\literals}{\mathcal{L}}
 \newcommand{\Vocab}{\mathcal{V}}
 
-
-\section{Riepilogo}
+\section{Ontologie}
 
 \begin{frame}
- \frametitle{Riepilogo - Formule Atomiche}
+ \frametitle{Ontologie - Sintassi}
 
- Siano $\CNames$, $\PNames$, $\INames$ tre insiemi infiniti, numerabili e 
+Siano $\CNames$, $\PNames$, $\INames$ tre insiemi infiniti, numerabili e 
 a due a due disgiunti di nomi di \emph{classe}, \emph{propriet\`a} e \emph{individuo},
 rispettivamente.
 \vspace{\baselineskip}
 
-Sia $\VNames = \{x, y, z, ... \}$ l'insieme infinito, numerabile 
-e disgiunto da $\CNames$, $\PNames$ e $\INames$ delle \emph{variabili}.
-Le \emph{formule atomiche} sono espressioni dei due seguenti tipi:
+Una \emph{ontologia} \`e un insieme finito di asserzioni dei seguenti tipi:
 \[
- C(x), \quad P(x, y)
-\]
-con $x, y \in \INames \cup \VNames$, $C \in \CNames$ e $P \in \PNames$.
-\vspace{\baselineskip}
-
-Una formula atomica nella quale non compaiano variabili si dice \emph{chiusa}.
-\end{frame}
-
-\begin{frame}
-\frametitle{Riepilogo - Ontologie}
-
-Una \emph{ontologia} \`e un insieme finito di expressioni dei seguenti tipi:
-\[
- \begin{array}{l|l|l}
-  & Sintassi & Semantica \\
-  \hline
-  &&\\
-  \mbox{Constraints} & C \Issub D & (\forall x)(x \in C \rightarrow x \in D) \\
-  & R \Issub S & (\forall x, y)([x, y] \in R \rightarrow [x,y] \in S) \\
-  & \dom(R) \Issub C & (\forall x, y)([x, y] \in R \rightarrow x \in C) \\
-  & \range(R) \Issub C & (\forall x, y)([x, y] \in R \rightarrow y \in C) \\
-  &&\\
-  \hline
-  &&\\
-  \mbox{Class Assertions} & C(a) & a \in C\\
-  &&\\
-  \hline
-  &&\\
-  \mbox{Property Assertions} & a\,P\,b\;(\mbox{equivalente }P(a,b)) & [a,b] \in P \\
-  &&\\
-  \hline  
+ \begin{array}{ll}
+  \mbox{(Constraints)} & C \Issub D\\
+  & P \Issub Q \\
+  & \dom(P) \Issub C \\
+  & \range(P) \Issub C \\
+  &\\
+  \mbox{(Class Assertions)} & C(a)\\
+  &\\
+  \mbox{Property Assertions} & a\,P\,b\;(\mbox{equivalente }P(a,b))\\
  \end{array}
 \]
-dove $C, D \in \CNames$, $R, S \in \PNames$ e $a, b \in \INames$.
-\vspace{\baselineskip}
-
-Si noti che le Class Assertion e le Property Assertion sono formule atomiche chiuse, secondo
-la definizione data in precedenza.
+dove $C, D \in \CNames$, $P, Q \in \PNames$ e $a, b \in \INames$.
 \end{frame}
 
 \begin{frame}
-\frametitle{Riepilogo - Sostituzioni}
-Una \emph{sostituzione} $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$
-($x_1, \ldots, x_n \in \VNames$, $a_1, \ldots, a_n \in \INames$)
-\`e una mappa finita che associa nomi di individui a variabili.
+ \frametitle{Ontologie - Semantica}
+Una \emph{interpretazione} $\I=(\Delta^{\I}, \cdot^{\I})$ \`e una coppia
+$\Delta^{\I}$, $\cdot^{\I}$ dove:
+\begin{itemize}
+ \item $\Delta^{\I}$ \`e un insieme non vuoto;
+ \item $\cdot^{\I}$ \`e una funzione (polimorfa) che associa
+ \begin{itemize}
+  \item ad ogni nome di concetto $C$ in $\CNames$ un sottoinsieme $C^{\I}$ di
+  $\Delta^{\I}$,
+  \item ad ogni nome di propriet\`a in $P$ in $\PNames$ una relazione $P^{\I}$su
+  $\Delta^{\I}$,
+  \item ad ogni nome di individuo $a$ in $\INames$ un elemento $a^{\I}$ di
+  $\Delta^{\I}$.
+ \end{itemize}
+\end{itemize}
+
+\uncover<2->{
+La nozione di \emph{soddisfacibilit\`a} \`e definita come segue ($\I \models
+\alpha$ si legge $\I$ soddisfa $\alpha$):
+\[
+\begin{array}{ccl}
+ \I\models C \Issub D & \Longleftrightarrow & C^{\I} \subseteq D^{\I}\\  
+ \I\models P \Issub Q & \Longleftrightarrow & P^{\I} \subseteq Q^{\I}\\  
+ \I\models \dom(P) \Issub C & \Longleftrightarrow & (\forall [x,y] \in P^{\I})(x
+ \in C^{\I})\\
+ \I\models \range(P) \Issub C & \Longleftrightarrow & (\forall [x,y] \in
+ P^{\I})(y \in C^{\I})\\
+ \I\models C(a) & \Longleftrightarrow & a^{\I} \in C^{\I}\\  
+ \I\models a\,P\,b & \Longleftrightarrow & [a^{\I}, b^{\I}] \in P^{\I}
+\end{array} 
+\]
+per ogni $C, D \in \CNames$, $P, Q \in PNames$, $a,b \in \INames$.
 \vspace{\baselineskip}
 
-Siano $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$ una sostituzione,
-e $T$ una formula atomica. $T\sigma$ indica la formula atomica chiusa che si ottiene
-sostituendo in $T$ ad ogni occorrenza di ogni variabile $x_i$ il corrispondente
-nome di individuo $a_i$, per $1\leq i \leq n$.
+}
+\uncover<3->{
+Sia $\Ont=\{\alpha_1, \ldots, \alpha_n\}$ una ontologia. 
+\[
+\I \models \Ont \iff \I \models \alpha_i\mbox{ per ogni }1\leq i\leq n .
+\]
+}
+\uncover<4->{
+Siano $\Ont$ e $\Ontp$ due ontologie. $\Ont$ \emph{implica} $\Ontp$ sse
+\[
+\I \models \Ont \Longrightarrow \I \models \Ontp
+\]
+per ogni possibile interpretazione $\I$.
+}
 \end{frame}
 
 \begin{frame}
-\frametitle{Riepilogo - Interrogazioni}
-Una \emph{query congiuntiva} \`e una congiunzione finita di formule atomiche $T_1 \wedge \ldots \wedge T_n$.
-\vspace{\baselineskip}
+\frametitle{Ontologie nel Web Semantico}
 
-Siano $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$ una sostituzione,
-$Q=T_1 \wedge \ldots \wedge T_m$ una query congiuntiva e $\Ont$ una ontologia.
-\vspace{\baselineskip}
+Le ontologie definite usando tecnologie del Web Semantico hanno particolari
+caratteristiche:
 
-$\sigma$ \`e detta essere una \emph{soluzione} per $Q$ rispetto ad $\Ont$ se
-e solo se $T_1\sigma, \ldots, T_2\sigma$ compaiono in $\Ont$. 
-\vspace{\baselineskip}
+\begin{itemize}[<+->]
+	\item tutti i \emph{nomi} sono degli \emph{Internationalized Resource
+	Identifier (IRI))}, ossia
+\[
+ \CNames \cup \PNames \cup \INames \subseteq IRI ;
+\]
+  \item possono contenere dei \emph{letterali}, che vengono usati per
+  rappresentare tipi di dato \emph{concreti} (ad esempio stringhe di testo, numeri, date,
+  \ldots).
+\end{itemize}
 
-Il problema del \emph{Conjunctive Query Answering} consiste nel trovare
-tutte le soluzioni minimali di una query congiuntiva rispetto ad una ontologia.
 \end{frame}
 
-\section{Argomenti}
+% \begin{frame}
+% \frametitle{Riepilogo - Sostituzioni}
+% Una \emph{sostituzione} $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$
+% ($x_1, \ldots, x_n \in \VNames$, $a_1, \ldots, a_n \in \INames$)
+% \`e una mappa finita che associa nomi di individui a variabili.
+% \vspace{\baselineskip}
+% 
+% Siano $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$ una sostituzione,
+% e $T$ una formula atomica. $T\sigma$ indica la formula atomica chiusa che si ottiene
+% sostituendo in $T$ ad ogni occorrenza di ogni variabile $x_i$ il corrispondente
+% nome di individuo $a_i$, per $1\leq i \leq n$.
+% \end{frame}
 
-\begin{frame}
-\frametitle{Argomenti}
-Questa presentazione tratter\`a i seguenti argomenti:
-\begin{enumerate}
- \item ontologie con \emph{Letterali};
- \item International Resource Identifier (IRI);
- \item il linguaggio RDF e le sue serializzazioni;
- \item RDF Schema;
- \item il linguaggio di interrogazione SPARQL;
-\end{enumerate}
+% \begin{frame}
+% \frametitle{Riepilogo - Interrogazioni}
+% Una \emph{query congiuntiva} \`e una congiunzione finita di formule atomiche $T_1 \wedge \ldots \wedge T_n$.
+% \vspace{\baselineskip}
+% 
+% Siano $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$ una sostituzione,
+% $Q=T_1 \wedge \ldots \wedge T_m$ una query congiuntiva e $\Ont$ una ontologia.
+% \vspace{\baselineskip}
+% 
+% $\sigma$ \`e detta essere una \emph{soluzione} per $Q$ rispetto ad $\Ont$ se
+% e solo se $T_1\sigma, \ldots, T_2\sigma$ compaiono in $\Ont$. 
+% \vspace{\baselineskip}
+% 
+% Il problema del \emph{Conjunctive Query Answering} consiste nel trovare
+% tutte le soluzioni minimali di una query congiuntiva rispetto ad una ontologia.
+% \end{frame}
 
-\begin{figure}
- \includegraphics[width=160px]{Semantic_Web_Stack_rect.png} 
-\end{figure}
-\end{frame}
+% \section{Argomenti}
+% 
+% \begin{frame}
+% \frametitle{Argomenti}
+% Questa presentazione tratter\`a i seguenti argomenti:
+% \begin{enumerate}
+%  \item ontologie con \emph{Letterali};
+%  \item International Resource Identifier (IRI);
+%  \item il linguaggio RDF e le sue serializzazioni;
+%  \item RDF Schema;
+%  \item il linguaggio di interrogazione SPARQL;
+% \end{enumerate}
+% 
+% \begin{figure}
+%  \includegraphics[width=160px]{Semantic_Web_Stack_rect.png} 
+% \end{figure}
+% \end{frame}
 
-\section{IRI}
 \begin{frame}
 \frametitle{International Resource Identifier}
 
@@ -210,8 +252,6 @@ Ad esempio le seguenti IRI sono entrambe associate alla Monnalisa:
 \end{small}
 \end{frame}
 
-\section{Letterali}
-
 \begin{frame}
 \frametitle{Letterali}
 
@@ -224,15 +264,6 @@ Grazie ai letterali \`e possibile ad esempio esprimere affermazioni dei seguenti
  \item Il cognome di Mario \`e \emph{Rossi};
  \item Cristiano \`e nato il giorno \emph{22 Marzo 1979};
  \item L'Empire State Building \`e alto \emph{380 metri}.
-\end{itemize}
-\vspace{\baselineskip}
-
-\`E possibile effettuare interrogazioni che coinvolgano il \emph{valore}
-dei letterali, attraverso dei cosidetti \emph{filtri}. Alcuni esempi sono:
-\begin{itemize}
- \item Trova tutte le persone il cui cognome inizia con la lettera 'R';
- \item Trova tutte le persone nate dopo il \emph{22 Marzo 1979};
- \item Trova tutti i fabbricati di New York \`e alti pi\`u di \emph{380 metri}.
 \end{itemize}
 \end{frame}
 
@@ -280,7 +311,7 @@ Il datatype \url{xsd:string} \`e definito come segue:
  \item il \emph{value space} di \url{xsd:string} coincide col suo 
  lexical space;
  \item il \emph{lexical-value mapping} associa ogni stringa nel lexical space
- con se stessa (indetit\'a).
+ con se stessa (indetit\`a).
  \end{itemize}
 \end{frame}
 
@@ -375,35 +406,20 @@ ove $lexform$ e $type$ sono la lexical form e il data type del letterale, rispet
 Alcuni esempi:
 \[
 \begin{array}{ll}
- \literal{380}{xsd:integer} & <``380'', xsd:integer>\\
- \literal{March-22-1979}{xsd:date} & <``March-22-1979'', xsd:date>\\
- \literal{Rossi}{xsd:string} & <``Rossi'', xsd:string>
+ \literal{380}{xsd:integer} & <``380'', \mathtt{xsd:integer}>\\
+ \literal{March-22-1979}{xsd:date} & <``March-22-1979'', \mathtt{xsd:date}>\\
+ \literal{Rossi}{xsd:string} & <``Rossi'', \mathtt{xsd:string}>
 \end{array}
 \]
-\end{frame}
-
-\begin{frame}
-\frametitle{Letterali - Notazione (2/3)}
-Nel seguito indicheremo con 
-\begin{itemize}
-  \item $\datatypes$ l'insieme di tutti i possibili data type,
-e con
-  \item $\literals$ l'insieme dei letterali.
-\end{itemize}
-\vspace{\baselineskip}
-
-Si assume per convenienza 
-che i data type dei letterali in $\literals$ siano tutti 
-contenuti in $\datatypes$.
 \end{frame}
 
 \newcommand{\mathurl}[1]{\mbox{\url{#1}}}
 
 \begin{frame}
 \frametitle{Letterali - Notazione (3/3)}
-Inoltre, dato un letterale $l \in \literals$, indicheremo con
+Dato un letterale $l$, indicheremo con
 \begin{itemize}
- \item $datatype(l)$ il tipo di dato di $l$ (ovviamente $datatype(l) \in \datatypes$), e con 
+ \item $datatype(l)$ il tipo di dato di $l$, e con 
  \item $lexform(l)$ la lexical form di $l$.
 \end{itemize}
 \vspace{\baselineskip}
@@ -441,10 +457,7 @@ come valore l'intero $1$ ma sono diversi:
 \end{frame}
 
 \begin{frame}
-\frametitle{Ontologie - Property Assertions con Letterali}
-
-Estendiamo ora il concetto di \emph{ontologia} con i letterali.
-\vspace{\baselineskip}
+\frametitle{Property Assertions con Letterali}
 
 I letterali possono essere usati per specificare \emph{propriet\`a} di un
 individuo. In altre parole, essi possono comparire come \emph{oggetto}
@@ -462,57 +475,58 @@ $\literal{Rossi}{xsd:string}$, $\literal{March-22-1979}{xsd:date}$ letterali.
 \end{frame}
 
 \begin{frame}
-\frametitle{Ontologie - Datatype Properties}
- \`E possibile vincolare una propriet\`a  ad avere come codominio
- solo letterali con un certo data type. 
- \vspace{\baselineskip}
- 
- In questo caso la propriet\`a viene definita una \emph{datatype property}. 
- \vspace{\baselineskip}
- 
- Alcuni esempi vincoli di questa natura sono
- \[
- \begin{array}{l}
-  \range(surname) \Issub \mathurl{xsd:string} \\
-  \range(hasbirth) \Issub \mathurl{xsd:date}\\
+ \frametitle{Ontologie nel Web Semantico - Sintassi}
+
+Siano $\CNames$, $\PNames$, $\INames$, $\DNames$, $\literals$ insiemi
+infiniti, numerabili e a due a due disgiunti di nomi di \emph{classe}, \emph{propriet\`a},
+\emph{individuo} e di  \emph{datatype} e di \emph{letterali}, rispettivamente,
+tali che
+\[
+	\CNames \cup \PNames \cup \INames \cup \DNames \subseteq \IRI , 
+\]
+e $\literals$ siano i letterali (nel senso visto prima) i cui datatype
+sono in $\DNames$.
+
+Una \emph{ontologia} \`e un insieme finito di asserzioni dei seguenti tipi:
+\[
+ \begin{array}{ll}
+  \mbox{(Constraints)} & C \Issub D\\
+  & P \Issub Q \\
+  & \dom(P) \Issub C \\
+  & \range(P) \Issub C \\
+  &\\
+  \mbox{(Class Assertions)} & C(a)\\
+  &\\
+  \mbox{Property Assertions} & a\,P\,b\\
+  & \mathbf{a\,P\,l}\\
  \end{array}
 \]
-con $surname, hasbirth \in \PNames$ e 
-\url{xsd:string}, \url{xsd:date} data type.
+dove $C, D \in \CNames$, $P, Q \in \PNames$, $a, b \in \INames$,
+e $l \in \LNames$.
 \end{frame}
 
-
 \begin{frame}
-\frametitle{Ontologie con Letterali - Definizione}
-Siamo ora in grado di estendere la definizione formale di ontologia 
-con i letterali.
+ \frametitle{Ontologie - Semantica}
+Una \emph{interpretazione} \`e una
+tripla $\I=(\Delta^{\I}$, $\Delta_{D}^{\I}$, $\cdot^{\I})$ dove:
+\begin{itemize}
+ \item $\Delta^{\I}, \Delta_{D}^{\I}$ sono due insiemi disgiunti e non vuoti;
+ \item $\cdot^{\I}$ \`e una funzione (polimorfa) che associa
+ \begin{itemize}
+  \item ad ogni nome di concetto $C$ in $\CNames$ un sottoinsieme $C^{\I}$ di
+  $\Delta^{\I}$,
+  \item ad ogni datatype $t$ un sottoinsieme di $t^{\I}$ di $\Delta_{D}$, 
+  \item ad ogni nome di propriet\`a in $P$ in $\PNames$ una relazione 
+  $P^{\I} \subseteq \Delta^{\I} \times (\Delta^{\I} \cup \Delta_D^{\I})$,
+  \item ad ogni nome di individuo $a$ in $\INames$ un elemento $a^{\I}$ di
+  $\Delta^{\I}$,
+  \item ad ogni letterale $l$ in $\literals$ un elemento in $t^{\I}$, ove
+  $t=datatype(l)$.
+ \end{itemize}
+\end{itemize}
 
-Una \emph{ontologia} (con letterali) \`e un insieme finito di expressioni dei seguenti tipi:
-\[
- \begin{array}{l|l|l}
-  & Sintassi & Semantica \\
-  \hline
-  &&\\
-  \mbox{Constraints} & C \Issub D & (\forall x)(x \in C \rightarrow x \in D) \\
-  & R \Issub S & (\forall x, y)([x, y] \in R \rightarrow [x,y] \in S) \\
-  & \dom(R) \Issub C & (\forall x, y)([x, y] \in R \rightarrow x \in C) \\
-  & \range(R) \Issub C & (\forall x, y)([x, y] \in R \rightarrow y \in C) \\
-  & \mathbf{\range(R) \Issub T} & (\forall x, y)([x, y] \in R \rightarrow y \in \literals \, \wedge \\
-  && \quad\quad\quad datatype(y)=T) \\
-  &&\\
-  \hline
-  &&\\
-  \mbox{Class Assertions} & C(a) & a \in C\\
-  &&\\
-  \hline
-  &&\\
-  \mbox{Property Assertions} & a\,P\,b\;(\mbox{equivalente }P(a,b)) & [a,b] \in P \\
-  & \mathbf{a\,P\,l}\;(\mbox{equivalente }P(a,l)) & [a,l] \in P \\
-  &&\\
-  \hline  
- \end{array}
-\]
-dove $C, D \in \CNames$, $R, S \in \PNames$, $T \in \datatypes$, $a, b \in \INames$ e $l \in \literals$.
+Le nozione di soddisfacibilit\`a di una ontologia e di implicazione di 
+ontologie seguono da questa nuova definizione.
 \end{frame}
 
 
