@@ -253,6 +253,43 @@ Ad esempio le seguenti IRI sono entrambe associate alla Monnalisa:
 \end{frame}
 
 \begin{frame}
+  \frametitle{IRI nel Web Semantico - Namespaces}
+  
+  Nelle ontologie del Web Semantico le IRI possono essere abbreviate
+  con il meccanismo dei \emph{namespace} (prefissi), mutuato da XML.
+  \vspace{\baselineskip}
+  
+\uncover<2->{
+  Ad ogni ontologia spesso \`e assegnato un \emph{base prefix}.
+  Viene usato come prefisso per ottenere le IRI complete degli oggetti
+  dell'ontologia nel caso in cui la IRI specificata sia \emph{incompleta}. Ad
+  esempio, se il base prefix dell'ontologia $\Ont$ \`e \url{http://example.org/},
+  \[
+   Alice \quad \Longrightarrow \mathtt{http://example.org/Alice} . 
+  \]
+}  
+
+\uncover<3->{
+  \`E possibile specificare degli ulteriori \emph{prefix}
+  come coppie
+  \[
+   <prefix name> \quad \longrightarrow \quad <prefix uri> 
+  \]
+  e \emph{abbreviare} delle IRI nell'ontologia con la
+  sintassi $<prefix name>:<IRI specific part>$. 
+  \vspace{\baselineskip}
+  
+  Se ad
+  esempio nell'ontologia \`e definito il prefisso
+  \[
+   ex2 \quad \longrightarrow \quad \mathtt{http://example2.org/}
+  \]
+  la IRI \url{ex2:Alice} verr\`a espansa in
+  \url{http://example2.org/Alice} .
+}
+\end{frame}
+
+\begin{frame}
 \frametitle{Letterali}
 
 I letterali vengono usati per rappresentare tipi di dato \emph{concreti},
@@ -506,7 +543,7 @@ e $l \in \LNames$.
 \end{frame}
 
 \begin{frame}
- \frametitle{Ontologie - Semantica}
+ \frametitle{Ontologie nel Web Semantico - Semantica}
 Una \emph{interpretazione} \`e una
 tripla $\I=(\Delta^{\I}$, $\Delta_{D}^{\I}$, $\cdot^{\I})$ dove:
 \begin{itemize}
@@ -529,49 +566,60 @@ Le nozione di soddisfacibilit\`a di una ontologia e di implicazione di
 ontologie seguono da questa nuova definizione.
 \end{frame}
 
-
 \begin{frame}
-\frametitle{Ontologie con Letterali - Esempio}
-Consideriamo come esempio il vocabolario $\Vocab$ definito come segue:
-\[
- \begin{array}{rcl}
-  \Vocab & \defAs & (C, P, \Omega) \\
-  C & \defAs & \{Person\}\\
-  P & \defAs & \{childOf, fullName, age\}\\
-  \Omega & \defAs & \{\dom(childOf) \Issub Person, \range(childOf) \Issub Person, \\
-  &&\phantom{\{} \dom(fullName) \Issub Person, \range(fullName) \Issub xsd:string \\
-  &&\phantom{\{} \dom(age) \Issub Person, \range(age) \Issub xsd:nonNegativeInteger \} ,
- \end{array}
-\]
-e l'ontologia con letterali $\Ont$ costruita a partire da $\Vocab$
-\[
- \begin{array}{rcl}
-  \Ont & \defAs & \Omega \cup \{ Person(Eliza), Person(Alice), Person(Bob),\\
-  &&\phantom{\Omega \cup \{}Alice\,childOf\,Eliza, Bob\,childOf\,Eliza\\
-  &&\phantom{\Omega \cup \{}Eliza\,fullName\, \stringLiteral{Eliza Smith}, Eliza\,age\,\literal{63}{xsd:nonNegativeInteger} \}\\
- \end{array}
-\]
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Ontologie con Letterali - Alcune notazioni}
-Data una qualsiasi ontologia (con letterali) $\Ont$, indicheremo con:
+\frametitle{Ontologie nel Web Semantico - Alcune notazioni}
+Data una qualsiasi ontologia (nel senso appena visto) $\Ont$, indicheremo con:
 \begin{itemize}
  \item $\CNames(\Ont)$ l'insieme dei nomi di concetto che compaiono in $\Ont$;
  \item $\PNames(\Ont)$ l'insieme dei nomi di propriet\`a che compaiono in $\Ont$;
  \item $\INames(\Ont)$ l'insieme dei nomi di individuo che compaiono in $\Ont$;
  \item $\literals(\Ont)$ l'insieme dei letterali che compaiono in $\Ont$.
 \end{itemize}
-\vspace{\baselineskip}
+%\vspace{\baselineskip}
 
-Definizioni analoghe si applicano ai vocabolari.
-\vspace{\baselineskip}
-
-Inoltre, indichiamo con $\IRI$ l'insieme di tutti i possibili IRI.
+%Inoltre, indichiamo con $\IRI$ l'insieme di tutti i possibili IRI.
 \end{frame}
 
+% \begin{frame}
+% \frametitle{Ontologie con Letterali - Esempio}
+% Consideriamo come esempio il vocabolario $\Vocab$ definito come segue:
+% \[
+%  \begin{array}{rcl}
+%   \Vocab & \defAs & (C, P, \Omega) \\
+%   C & \defAs & \{Person\}\\
+%   P & \defAs & \{childOf, fullName, age\}\\
+%   \Omega & \defAs & \{\dom(childOf) \Issub Person, \range(childOf) \Issub Person, \\
+%   &&\phantom{\{} \dom(fullName) \Issub Person, \range(fullName) \Issub xsd:string \\
+%   &&\phantom{\{} \dom(age) \Issub Person, \range(age) \Issub xsd:nonNegativeInteger \} ,
+%  \end{array}
+% \]
+% e l'ontologia con letterali $\Ont$ costruita a partire da $\Vocab$
+% \[
+%  \begin{array}{rcl}
+%   \Ont & \defAs & \Omega \cup \{ Person(Eliza), Person(Alice), Person(Bob),\\
+%   &&\phantom{\Omega \cup \{}Alice\,childOf\,Eliza, Bob\,childOf\,Eliza\\
+%   &&\phantom{\Omega \cup \{}Eliza\,fullName\, \stringLiteral{Eliza Smith}, Eliza\,age\,\literal{63}{xsd:nonNegativeInteger} \}\\
+%  \end{array}
+% \]
+% 
+% \end{frame}
+% 
+
 \section{RDF}
+
+\begin{frame}
+ \frametitle{Semantic Web Stack}
+ 
+ L'insieme delle tecnologie usate nel Web Semantico costituiscono il 
+ cosiddetto \emph{Semantic Web Stack}.
+ 
+ \begin{figure}
+   \includegraphics[width=160px]{Semantic_Web_Stack.png} 
+ \end{figure}
+
+ Il Web Semantico \`e costituito dall'insieme dei dataset 
+ codificati ed esposti attraverso queste tecnologie.
+\end{frame}
 
 \begin{frame}
  \frametitle{Resource Description Framework (RDF)}
@@ -579,55 +627,60 @@ Inoltre, indichiamo con $\IRI$ l'insieme di tutti i possibili IRI.
  delle tecnologie del Web Semantico \`e il cosiddetto 
  \emph{Resource Description Framework} (nel seguito \emph{RDF}).
  
-%  \begin{figure}
-%  \includegraphics[width=160px]{Semantic_Web_Stack_RDF.png} 
-%  \end{figure}
+  \begin{figure}
+  \includegraphics[width=160px]{Semantic_Web_Stack_RDF.png}
+ \end{figure}
 \end{frame}
 
 \newcommand{\RDFv}{\mathtt{RDF}}
 
-\begin{frame}
- \frametitle{Vocabolario RDF}
- Il \emph{vocabolario $\RDFv$} pu\`o essere definito come segue:
- 
-\[
- \begin{array}{cclc}
- \RDFv & \defAs & (C_{RDF}, P_{RDF}, \Omega_{RDF}) \\
- &&\\
- C_{RDF} & \defAs & \{\mathurl{rdf:Property}, \mathurl{rdf:List}\}\\
- &&\\
- P_{RDF} & \defAs & \{\mathurl{rdf:type}, \mathurl{rdf:subject}, \mathurl{rdf:predicate}, \mathurl{rdf:object},\\
- && \phantom{\{} \mathurl{rdf:first}, \mathurl{rdf:rest}, \mathurl{rdf:value}, \mathurl{rdf:_1}, \mathurl{rdf:_2}, \ldots \}\\ 
- \\
- \Omega_{RDF} & \defAs & \{ (\forall a, C)(a\,\mathurl{rdf:type}\,C \leftrightarrow C(a)), & (*)\\ 
- &&\phantom{\{}(\forall a,P,b)(a\,P\,b \rightarrow \mathurl{rdf:Property}(P)), & (**) \\
- &&\phantom{\{}\range(\mathurl{rdf:first}) \Issub \mathurl{rdf:List},\\
- &&\phantom{\{}\range(\mathurl{rdf:rest}) \Issub \mathurl{rdf:List} \, \}\\
- \end{array}
-\]
-dove il prefisso \url{rdf:} \`e una abbreviazione per il namespace
-\begin{center}
- \url{http://www.w3.org/1999/02/22-rdf-syntax-ns\#}
-\end{center}
-\vspace{\baselineskip}
-
-Il vocabolario $\RDFv$ definisce inoltre un nome di individuo \url{rdf:nil}, 
-appartenente alla class \url{rdf:List}, ed il datatype \url{rdf:XMLLiteral},
-che indica un frammento XML.
-\vspace{\baselineskip}
-
-\uncover<2>{
-Peculiarit\`a di $\RDFv$ :
-\begin{itemize}
- \item L'insieme $P_{RDF}$ \`e infinito.
- \item I vincoli $(*)$ e $(**)$ non sono esprimibili nelle ontologie, servono a definire
- la \emph{semantica} del linguaggio RDF.
-\end{itemize}
-}
-\end{frame}
+% \begin{frame}
+%  \frametitle{Vocabolario RDF}
+%  Il \emph{vocabolario $\RDFv$} pu\`o essere definito come segue:
+%  
+% \[
+%  \begin{array}{cclc}
+%  \RDFv & \defAs & (C_{RDF}, P_{RDF}, \Omega_{RDF}) \\
+%  &&\\
+%  C_{RDF} & \defAs & \{\mathurl{rdf:Property}, \mathurl{rdf:List}\}\\
+%  &&\\
+%  P_{RDF} & \defAs & \{\mathurl{rdf:type}, \mathurl{rdf:subject}, \mathurl{rdf:predicate}, \mathurl{rdf:object},\\
+%  && \phantom{\{} \mathurl{rdf:first}, \mathurl{rdf:rest}, \mathurl{rdf:value}, \mathurl{rdf:_1}, \mathurl{rdf:_2}, \ldots \}\\ 
+%  \\
+%  \Omega_{RDF} & \defAs & \{ (\forall a, C)(a\,\mathurl{rdf:type}\,C \leftrightarrow C(a)), & (*)\\ 
+%  &&\phantom{\{}(\forall a,P,b)(a\,P\,b \rightarrow \mathurl{rdf:Property}(P)), & (**) \\
+%  &&\phantom{\{}\range(\mathurl{rdf:first}) \Issub \mathurl{rdf:List},\\
+%  &&\phantom{\{}\range(\mathurl{rdf:rest}) \Issub \mathurl{rdf:List} \, \}\\
+%  \end{array}
+% \]
+% dove il prefisso \url{rdf:} \`e una abbreviazione per il namespace
+% \begin{center}
+%  \url{http://www.w3.org/1999/02/22-rdf-syntax-ns\#}
+% \end{center}
+% \vspace{\baselineskip}
+% 
+% Il vocabolario $\RDFv$ definisce inoltre un nome di individuo \url{rdf:nil}, 
+% appartenente alla class \url{rdf:List}, ed il datatype \url{rdf:XMLLiteral},
+% che indica un frammento XML.
+% \vspace{\baselineskip}
+% 
+% \uncover<2>{
+% Peculiarit\`a di $\RDFv$ :
+% \begin{itemize}
+%  \item L'insieme $P_{RDF}$ \`e infinito.
+%  \item I vincoli $(*)$ e $(**)$ non sono esprimibili nelle ontologie, servono a definire
+%  la \emph{semantica} del linguaggio RDF.
+% \end{itemize}
+% }
+% \end{frame}
 
 \begin{frame}
  \frametitle{Grafi RDF}
+ Le ontologie RDF sono dette \emph{grafi RDF} in quanto possono contenere solo
+ property assertions.
+ \vspace{\baselineskip}
+ 
+ \uncover<2->{ 
  Un \emph{grafo RDF} \`e un insieme finito di property assertions dei seguenti tipi:
 \[
  \begin{array}{rcl}
@@ -645,8 +698,9 @@ con
 \]
 per qualche insieme $\BlankNodes$ disgiunto da $\IRI$.
 \vspace{\baselineskip}
+}
 
-\uncover<2>{
+\uncover<3->{
 Dato un grafo RDf $G$, gli elementi di $\BlankNodes$ che compaiono in $G$ sono
 definiti \emph{blank node} di $G$. Indicheremo con
 $\BlankNodes(G)$ l'insieme dei blank node del grafo $G$.
@@ -661,15 +715,7 @@ $\BlankNodes(G)$ l'insieme dei blank node del grafo $G$.
  Un esempio di grafo RDF \`e il seguente:
  \[
  \begin{array}{rcl}
-  G & \defAs & \{ \tripleO{ex:Eliza}{rdf:type}{ex:Person},\\
-  &&\phantom{\{} \tripleO{ex:Alice}{rdf:type}{ex:Person},\\
-  &&\phantom{\{} \tripleO{ex:Bob}{rdf:type}{ex:Person},\\
-  \\
-  &&\phantom{\{} \tripleO{ex:childOf}{rdf:type}{rdf:Property},\\
-  &&\phantom{\{} \tripleO{ex:fullName}{rdf:type}{rdf:Property},\\
-  &&\phantom{\{} \tripleO{ex:age}{rdf:type}{rdf:Property},\\
-  \\
-  &&\phantom{\{} \tripleO{ex:Alice}{ex:childOf}{ex:Eliza},\\
+  G & \defAs & \{ \tripleO{ex:Alice}{ex:childOf}{ex:Eliza},\\
   &&\phantom{\{} \tripleO{ex:Bob}{ex:childOf}{ex:Eliza},\\
   &&\phantom{\{} \triple{ex:Eliza}{ex:fullName}{\stringLiteral{Eliza Smith}},\\
   &&\phantom{\{} \triple{ex:Eliza}{ex:age}{\literal{63}{xsd:nonNegativeInteger}} \,\},\\
@@ -678,55 +724,52 @@ $\BlankNodes(G)$ l'insieme dei blank node del grafo $G$.
 \end{frame}
 
 \begin{frame}
- \frametitle{Ontologie RDF}
- Dato un grafo RDF $G$, la corrispondente ontologia RDF $\Ont_G$ \`e ottenuta come segue:
+ \frametitle{RDF - Semantica}
+ Esistono alcuni nomi di propriet\`a, di classi e di individui che ricoprono
+ dei ruoli \emph{particolari} nel linguaggio RDF:
+
  \[
-  \Ont_G \defAs \Omega_{RDF} \cup G .
+ \begin{array}{lc}
+	\mathurl{rdf:Property}, \mathurl{rdf:List} & \in \CNames; \\ 
+	\mathurl{rdf:type}, \mathurl{rdf:subject}, \mathurl{rdf:predicate},
+ 	\mathurl{rdf:object}, \\
+ 	&\\
+	\mathurl{rdf:first}, \mathurl{rdf:rest}, \mathurl{rdf:value}, \mathurl{rdf:_1},
+ 	 \mathurl{rdf:_2}, \ldots & \in \PNames ;\\
+ 	&\\  
+	\mathurl{rdf:nil} & \in \INames; \\
+	&\\
+	\mathurl{rdf:XMLLiteral} & \in \DNames.
+\end{array}
  \]
+	dove il prefisso \url{rdf:} \`e una abbreviazione per il namespace
+	\begin{center}
+	\url{http://www.w3.org/1999/02/22-rdf-syntax-ns\#}
+	\end{center}
+	\vspace{\baselineskip}
  
-\uncover<2>{
- Da questa definizione e dal fatto che un grafo RDF 
- \`e un insieme finito di property assertions dei seguenti tipi:
-\[
- \begin{array}{rcl}
-  a & P & b \\
-  a & P & l
- \end{array}
-\]
-con $P \in \IRI$, $a, b \in \IRI \cup \BlankNodes$ e $l \in \literals$, 
-per qualche insieme $\BlankNodes$ disgiunto da $\IRI$,
-segue che
-\[
- \begin{array}{rcl}
-  \CNames(\Ont_G) & \subseteq & \IRI\\
-  \PNames(\Ont_G) & \subseteq & \IRI\\  
-  \INames(\Ont_G) & \subseteq & \IRI \cup \BlankNodes
- \end{array}
-\]
-per ogni grafo RDF $G$ e per la corrispondente ontologia RDF $\Ont_G$.
-}
+ Una \emph{interpretazione RDF} pone dei vincoli semantici particolari
+ sull'interpretazione di questi termini (ne vedremo solo alcuni).
 \end{frame}
 
 \begin{frame}
  \frametitle{Class assertions in RDF}
  Asserzioni del tipo $a\, \mathurl{rdf:type}\,C$ vengono usate in RDF 
  per affermare class assertions $C(a)$.
- \vspace{\baselineskip}
- 
- Infatti, grazie al vincolo presente in $\Omega_{RDF}$
  \[
-  (\forall a, C)(a\,\mathurl{rdf:type}\,C \leftrightarrow C(a)) \quad(*).
+ \I \models a\, \mathurl{rdf:type}\,C \Leftrightarrow C^{\I}(a^{\I}) \quad (*)
  \]
- da ogni asserzione del tipo $a\, \mathurl{rdf:type}\,C$ tramite reasoning
- viene inferita una asserzione $C(a)$.
+
+\uncover<2->{  
+ In altre parole, da ogni asserzione del tipo $a\, \mathurl{rdf:type}\,C$
+ tramite reasoning viene inferita una asserzione $C(a)$.
  \vspace{\baselineskip}
  
- Consideriamo ad esempio il grafo RDF $G$ visto prima e la corrispondente 
- ontologia RDF:
+ Ad esempio:
  \[
  \begin{small}
  \begin{array}{lcl}
-  \Omega_{RDF} \cup \{ \tripleO{ex:Eliza}{rdf:type}{ex:Person},&&\{ \mathurl{ex:Person}(\mathurl{ex:Eliza}),\\
+  \{ \tripleO{ex:Eliza}{rdf:type}{ex:Person},&&\{ \mathurl{ex:Person}(\mathurl{ex:Eliza}),\\
   \phantom{\{} \tripleO{ex:Alice}{rdf:type}{ex:Person},&&\phantom{\{}\mathurl{ex:Person}(\mathurl{ex:Alice}),\\
   \phantom{\{} \tripleO{ex:Bob}{rdf:type}{ex:Person},&&\phantom{\{}\mathurl{ex:Person}(\mathurl{ex:Bob}),\\
   \phantom{\{} \tripleO{ex:childOf}{rdf:type}{rdf:Property},& \Longrightarrow & \phantom{\{}\mathurl{ex:Property}(\mathurl{ex:childOf}),\\
@@ -739,46 +782,45 @@ per ogni grafo RDF $G$ e per la corrispondente ontologia RDF $\Ont_G$.
 \end{array}
 \end{small}
 \]
+}
 \end{frame}
 
 \begin{frame}
  \frametitle{La classe \url{rdf:Property}}
-Il seguente vincolo, presente in $\Omega_{RDF}$, garantisce che ogni 
-propriet\`a $P$ presente in un grafo RDF sia riconosciuta come
+Ogni propriet\`a $P$ presente in un grafo RDF deve essere una
 istanza della classe \url{rdf:Property} 
 \[
-  (\forall a,P,b)(a\,P\,b \rightarrow \mathurl{rdf:Property}(P)) \quad (**)
+  \I \models a\,P\,b \iff [a^{\I}, b^{\I}] \in P^{\I} \wedge P^{\I} \in
+  (\mathurl{rdf:Property})^{\I} \quad (**).
 \]
 
 \uncover<2>{
-Consideriamo ad esempio un grafo RDF $G$ e la corripondente ontologia $\Ont_G = \Omega_{RDF} \cup G$,
-e sia $\Ont_G^{'}$ l'ontologia ottenuta estendendo $\Ont_G$ con le asserzioni
-che si possono inferire da $\Ont_G$ tramite reasoning.
-
-Supponiamo che la seguente asserzione sia in $G$. 
+Supponiamo che la seguente asserzione sia in un grafo RDF $G$ e sia
+$G'$ l'ontologia delle asserzioni che \`e possibile inferire da $G$ 
 \[
  \tripleO{ex:Bob}{ex:childOf}{ex:Eliza} .
 \]
 Allora
 \[
  \begin{array}{ll}
- \tripleO{ex:Bob}{ex:childOf}{ex:Eliza} \in G & \Longrightarrow \\
- \tripleO{ex:Bob}{ex:childOf}{ex:Eliza} \in \Ont_G & \Longrightarrow \\
- \tripleO{ex:Bob}{ex:childOf}{ex:Eliza} \in \Ont_G^{'} & \Longrightarrow (**)\\ %TODO overset
- \mathurl{rdf:Property}(\mathurl{ex:childOf}) \in \Ont_G^{'} & \Longrightarrow (*) \\ %TODO overset
- \tripleO{ex:childOf}{rdf:type}{rdf:Property} \in \Ont_G^{'}\\
+ \tripleO{ex:Bob}{ex:childOf}{ex:Eliza} \in G & \Longrightarrow (**)\\
+ \mathurl{rdf:Property}(\mathurl{ex:childOf}) \in G' & \Longrightarrow (*) \\
+ \tripleO{ex:childOf}{rdf:type}{rdf:Property} \in G'\\
  \end{array}
 \]
 }
 \end{frame} 
 
 \begin{frame}
- \frametitle{Vocabolari basati su RDF}
- Si noti che le propriet\`a in RDF sono trattate sia come propriet\`a che
- come \emph{individui}, inquanto istanze della classe \url{rdf:Property}.
- In altre parole, nel contesto RDF
+ \frametitle{Propriet\`a e Class in RDF}
+ Si noti che le propriet\`a e le classi in RDF sono trattate anche come
+ \emph{individui}. In altre parole, nel contesto RDF
  \[
-  \PNames \subseteq \CNames .
+ \begin{array}{c}
+  \PNames \subseteq \INames ,\\
+  \\
+  \mathurl{rdf:Property} \in \CNames \cap \INames . 
+ \end{array}
  \]
  \vspace{\baselineskip}
  
@@ -786,10 +828,9 @@ Allora
  di indecidibilit\`a (vedi OWL Full).   
  \vspace{\baselineskip}
 
- In genere, la natura di individuo di una propriet\`a viene utilizzata
- solo nella realizzazione di vocabolari, per \emph{annotare} le propriet\`a
- con commenti ed etichette esplicative oppure per descrivere i vincoli,
- come vedremo più avanti.
+ In genere, la natura di individuo di una propriet\`a classi viene
+ utilizzata solo  per \emph{annotare} le propriet\`a con commenti ed etichette
+ esplicative oppure per descrivere i vincoli, come vedremo più avanti.
 \end{frame} 
 
 % \section{Serializzazioni}
