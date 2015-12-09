@@ -929,22 +929,6 @@ possono essere abbreviate con
 \end{Verbatim}
 \end{frame}
  
-% \begin{frame}[fragile]
-%  \frametitle{La Sintassi RDF Turle - Prefisso base}
-% 
-% Con la parola chiave base \`e possibile specificare un \emph{prefisso base}
-% che verr\`a utilizzato per risolvere le IRI incomplete presenti nel grafo RDF.
-% 
-% \begin{Verbatim}[fontsize=\small]
-% @base <http://ex.org/>
-% 
-% <Eliza> <childOf> <Giorgia> ;
-%         <childOf> <Francis> ;
-%          <fullName> "Eliza Smith" ;
-%          <age> "63"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
-% \end{Verbatim}
-% \end{frame}
-
 \begin{frame}[fragile]
  \frametitle{La Sintassi RDF Turle - Prefisso base}
 
@@ -1057,7 +1041,7 @@ letterali fare riferimento a \url{http://www.w3.org/TR/2014/REC-turtle-20140225/
 \begin{frame}[fragile]
  \frametitle{La Sintassi RDF XML - Property assertions}
  In altre parole, una property assertion del tipo $\tripleO{iriSubj}{iriProp}{iriObj}$,
- con $iriSubj, iriProp, iriObj$ pu\`o essere serializzata in RDF XML 
+ con $iriSubj, iriProp, iriObj \in \IRI$ pu\`o essere serializzata in RDF XML 
  con il seguente elemento 
 
  \begin{Verbatim}[fontsize=\small]
