@@ -155,54 +155,6 @@ caratteristiche:
 
 \end{frame}
 
-% \begin{frame}
-% \frametitle{Riepilogo - Sostituzioni}
-% Una \emph{sostituzione} $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$
-% ($x_1, \ldots, x_n \in \VNames$, $a_1, \ldots, a_n \in \INames$)
-% \`e una mappa finita che associa nomi di individui a variabili.
-% \vspace{\baselineskip}
-% 
-% Siano $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$ una sostituzione,
-% e $T$ una formula atomica. $T\sigma$ indica la formula atomica chiusa che si ottiene
-% sostituendo in $T$ ad ogni occorrenza di ogni variabile $x_i$ il corrispondente
-% nome di individuo $a_i$, per $1\leq i \leq n$.
-% \end{frame}
-
-% \begin{frame}
-% \frametitle{Riepilogo - Interrogazioni}
-% Una \emph{query congiuntiva} \`e una congiunzione finita di formule atomiche $T_1 \wedge \ldots \wedge T_n$.
-% \vspace{\baselineskip}
-% 
-% Siano $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$ una sostituzione,
-% $Q=T_1 \wedge \ldots \wedge T_m$ una query congiuntiva e $\Ont$ una ontologia.
-% \vspace{\baselineskip}
-% 
-% $\sigma$ \`e detta essere una \emph{soluzione} per $Q$ rispetto ad $\Ont$ se
-% e solo se $T_1\sigma, \ldots, T_2\sigma$ compaiono in $\Ont$. 
-% \vspace{\baselineskip}
-% 
-% Il problema del \emph{Conjunctive Query Answering} consiste nel trovare
-% tutte le soluzioni minimali di una query congiuntiva rispetto ad una ontologia.
-% \end{frame}
-
-% \section{Argomenti}
-% 
-% \begin{frame}
-% \frametitle{Argomenti}
-% Questa presentazione tratter\`a i seguenti argomenti:
-% \begin{enumerate}
-%  \item ontologie con \emph{Letterali};
-%  \item International Resource Identifier (IRI);
-%  \item il linguaggio RDF e le sue serializzazioni;
-%  \item RDF Schema;
-%  \item il linguaggio di interrogazione SPARQL;
-% \end{enumerate}
-% 
-% \begin{figure}
-%  \includegraphics[width=160px]{Semantic_Web_Stack_rect.png} 
-% \end{figure}
-% \end{frame}
-
 \begin{frame}
 \frametitle{International Resource Identifier}
 
@@ -580,31 +532,6 @@ Data una qualsiasi ontologia (nel senso appena visto) $\Ont$, indicheremo con:
 %Inoltre, indichiamo con $\IRI$ l'insieme di tutti i possibili IRI.
 \end{frame}
 
-% \begin{frame}
-% \frametitle{Ontologie con Letterali - Esempio}
-% Consideriamo come esempio il vocabolario $\Vocab$ definito come segue:
-% \[
-%  \begin{array}{rcl}
-%   \Vocab & \defAs & (C, P, \Omega) \\
-%   C & \defAs & \{Person\}\\
-%   P & \defAs & \{childOf, fullName, age\}\\
-%   \Omega & \defAs & \{\dom(childOf) \Issub Person, \range(childOf) \Issub Person, \\
-%   &&\phantom{\{} \dom(fullName) \Issub Person, \range(fullName) \Issub xsd:string \\
-%   &&\phantom{\{} \dom(age) \Issub Person, \range(age) \Issub xsd:nonNegativeInteger \} ,
-%  \end{array}
-% \]
-% e l'ontologia con letterali $\Ont$ costruita a partire da $\Vocab$
-% \[
-%  \begin{array}{rcl}
-%   \Ont & \defAs & \Omega \cup \{ Person(Eliza), Person(Alice), Person(Bob),\\
-%   &&\phantom{\Omega \cup \{}Alice\,childOf\,Eliza, Bob\,childOf\,Eliza\\
-%   &&\phantom{\Omega \cup \{}Eliza\,fullName\, \stringLiteral{Eliza Smith}, Eliza\,age\,\literal{63}{xsd:nonNegativeInteger} \}\\
-%  \end{array}
-% \]
-% 
-% \end{frame}
-% 
-
 \section{RDF}
 
 \begin{frame}
@@ -633,46 +560,6 @@ Data una qualsiasi ontologia (nel senso appena visto) $\Ont$, indicheremo con:
 \end{frame}
 
 \newcommand{\RDFv}{\mathtt{RDF}}
-
-% \begin{frame}
-%  \frametitle{Vocabolario RDF}
-%  Il \emph{vocabolario $\RDFv$} pu\`o essere definito come segue:
-%  
-% \[
-%  \begin{array}{cclc}
-%  \RDFv & \defAs & (C_{RDF}, P_{RDF}, \Omega_{RDF}) \\
-%  &&\\
-%  C_{RDF} & \defAs & \{\mathurl{rdf:Property}, \mathurl{rdf:List}\}\\
-%  &&\\
-%  P_{RDF} & \defAs & \{\mathurl{rdf:type}, \mathurl{rdf:subject}, \mathurl{rdf:predicate}, \mathurl{rdf:object},\\
-%  && \phantom{\{} \mathurl{rdf:first}, \mathurl{rdf:rest}, \mathurl{rdf:value}, \mathurl{rdf:_1}, \mathurl{rdf:_2}, \ldots \}\\ 
-%  \\
-%  \Omega_{RDF} & \defAs & \{ (\forall a, C)(a\,\mathurl{rdf:type}\,C \leftrightarrow C(a)), & (*)\\ 
-%  &&\phantom{\{}(\forall a,P,b)(a\,P\,b \rightarrow \mathurl{rdf:Property}(P)), & (**) \\
-%  &&\phantom{\{}\range(\mathurl{rdf:first}) \Issub \mathurl{rdf:List},\\
-%  &&\phantom{\{}\range(\mathurl{rdf:rest}) \Issub \mathurl{rdf:List} \, \}\\
-%  \end{array}
-% \]
-% dove il prefisso \url{rdf:} \`e una abbreviazione per il namespace
-% \begin{center}
-%  \url{http://www.w3.org/1999/02/22-rdf-syntax-ns\#}
-% \end{center}
-% \vspace{\baselineskip}
-% 
-% Il vocabolario $\RDFv$ definisce inoltre un nome di individuo \url{rdf:nil}, 
-% appartenente alla class \url{rdf:List}, ed il datatype \url{rdf:XMLLiteral},
-% che indica un frammento XML.
-% \vspace{\baselineskip}
-% 
-% \uncover<2>{
-% Peculiarit\`a di $\RDFv$ :
-% \begin{itemize}
-%  \item L'insieme $P_{RDF}$ \`e infinito.
-%  \item I vincoli $(*)$ e $(**)$ non sono esprimibili nelle ontologie, servono a definire
-%  la \emph{semantica} del linguaggio RDF.
-% \end{itemize}
-% }
-% \end{frame}
 
 \begin{frame}
  \frametitle{Grafi RDF}
@@ -757,7 +644,7 @@ $\BlankNodes(G)$ l'insieme dei blank node del grafo $G$.
  Asserzioni del tipo $a\, \mathurl{rdf:type}\,C$ vengono usate in RDF 
  per affermare class assertions $C(a)$.
  \[
- \I \models a\, \mathurl{rdf:type}\,C \Leftrightarrow C^{\I}(a^{\I}) \quad (*)
+ \I \models a\; \mathurl{rdf:type}\;C \Leftrightarrow C^{\I}(a^{\I}) \quad (*)
  \]
 
 \uncover<2->{  
@@ -1084,30 +971,6 @@ oppure, utilizzando \url{rdf:resource}, con
 \end{Verbatim}
 \end{frame}
 
-% \begin{frame}[fragile]
-%  \frametitle{La Sintassi RDF XML - Multiple Property assertions (2/)}
-% Property assertions con lo stesso soggetto e predicato possono essere 
-% raggruppate in maniera analoga.
-% 
-% \[
-% \begin{array}{l}
-%  iriSubj\,iriProp\,iriObj1 \,, \\
-%  iriSubj\,iriProp\,iriObj2
-% \end{array}
-% \]
-% 
-% \vspace{\baselineskip}
-% 
-% \begin{Verbatim}[fontsize=\small]
-%    <rdf:Description rdf:about="iriSubj">
-%      <iriProp>
-%        <rdf:Description rdf:about="iriSubj1" />
-%        <rdf:Description rdf:about="iriSubj2" />
-%      </iriProp>
-%    </rdf:Description>
-% \end{Verbatim}
-% \end{frame}
-
 \begin{frame}[fragile]
  \frametitle{La Sintassi RDF XML - String literals}
 I letterali di tipo stringa specificati come oggetto di una 
@@ -1215,63 +1078,61 @@ Ad esempio, e seguenti due serializzazioni sono equivalenti.
 \end{Verbatim}
 \end{frame}
 
-\section{RDFS}
-
-\newcommand{\RDFSv}{\mathtt{RDFS}}
-
 \begin{frame}
  \frametitle{RDF Schema}
  \emph{RDF Schema} (in breve \emph{RDFS}) estende RDF con 
- delle funzionalit\`a utili a definire nuovi vocabolari.
-  \vspace{\baselineskip}
-
-Il \emph{vocabolario $\RDFSv$} pu\`o essere definito come segue:
+ ulteriori classi e propriet\`a per descrivere \emph{vincoli semantici}.
+ \vspace{\baselineskip}
  
-\[
- \begin{small}
- \begin{array}{cclc}
- \RDFSv & \defAs & (C_{RDFS}, P_{RDFS}, \Omega_{RDFS}) \\
- &&\\
- C_{RDFS} & \defAs & C_{RDF} \cup \{ \mathurl{rdfs:Resource}, \mathurl{rdfs:Literal}, \mathurl{rdfs:Datatype}, \\
- &&\phantom{C_{RDF} \cup \{}\mathurl{rdfs:Class}, \mathurl{rdfs:Container}, \mathurl{rdfs:ContainerMembershipProperty} \}\\
- &&\\
- P_{RDFS} & \defAs & P_{RDF} \cup \{\mathurl{rdfs:domain}, \mathurl{rdfs:range}, \mathurl{rdfs:subClassOf}, \mathurl{rdfs:subPropertyOf},\\
- &&\phantom{P_{RDF} \cup \{} \mathurl{rdfs:comment}, \mathurl{rdfs:seeAlso}, \mathurl{rdfs:isDefinedBy}, \mathurl{rdfs:label} \}\\
- \\
- \Omega_{RDFS} & \defAs & \Omega_{RDF} \cup \{ (\forall a, C)(C(a) \rightarrow a\,\mathurl{rdf:type}\,\mathurl{rdfs:Class}), & \\ 
- &&\phantom{\Omega_{RDFS} \cup \{}(\forall a,P,s,t)(a\,P\,\literal{s}{t} \rightarrow \literal{s}{t}\,\mathurl{rdf:type}\,\mathurl{rdfs:Literal}), & \\
- &&\phantom{\Omega_{RDFS} \cup \{}(\forall a,P,s,t)(a\,P\,\literal{s}{t} \rightarrow t\,\mathurl{rdf:type}\,\mathurl{rdfs:Datatype}), & \\
- &&\phantom{\Omega_{RDFS} \cup \{}(\forall C,D)(C\,\mathurl{rdfs:subClassOf}\,D  \leftrightarrow C \Issub D), & \\
- &&\phantom{\Omega_{RDFS} \cup \{}(\forall R,S)(R\,\mathurl{rdfs:subPropertyOf}\,S  \leftrightarrow R \Issub S), & \\
- &&\phantom{\Omega_{RDFS} \cup \{}(\forall R,C)(R\,\mathurl{rdfs:domain}\,C  \leftrightarrow \dom(R) \Issub C), & \\
- &&\phantom{\Omega_{RDFS} \cup \{}(\forall R,C)(R\,\mathurl{rdfs:range}\,C  \leftrightarrow \range(R) \Issub C)\,\} \\
- \end{array}
- \end{small}
-\]
-dove il prefisso \url{rdfs} \`e una abbreviazione per il namespace
+ In questa sede vedremo $\mathurl{rdfs:Class} \in \CNames$ e le propriet\`a 
+ $\mathurl{rdfs:subClassOf}$, $\mathurl{rdfs:subPropertyOf}$,
+ $\mathurl{rdfs:domain}$, $\mathurl{rdfs:range}$, $\mathurl{rdfs:label}$,
+ $\mathurl{rdfs:comment}$ dove il prefisso \url{rdfs} \`e una abbreviazione per
+ il namespace
 \begin{center}
  \url{http://www.w3.org/2000/01/rdf-schema\#}
 \end{center}
 \end{frame}
 
-\begin{frame}[fragile]
+\begin{frame}
+ \frametitle{Classi RDFS}
+ In RDFS \`e definita una classr \url{rdfs:Class} cui appartengono tutte le
+ altre classi:
+\[
+\begin{array}{lcl}
+	C \in \CNames \Longrightarrow C^{\I} \in  (\mathurl{rdfs:Class})^{\I}\\
+\end{array}
+\]
+per ogni interpretazione RDFS $\I$. 
+\end{frame}
+
+\begin{frame}
  \frametitle{Gerarchie di Classi e Propriet\`a}
- In RDFS \`e possibile definire gerarchie di classi. Nel seguito mostriamo alcuni esempi
- con la sintassi RDF XML.
+ In RDFS \`e possibile definire gerarchie di classi.
 
-\begin{Verbatim}[fontsize=\small]
-<rdfs:Class rdf:about="http://ex.org/Man">
-  <rdfs:subClassOf rdf:resource="http://ex.org/Person" />
-</rdf:Class>
+\[
+\begin{array}{lcl}
+	\I \models C\;\mathurl{rdfs:subClassOf}\;D & \iff & \I \models C \Issub D\\
+	&&\\
+	\I \models P\;\mathurl{rdfs:subPropertyOf}\;Q & \iff & \I \models P \Issub Q\\
+\end{array}
+\]
+per ogni $C, D \in \CNames$, $P, Q \in \PNames$ e per ogni interpretazione RDFS
+$\I$.
+\end{frame}
 
-<rdfs:Class rdf:about="http://ex.org/Woman">
-  <rdfs:subClassOf rdf:resource="http://ex.org/Person" />
-</rdf:Class>
-
-<rdf:Property rdf:about="http://ex.org/son">
-  <rdfs:subPropertyOf rdf:resource="http://ex.org/childOf" />
-</rdf:Property>
-\end{Verbatim} 
+\begin{frame}
+ \frametitle{Vincoli di Dominio e Codominio}
+ Si possono esprimere restrizioni sul dominio e codominio di una proprietà
+\[
+\begin{array}{lcl}
+	\I \models P\;\mathurl{rdfs:domain}\;C & \iff & \I \models \dom(P) \Issub C\\
+	&&\\
+	\I \models P\;\mathurl{rdfs:range}C & \iff & \I \models \range(P) \Issub C\\
+\end{array}
+\]
+per ogni $C \in \CNames$, $P \in \PNames$ e per ogni interpretazione RDFS
+$\I$.
 \end{frame}
 
 \begin{frame}[fragile]
@@ -1287,6 +1148,181 @@ dove il prefisso \url{rdfs} \`e una abbreviazione per il namespace
   <rdfs:comment>A male person.</rdfs:comment>
 </rdf:Class>
 \end{Verbatim} 
+\end{frame}
+
+\section{Vocabolari}
+
+\begin{frame}
+\frametitle{Vocabolari}
+	
+	Nomi di classe e propriet\`a vengono raggruppati in \emph{vocabolari}
+	che trattano specifici domini di conoscenza (eg. organizzazioni, 
+	pubblica amministrazione, biologia, commercio, etc.). 
+	\vspace{\baselineskip}
+	
+	Un vocabolario
+	pu\`o contenere anche \emph{vincoli} inerenti classi e le propriet\`a 
+	del vocabolario stesso.
+	\vspace{\baselineskip}
+	
+	L'utilizzo di vocabolari condivisi permette lo sviluppo di applicazioni
+	riguardanti specifici domini di conoscenza, ma indipendenti dai dati
+	e dai dataset.
+\end{frame}
+
+\begin{frame}
+\frametitle{Definizione di Vocabolario}
+	Una definizione di vocabolario pu\`o essere la seguente:
+	\[
+	 V = (C, P, \Omega)
+	\]
+	dove
+	\begin{enumerate}
+	 \item $C$ \`e un sottoinsieme finito di $\CNames$,
+	 \item $P$ \`e un sottoinsieme finito di $\PNames$,
+	 \item $\Omega$ \`e un insieme finito di vincoli che coinvolgano solo
+	 nomi di classi in $C$ e nomi di propriet\`a in $P$.
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Il Vocabolario FOAF}
+  Uno dei primi e pi\`u utilizzati vocabolari definiti nell'ambito
+  del Web semantico \`e \emph{Friend OF A Friend} (\emph{FOAF}, vedi \url{http://foaf-project.org}).
+  \vspace{\baselineskip}
+
+  \begin{quote}
+  FOAF is a project devoted to linking people and information using the Web. 
+  \end{quote}
+  \vspace{\baselineskip}
+
+  Il vocabolario \`e disponibile alla URL
+  \begin{center}
+    http://xmlns.com/foaf/spec/index.rdf  
+  \end{center}
+  \vspace{\baselineskip}
+
+  Il namespace del vocabolario FOAF \`e \url{http://xmlns.com/foaf/0.1/}
+  \vspace{\baselineskip}
+  
+  \texttt{foaf-a-matic}\footnote{\url{http://www.ldodds.com/foaf/foaf-a-matic.html}} \`e uno strumento \emph{giocattolo} che permette di realizzare facilmente
+  una ontologia che usa il vocabolario FOAF.
+\end{frame}
+
+\newcommand{\foafcore}{\mathtt{FOAFCore}}
+\begin{frame}
+  \frametitle{FOAF Core}
+
+  In questa sede ci limiteremo solo alla parte \emph{Core}.
+  \vspace{\baselineskip}
+  
+  Il vocabolario \emph{Foaf Core} \`e definito come segue:
+\[
+ \begin{array}{ccl}
+ \foafcore & \defAs & (C_{foaf}, P_{foaf}, \Omega_{foaf}) \\
+ &&\\
+ C_{foaf} & \defAs & \{Agent, Person, Project, Organization, Group, Document, Image\}\\
+ &&\\
+ P_{foaf} & \defAs & \{name, title, img, depiction, depicts, familyName, givenName, knows,\\
+ && \phantom{\}} based\_near, age, made, maker, primaryTopic, primaryTopicOf, member \}\\
+ \Omega_{foaf} & \defAs & \{ Person \Issub Agent, Group \Issub Agent, Organization \Issub Agent, \\
+ && \phantom{\{} Image \Issub Document, \dom(title) \Issub Document, \\
+ && \phantom{\{}\range(depiction) \Issub Image, img \Issub depiction, \dom(img) \Issub Person,\\
+ && \phantom{\{}\dom(knows) \Issub Person, \range(knows) \Issub Person, \ldots \}\\
+ \end{array}
+\]
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{FOAF Core - classi}
+  Nel seguito lasceremo ometteremo il prefisso delle URI, dando per scontato che sia 
+  quello del vocabolario FOAF.
+  \vspace{\baselineskip}
+  
+  Nel \emph{core} del vocabolario FOAF vengono definte le seguenti classi:
+  
+  \begin{itemize}
+   \item \emph{Agent} - appartengono a questa classe tutte quelle entit\`a in grado di compiere azioni
+   (persone, gruppi, software, robot, ...);   
+   \item \emph{Person} ($Person \Issub Agent$) - persone (vive o morte, reali o immaginarie);
+   \item \emph{Group} ($Group \Issub Agent$) - insiemi di agenti;
+   \item \emph{Organization} ($Organization \Issub Agent$) - insiemi di persone che rappresenta una \emph{istituzione sociale} (azienda, associazione, ministero, ...);
+   \item \emph{Document} sono i documenti, nel senso comune del termine (atti, leggi, carte di identit\`a, ...);
+   \item \emph{Image} - ($Image \Issub Document$) - i documenti che sono immagini, sia digitali che non;
+   \item \emph{Project} - un incontro collettivo di qualche tipo.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{FOAF Core - Propriet\`a}
+  Elenchiamo ora le propriet\`a nel FOAF Core:
+  
+  \begin{itemize}
+%    \item \emph{homepage} ($\range(homepage) \Issub Document$) - la pagina principale che descrive qualcosa;
+   \item \emph{name} - il nome di qualcosa;
+   \item \emph{title} - titolo onorifico di una person (Mr, Mrs, Ms, Dr. etc);
+   \item \emph{familyName} ($\dom(familyName) \Issub Person$) - il cognome di una persona;
+   \item \emph{givenName} - prima parte del nome completo di una persona;
+   \item \emph{img} ($\dom(img) \Issub Person$, $\range(img) \Issub Image$) - mette in relazione una persona con 
+   una immagine che la rappresenta;
+   \item \emph{based\_near} ($\dom(based\_near) \Issub Spatial_Thing$, $\range(based_near) \Issub Spatial_Thing$) - 
+    indica che due cose sono \emph{vicine} in termini spaziali;
+   \item \emph{age} ($\dom(age) \Issub Agent$) - l'et\`a, espressa in numero di anni, di un agente;    
+   \item \emph{knows} ($\dom(knows) \Issub Person$, $\range(knows) \Issub Person$) - indica che \`e avvenuta interazione
+   di qualche tipo tra due persone;
+   \item \emph{primaryTopicOf} ($\dom(primaryTopicOf) \Issub Document$) - indica l'oggetto principale di un documento;
+   \item \emph{isPrimaryTopicOf} ($\range(isPrimaryTopicOf) \Issub Document$) - mette in relazione un oggetto con i 
+    documenti che lo rigurdano;
+   \item \emph{made} ($\dom(made) \Issub Agent$) - mette in relazione un agente con qualcosa 
+   che ha prodotto;
+   \item \emph{maker} ($\range(made) \Issub Agent$) - mette in relazione un oggetto con gli agenti
+   che hanno contribuito a crearlo; 
+   \item \emph{member} ($\dom(member) \Issub Group$, $\range(member) \Issub Agent$) - mette in relazione un
+   gruppo con i suoi membri.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Descrizioni Intuitive degli Elementi dei Vocabolari}
+	Le classi e le propriet\`a di un vocabolario vengono spesso fornite
+	di una descrizione intuitiva nel documento che descrive il vocabolario.
+	Ad esempio, le classi $Agent$ e $Person$ vengono descritte come segue
+	in \url{http://xmlns.com/foaf/spec/}
+	\begin{quote}
+		\textbf{Agent} - The Agent class is the class of agents; things that do stuff. A well known
+		sub-class is Person, representing people. Other kinds of agents include
+		Organization and Group.
+		
+		The Agent class is useful in a few places in FOAF where Person would have
+		been overly specific. For example, the IM chat ID properties such as
+		jabberID are typically associated with people, but sometimes belong to
+		software bots.
+	\end{quote}
+
+	\begin{quote}
+		\textbf{Person} - The Person class represents people. Something is a Person if it is a person.
+		We don't nitpic about whether they're alive, dead, real, or imaginary.
+		The Person class is a sub-class of the Agent class, since all people are
+		considered 'agents' in FOAF.
+	\end{quote}
+\end{frame}
+
+\begin{frame}
+\frametitle{Descrizioni Rigorose degli Elementi dei Vocabolari}
+	Tuttavia, gi\`a nei vincoli di un vocabolario si trovano indicazioni importanti
+	sulla \emph{semantica} dei nomi di classe e di propriet\`a del vocabolario stesso.
+	\[
+	\begin{array}{l}
+	Person \Issub Agent\\
+	\range(depiction) \Issub Image\\
+	img \Issub depiction, \\
+	\dom(img) \Issub Person,\\
+	\dom(knows) \Issub Person,\\
+	\range(knows) \Issub Person,\\
+	\ldots
+	\end{array}
+	\]
 \end{frame}
 
 \section{SPARQL}
@@ -1326,6 +1362,7 @@ in uno dei formati XML, JSON o CSV (il formato di risposta va specificato
 nella richesta).
 }
 \end{frame}
+
 
 \begin{frame}[fragile]
 \frametitle{SPARQL Query Language}
