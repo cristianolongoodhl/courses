@@ -1,0 +1,63 @@
+Web Reasoning (INF01) (9 CFU)
+
+
+
+Resource Description Framework (RDF), SPARQL Protocol and RDF Query Language - (3 CFU)
+
+Ontology Web Language 2 (OWL 2) - (3 CFU)
+
+Dimostratori automatici per il web - (3 CFU)
+
+
+NOTA: Ciascuna parte è da considerarsi come (2 CFU teoria + 1 CFU laboratorio) = 3 CFU
+
+
+
+****************************************************************************
+
+
+Il corso si propone di fornire gli strumenti standard per la rappresentazione e l'interrogazione
+della conoscenza presente sul Web. Il corso si propone inoltre di mettere lo studente in grado di
+costruire ontologie web e di ragionare su queste ultime attraverso i reasoner automatici attualmente
+più utilizzati. (Sono previsti 6 cfu di teoria e 3 cfu di laboratorio con l'applicativo Protégé e i
+ragionatori automatici Hermit e Pellet.)
+
+
+Modalità di esame: progetto implementativo, da svolgere eventualmente in gruppo, in cui lo studente
+possa mettere in pratica le nozioni introdotte nel corso.
+
+
+Programma dettagliato:
+
+PARTE 1 (2 cfu teoria + 1 cfu laboratorio con l'applicativo Protégé)
+
+
+
+Introduzione al web semantico: motivazioni, esempi, cenni alla modellazione semantica.
+Resource Description Framework (RDF): triple RDF, grafi RDF, Merging di grafi RDF, N-triple, Turtle. 
+Esempi ed esercitazioni con l'editor Protégé.
+
+SPARQL Protocol and RDF Query Language: graph pattern, query SELECT e CONSTRUCT, inferenze. Esempi ed 
+esercizi con il tool Protégé.
+
+
+RDF Schema (RDFS): classi, proprietà, relazioni fra classi (subClassOf), fra proprietà (subPropertyOf) 
+e fra proprietà e classi (domain e range). Operatori logici di combinazione di classi e proprietà. RDFS 
+plus. Esempi ed esercizi con il tool Protégé.
+
+
+PARTE 2 (2 cfu teoria + 1 cfu laboratorio con l'applicativo Protégé)
+Ontology Web Language 2 (OWL 2): restrizioni su proprietà, su classi (someValuesFrom, allValuesFrom), 
+restrizioni di cardinalità. Inferenze in OWL 2. Profili OWL 2 EL, OWL 2 QL,
+
+
+OWL 2 RL e loro applicazioni. Nozioni di contraddizione, soddisfacibilità, insoddisfacibilità
+in ontologie.
+Pratiche buone e cattive per la modellazione di ontologie. Errori comuni.
+Esempi di ontologie ed esercizi di modellazione e inferenza con Protégé.
+
+PARTE 3 (2 cfu teoria + 1 cfu laboratorio con l'applicativo Protégé e i ragionatori Hermit e Pellet)
+Introduzione alla logica classica. Le logiche descrittive: motivazioni e nozioni base. Le logiche AL, 
+EL, FL, ALC, ALCN. La logica alla base di OWL 2: SROIQ(D). I reasoner Pellet e Hermit.
+
+Datalog. The Semantic Rule Web Language (SWRL). Esempi ed applicazioni con Protégé.
