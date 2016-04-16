@@ -1,0 +1,1075 @@
+\documentclass[8pt]{beamer}
+\usepackage[nobglogo]{beamerthemedmi-owled}
+\usepackage{graphicx}
+\usepackage{dl}
+\usepackage{mls}
+\usepackage{xspace}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{enumerate}
+\usepackage{color}
+
+\mode<presentation>
+{
+  \usetheme{dmi-owled}
+  %\usetheme{Warsaw}
+  % or ...
+
+  \setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+
+
+\usepackage[english]{babel}
+% or whatever
+
+\usepackage[latin1]{inputenc}
+% or whatever
+
+%TERMS
+
+\newcommand{\Persons}{\mathtt{Person}}
+\newcommand{\relative}{\mathtt{relativeOf}}
+\newcommand{\partner}{\mathtt{partnerOf}}
+\newcommand{\child}{\mathtt{childOf}}
+\newcommand{\parent}{\mathtt{parentOf}} 
+\newcommand{\ancestor}{\mathtt{ancestorOf}} 
+\newcommand{\descendant}{\mathtt{descendantOf}}
+
+%INDIVIDUALS
+\newcommand{\Alice}{A}
+\newcommand{\Bob}{B}
+\newcommand{\Charlie}{C}
+
+%KNOWLEDGE BASES
+\newcommand{\KBsets}{\mathcal{K}_{\mathcal{L}}}
+\newcommand{\KBlcons}{\widehat{\mathcal{K}}_{\mathcal{L}}}
+\newcommand{\KBsetsq}{\mathcal{K}^{q}_\mathcal{L}}
+\newcommand{\KBdl}{\mathcal{K}}
+\newcommand{\KBzerozero}{\mathcal{K}_{\mathcal{S},0}}
+\newcommand{\KBzeroone}{\mathcal{K}_{\mathcal{S},1}}
+\newcommand{\KBzero}{\mathcal{K}_{\mathcal{S}}}
+\newcommand{\KBtra}{\mathcal{K}'_{\mathcal{S}}}
+\newcommand{\KBirr}{\mathcal{K}''_{\mathcal{S}}}
+\newcommand{\KBq}{\mathcal{K}^{q}_{\mathcal{S}}}
+\newcommand{\KBel}{\mathcal{K_E}}
+\newcommand{\Kcand}{\mathcal{O}}
+
+%ADDITIONALS
+% Queries
+\newcommand{\TestCases}{\mathit{T}}
+\newcommand{\italian}{\mathtt{Italian}}
+\newcommand{\withitrel}{\mathtt{WithItRelative}}
+\newcommand{\withitanc}{\mathtt{ItDescendant}}
+
+% Tests
+%\newcommand{\testpassed}{\textsf{Y}}
+\newcommand{\testpassed}{\textsf{Y}}
+\newcommand{\testfailed}{\bf{\textsf{N}}}
+
+\title{Representing Kinship Relations on the Semantic Web}
+
+\author{Domenico Cantone \inst{1} \and Aldo Gangemi \inst{2,3} \and Cristiano Longo \inst{4}}
+%\institute{Dipartimento di Matematica e Informatica, Universit\`a di Catania, Italy\\
+%\email{\{cantone, longo, nicolosi\}@dmi.unict.it}}
+\institute{\inst{1}Dipartimento di Matematica e Informatica, Universit\`a di Catania, Italy \and 
+  \inst{2} STLab, ISTC-CNR, Rome, Italy \and 
+  \inst{3} LIPN, Universit\'e Paris 13-CNRS-Sorbonne Cit\'e, France \and 
+  \inst{4} Network Consulting Engineering (NCE) S.r.l, Valverde (CT), Italy}
+
+\begin{document}
+\maketitle
+\setcounter{tocdepth}{1}
+%\tableofcontents
+
+\section{Topics}
+
+\begin{frame}
+\frametitle{Topics}
+    This paper is about:
+    \begin{itemize}[<+->]
+     \item Kinship relationships
+     \item ontology design
+     \item \Large{an ontology design method applied to kinship}
+    \end{itemize}
+\end{frame}
+
+\section{Methodology}
+\begin{frame}
+\frametitle{Methodology - Artifacts}
+The proposed method produces the following artifacts:
+\begin{itemize}[<+->]
+ \item An informal (but possibly accurate) description of the knowledge domain. At this stage, vocabulary terms
+ are defined, and their intuitive meaning is provided in natural 
+ language: stories, scenarios, competency questions.
+ \item \emph{Intuitive but formal} definitions for vocabulary terms, called the \emph{intuitive description} of
+ the knowledge domain. It is provided in any formal language, \emph{not necessarily decidable}. It can be used to validate 
+ the informal description. 
+ \item A set of \emph{inference test cases}, say $\TestCases$, derived from the intuitive description. They are used to measure the \emph{inferencing
+ capability} of a candidate ontology $\Kcand$, in order to provide an immediate view of which types of inferences will be 
+ drawn adopting $\Kcand$ and which will not.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Methodology - Building ontologies}
+Candidate ontologies are built starting from the intuitive description (e.g. $KBsets$).
+\vspace{\baselineskip}
+
+\uncover<2->{ The \emph{coherence} of a candidate ontology $\Kcand$
+with the intuitive description must be verified
+\[
+ \KBsets \Longrightarrow \Kcand
+\]
+in order to guarantee that no unexpected consequence will be thrown by $\Kcand$ (facts inferred by $\Kcand$ are
+inferred by $\KBsets$ as well). 
+}
+\vspace{\baselineskip}
+
+\uncover<3->{
+If $\Kcand \not\Longrightarrow \KBsets$, 
+then $\Kcand$ has to be tested againts $\TestCases$.
+}
+\vspace{\baselineskip}
+
+\uncover<4-> {Informally, this is known as \emph{design by competency questions}. 
+eXtreme Design is an example, but it lacks the formal method described here.
+}
+
+\end{frame}
+
+\section{Kinship}
+
+\begin{frame}
+\frametitle{Kinship Ontology}
+  Kinship pervades several knowledge domains: anthropology, 
+  genetics, sociology, law, etc.
+  \vspace{\baselineskip}
+  
+ Some research about kinship has been done in the Semantic Web (RELATIONSHIP vocabulary, Family History Knowledge base, etc.).
+  \vspace{\baselineskip}
+  
+  Kinship is known as  a difficult domain for reasoning (cf. Stevens et al. at OWLEd).
+   \vspace{\baselineskip}
+
+  \uncover<2->{
+  Our ontology is intended to be \emph{minimal} and \emph{reasoning-oriented}.
+  Vocabulary terms taken into account are:
+  \begin{itemize}
+   \item the concept $\Persons$, denoting the set of all human beings;
+   \item the roles 
+\[
+  \begin{array}{lll}
+  \relative, & \partner, & \child, \\
+  \parent, & \ancestor, & \descendant
+  \end{array}
+\]
+  \end{itemize}
+  }
+\end{frame}
+
+\begin{frame}
+\frametitle{Kinship Ontology - Informal description for $\relative$}
+  For each term, firstly, an informal description (requirements) is provided.
+  \vspace{\baselineskip}
+  
+  {\Large $\relative$}: \begin{itemize}
+   \item it is a relation over persons
+   \item everyone is relative of its relatives
+   \item nobody is relative of itself
+   \item all the relatives of a person's relatives are relatives of the
+      person itself
+  \end{itemize}
+  \vspace{\baselineskip}
+
+  \phantom{\begin{small}
+  \begin{tabular}{|l|l|l|}
+  \hline
+  \emph{Constraint} & \phantom{\emph{Premises}} & \phantom{\emph{Consequence}} \\
+   \hline
+   $\dom(\relative) \Issub \Persons$ & \phantom{$\Alice\,\relative\,\Bob$} & \phantom{$\Alice \in \Persons$}\\
+  \hline
+  $\issymmetric{\relative}$ & \phantom{$\Alice\,\relative\,\Bob$} & \phantom{$\Bob\,\relative\,\Alice$}\\
+  \hline
+  $\relative \equiv \relative^{+} \sqcap (\neg \roleidentity{\Persons})$&\phantom{$\Alice\,\relative\,\Bob$}&\phantom{$\Alice\,\relative\,\Charlie$}\\
+    &\phantom{$\Bob\,\relative\,\Charlie$}&\\
+    &\phantom{$\Alice\,\neq\,\Bob\,\neq\,\Charlie$}&\\
+  \hline
+  $\range(\relative) \Issub \Persons$ (derived)& \phantom{$\Alice\,\relative\,\Bob$} & \phantom{$\Bob \in \Persons$}\\
+  \hline
+  $\isirreflexive{\relative}$ (derived)& \phantom{$\Alice\,\relative\,x$ (derived)}& \phantom{$\Alice\neq x$} \\
+ \hline
+ \end{tabular}
+ \end{small}}
+\end{frame}
+
+\begin{frame}
+\frametitle{Kinship Ontology - Intuitive but precise description for $\relative$ (1/2)}
+  Then, the requirements are encoded in some \emph{formal} language, e.g. a maximally expressive DL.
+  \vspace{\baselineskip}
+  
+  {\Large $\relative$}: \begin{itemize}
+   \item it is a relation over persons;
+   \item everyone is relative of its relatives;
+   \item nobody is relative of itself;
+   \item all the relatives of a person's relatives are relatives of the
+      person itself.
+  \end{itemize}
+  \vspace{\baselineskip}
+
+  \begin{small}
+  \begin{tabular}{|l|l|l|}
+  \hline
+  \emph{Constraint} & \phantom{\emph{Premises}} & \phantom{\emph{Consequence}} \\
+   \hline
+   $\dom(\relative) \Issub \Persons$ & \phantom{$\Alice\,\relative\,\Bob$} & \phantom{$\Alice \in \Persons$}\\
+  \hline
+  $\issymmetric{\relative}$ & \phantom{$\Alice\,\relative\,\Bob$} & \phantom{$\Bob\,\relative\,\Alice$}\\
+  \hline
+  \alert{$\relative \equiv \relative^{+} \sqcap (\neg \roleidentity{\Persons})$}&\phantom{$\Alice\,\relative\,\Bob$}&\phantom{$\Alice\,\relative\,\Charlie$}\\
+    &\phantom{$\Bob\,\relative\,\Charlie$}&\\
+    &\phantom{$\Alice\,\neq\,\Bob\,\neq\,\Charlie$}&\\
+  \hline
+  \phantom{$\range(\relative) \Issub \Persons$}& \phantom{$\Alice\,\relative\,\Bob$} & \phantom{$\Bob \in \Persons$}\\
+  \hline
+  \phantom{$\isirreflexive{\relative}$ (derived)}& \phantom{$\Alice\,\relative\,x$}& \phantom{$\Alice\neq x$} \\
+ \hline
+ \end{tabular}
+ \end{small}
+\end{frame}
+
+\begin{frame}
+\frametitle{Kinship Ontology - Intuitive but precise description for $\relative$ (2/2)}
+  Next, additional constraints are derived from the provided ones. 
+  \vspace{\baselineskip}
+  
+  {\Large $\relative$}: \begin{itemize}
+   \item it is a relation over persons;
+   \item everyone is relative of its relatives;
+   \item nobody is relative of itself;
+   \item all the relatives of a person's relatives are relatives of the
+      person itself.
+  \end{itemize}
+  \vspace{\baselineskip}
+
+  \begin{small}
+  \begin{tabular}{|l|l|l|}
+  \hline
+  \emph{Constraint} & \phantom{\emph{Premises}} & \phantom{\emph{Consequence}} \\
+   \hline
+   $\dom(\relative) \Issub \Persons$ & \phantom{$\Alice\,\relative\,\Bob$} & \phantom{$\Alice \in \Persons$}\\
+  \hline
+  $\issymmetric{\relative}$ & \phantom{$\Alice\,\relative\,\Bob$} & \phantom{$\Bob\,\relative\,\Alice$}\\
+  \hline
+  $\relative \equiv \relative^{+} \sqcap (\neg \roleidentity{\Persons})$&\phantom{$\Alice\,\relative\,\Bob$}&\phantom{$\Alice\,\relative\,\Charlie$}\\
+    &\phantom{$\Bob\,\relative\,\Charlie$}&\\
+    &\phantom{$\Alice\,\neq\,\Bob\,\neq\,\Charlie$}&\\
+  \hline
+  $\range(\relative) \Issub \Persons$& \phantom{$\Alice\,\relative\,\Bob$} & \phantom{$\Bob \in \Persons$}\\
+  \hline
+  $\isirreflexive{\relative}$& \phantom{$\Alice\,\relative\,x$}& \phantom{$\Alice\neq x$} \\
+ \hline
+ \end{tabular}
+ \end{small}
+\end{frame}
+
+\begin{frame}
+\frametitle{Kinship Ontology - Test cases for $\relative$}
+  Finally, a set of test cases is produced starting from these constraints.
+  \vspace{\baselineskip}
+  
+  {\Large $\relative$}: \begin{itemize}
+   \item it is a relation over persons;
+   \item everyone is relative of its relatives;
+   \item nobody is relative of itself;
+   \item all the relatives of a person's relatives are relatives of the
+      person itself.
+  \end{itemize}
+  \vspace{\baselineskip}
+
+  \begin{small}
+  \begin{tabular}{|l|l|l|}
+  \hline
+  \emph{Constraint} & \emph{Premises} & \emph{Consequence} \\
+   \hline
+   $\dom(\relative) \Issub \Persons$ & $\Alice\,\relative\,\Bob$ & $\Alice \in \Persons$\\
+  \hline
+  $\issymmetric{\relative}$ & $\Alice\,\relative\,\Bob$ & $\Bob\,\relative\,\Alice$\\
+  \hline
+  $\relative \equiv \relative^{+} \sqcap (\neg \roleidentity{\Persons})$&$\Alice\,\relative\,\Bob$&$\Alice\,\relative\,\Charlie$\\
+    &$\Bob\,\relative\,\Charlie$&\\
+    &$\Alice\,\neq\,\Bob\,\neq\,\Charlie$&\\
+  \hline
+  $\range(\relative) \Issub \Persons$& $\Alice\,\relative\,\Bob$ & $\Bob \in \Persons$\\
+  \hline
+  $\isirreflexive{\relative}$& $\Alice\,\relative\,x$& $\Alice\neq x$ \\
+ \hline
+ \end{tabular}
+ \end{small}
+\end{frame}
+
+\begin{frame}
+\frametitle{Kinship Ontology - Intuitive description (1/2)}
+  Iterating this process for each vocabulary term, we obtain: 
+  \vspace{.3cm}
+  
+  - a set of constraints, \ldots
+  
+\[
+\begin{array}{rcl}
+\KBsets & = & \{\;\; \dom(\relative) \Issub \Persons,\\
+&&\phantom{\{\;\;} \issymmetric{\relative},\\
+&&\phantom{\{\;\;} \relative \equiv \relative^{+} \sqcap (\neg 
+\roleidentity{\Persons}),~~~~~~~ \\
+&&\phantom{\{\;\;} \partner \Issub \relative,\\
+&&\phantom{\{\;\;} \issymmetric{\partner},\\
+&&\phantom{\{\;\;} \child \Issub \relative,\\
+&&\phantom{\{\;\;} \parent \equiv \child^{-},\\
+&&\phantom{\{\;\;} \descendant \equiv \child^{+},\\
+&&\phantom{\{\;\;} \descendant \Issub \relative,\\
+&&\phantom{\{\;\;} \ancestor \equiv \parent^{+}\;\;\}\,.
+\end{array}
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{Kinship Ontology - Intuitive description (2/2)}
+  \center{\ldots, some additional constraints deriving from $\KBsets$, \ldots}
+  
+\[
+\begin{small}
+\begin{array}{rcl}
+\KBlcons & = & \{\;\; \range(\relative) \Issub \Persons,\\
+&&\phantom{\{\;} \isirreflexive{\relative}, \\
+&&\phantom{\{\;} \isirreflexive{\partner}, \\
+&&\phantom{\{\;} \isirreflexive{\child}, \\
+&&\phantom{\{\;} \isantisymmetric{\child}, \\ %child è sottorelazione di descendant, che è transitiva e irriflessiva
+&&\phantom{\{\;} \parent \Issub \relative, \\
+&&\phantom{\{\;} \isirreflexive{\parent}, \\
+&&\phantom{\{\;} \isantisymmetric{\parent}, \\ %parent è inversa di child, che è antisimmertica
+&&\phantom{\{\;} \isirreflexive{\descendant}, \\
+&&\phantom{\{\;} \isantisymmetric{\descendant}, \\ %parent è inversa di child, che è antisimmertica
+&&\phantom{\{\;} \child \Issub \descendant, \\
+%&&\phantom{\{\;} \parent^{-} \Issub \descendant, & \constr\label{PARENTINVDESCENDANT}\\
+&&\phantom{\{\;} \ancestor \equiv \descendant^{-}, \\
+&&\phantom{\{\;} \ancestor \Issub \relative, \\
+&&\phantom{\{\;} \isirreflexive{\ancestor}, \\
+&&\phantom{\{\;} \isantisymmetric{\ancestor}, \\ %parent è inversa di child, che è antisimmertica
+&&\phantom{\{\;} \parent \Issub \ancestor,  \\
+&&\phantom{\{\;} \disjointRoles{\ancestor}{\descendant} 
+\;\}\,~~~~~~~  
+%&&\phantom{\{\;\;} \child^{-} \Issub \ancestor & \constr\label{CHILDINVANCESTOR} & \;\;\}
+\end{array} 
+\end{small}
+\]
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Kinship Ontology - Test cases}
+  \center{\ldots, and a test-bed for expected inferences.}
+\begin{small}
+\begin{table} 
+  \begin{tabular}{ccc}
+  \begin{tabular}{|l|l|}
+  \hline
+  \bf{Premises} & \bf{Consequence} \\
+  \hline
+  $\Alice\,\relative\,\Bob$ & $\Alice \in \Persons$     \\
+  \hline
+  $\Alice\,\relative\,\Bob$ & $\Bob\,\relative\,\Alice$     \\
+  \hline
+  $\Alice\,\relative\,\Bob$ & $\Alice\,\relative\,\Charlie$     \\
+  $\Bob\,\relative\,\Charlie$&\\
+  $\Alice\,\neq\,\Bob\,\neq\,\Charlie$&\\
+  \hline
+  $\Alice\,\partner\,\Bob$ & $\Alice\,\relative\,\Bob$     \\
+  \hline
+  $\Alice\,\partner\,\Bob$ & $\Bob\,\partner\,\Alice$     \\
+  \hline
+  $\Alice\,\child\,\Bob$ & $\Alice\,\relative\,\Bob$     \\
+  \hline
+  $\Alice\,\parent\,\Bob$ & $\Bob\,\child\,\Alice$     \\
+  \hline
+  $\Alice\,\descendant\,\Bob$ & $\Alice\,\descendant\,\Charlie$     \\
+  $\Bob\,\descendant\,\Charlie$ & \\
+  $\Alice \neq \Bob \neq \Charlie$ & \\
+  \hline
+  $\Alice\,\descendant\,\Bob$ & $\Alice\,\relative\,\Bob$     \\
+  \hline
+  $\Alice\,\ancestor\,\Bob$ & $\Alice\,\ancestor\,\Charlie$     \\
+  $\Bob\,\ancestor\,\Charlie$ & \\
+  $\Alice\neq\Bob\neq\Charlie$ & \\
+  \hline
+  $\Alice\,\relative\,\Bob$ & $\Bob \in \Persons$     \\
+  \hline
+  $\Alice\,\relative\,x$ & $\Alice\neq x$     \\
+  \hline
+  \end{tabular} &  &
+    \begin{tabular}{|l|l|}
+      \hline
+      \bf{Premises} & \bf{Consequence} \\
+      \hline
+      $\Alice\,\partner\,x$ & $\Alice\neq x$     \\
+      \hline
+      $\Alice\,\child\,x$ & $\Alice \neq x$     \\
+      \hline
+      $\Alice\,\child\,\Bob$ & $\neg ( \Bob\,\child\,\Alice)$     \\
+      \hline
+      $\Alice\,\parent\,\Bob$ & $\Alice\,\relative\,\Bob$     \\
+      \hline
+      $\Alice\,\parent\,x$ & $\Alice\,\neq\,x$     \\
+      \hline
+      $\Alice\,\parent\,\Bob$ & $\neg( \Bob\,\parent\,\Alice )$     \\
+      \hline
+      $\Alice\,\descendant\,x$ & $\Alice \neq x$     \\
+      \hline
+      $\Alice\,\descendant\,\Bob$ & $\neg( \Bob\,\descendant\,\Alice )$     \\
+      \hline
+      $\Alice\,\child\,\Bob$ & $\Alice\,\descendant\,\Bob$     \\
+      \hline
+      $\Alice\,\ancestor,\Bob$ & $\Bob\,\descendant\,\Alice$     \\
+      \hline
+      $\Alice\,\ancestor\,\Bob$ & $\Alice\,\relative\,\Bob$     \\
+      \hline
+      $\Alice\,\ancestor\,x$ & $\Alice \neq x$     \\
+      \hline
+      $\Alice\,\ancestor\,\Bob$ & $\neg( \Bob\,\ancestor\,\Alice )$     \\
+      \hline
+      $\Alice\,\parent,\Bob$ & $\Alice\,\ancestor\,\Bob$     \\
+      \hline
+      $\Alice\,\ancestor\,\Bob$ & $\neg( \Alice\,\descendant\,\Bob )$     \\
+      \hline
+      \end{tabular}
+\end{tabular}  
+\caption{Test Cases}
+\end{table}
+\end{small}
+\end{frame}
+
+\begin{frame}
+\frametitle{Kinship Ontology - Implementation}
+  
+  These \emph{artifacts} will be used when building descriptions
+  of the knowledge domain using \emph{decidable} languages.
+  %TODO definire decidable
+  \vspace{\baselineskip}
+
+  In this case, the chosen languages are the description logics
+  \begin{center}
+    \begin{itemize}
+      \item {\Large\sroiq (OWL-DL)} and %TODO verificare
+      \item {\Large\elplusplus (OWL-EL)}.
+    \end{itemize}
+  \end{center}
+\end{frame}
+
+\section{\sroiq}
+
+%%QUA
+\begin{frame}
+\frametitle{Kinship Ontology - \sroiq (1/5)}
+
+  \sroiq is a very expressive description logic. However it has some
+  limitations.
+  
+  For example, Boolean operators and the transitive closure operator on roles are not allowed.
+  \vspace{\baselineskip}
+  
+  \begin{small}
+  \[  
+   \begin{array}{rcl}
+    \KBsets & = & \{\;\; \dom(\relative) \Issub \Persons,\\
+    &&\phantom{\{\;\;} \issymmetric{\relative},\\
+    &&\phantom{\{\;\;} \alert{\relative \equiv \relative^{+} \sqcap (\neg 
+    \roleidentity{\Persons})},~~~~~~~ \\
+    &&\phantom{\{\;\;} \partner \Issub \relative,\\
+    &&\phantom{\{\;\;} \issymmetric{\partner},\\
+    &&\phantom{\{\;\;} \child \Issub \relative,\\
+    &&\phantom{\{\;\;} \parent \equiv \child^{-},\\
+    &&\phantom{\{\;\;} \alert{\descendant \equiv \child^{+}},\\
+    &&\phantom{\{\;\;} \descendant \Issub \relative,\\
+    &&\phantom{\{\;\;} \alert{\ancestor \equiv \parent^{+}}\;\;\}\,.
+    \end{array}
+  \]
+  \end{small}
+\end{frame}
+
+\begin{frame}
+\frametitle{Kinship Ontology - $\sroiq$ (2/5) }
+
+Thus, let us consider the \sroiq \emph{subset} (the domain is expressed by means of an existential restriction)  of $\KBsets$:
+
+  \begin{small}
+  \[  
+   \begin{array}{rcl}
+    \KBzerozero & = & \{\;\; \exists\relative.\top \Issub \Persons,\\
+    &&\phantom{\{\;\;} \issymmetric{\relative},\\
+    &&\phantom{\{\;\;} \partner \Issub \relative,\\
+    &&\phantom{\{\;\;} \issymmetric{\partner},\\
+    &&\phantom{\{\;\;} \child \Issub \relative,\\
+    &&\phantom{\{\;\;} \parent \equiv \child^{-},\\
+    &&\phantom{\{\;\;} \descendant \Issub \relative \;\;\}\,.
+    \end{array}
+  \]
+  \end{small}
+  
+  \uncover<2->{
+  Clearly, $\KBsets \Longrightarrow \KBzerozero$, i.e., $\KBzerozero$ is \emph{coherent}
+  with the intuitive description $\KBsets$.
+  }
+  
+  \uncover<3->{
+  But, $\KBzerozero \not\Longrightarrow \KBsets$.\\
+  For example
+  \[
+    \KBzerozero \cup \{ \Alice \child \Bob, \Bob \child \Charlie \} \Longrightarrow \{\Alice \descendant \Bob \}.
+  \]
+  }
+\end{frame}
+
+\begin{frame}
+\frametitle{Kinship Ontology - $\sroiq$ (3/5) }
+
+We augment the \emph{inferencing capability} of our ontology for kinship
+by extending $\KBzerozero$ with some constraints of $\KBlcons$.
+
+  \begin{small}
+  \[  
+   \begin{array}{rcl}
+    \KBzeroone & = & \{\;\; \exists\relative.\top \Issub \Persons,\\
+    &&\phantom{\{\;\;} \issymmetric{\relative},\\
+    &&\phantom{\{\;\;} \partner \Issub \relative,\\
+    &&\phantom{\{\;\;} \issymmetric{\partner},\\
+    &&\phantom{\{\;\;} \parent \equiv \child^{-},\\
+    &&\phantom{\{\;\;} \descendant \Issub \relative, \\
+    &&\phantom{\{\;\;} \isirreflexive{\partner},\\
+    &&\phantom{\{\;\;} \ancestor\equiv\descendant^{-},\\
+    &&\phantom{\{\;\;} \child\Issub\descendant, \\
+    &&\phantom{\{\;\;} \istransitive{\descendant}, \\
+    &&\phantom{\{\;\;} \isirreflexive{\relative},\\
+    &&\phantom{\{\;\;} \isantisymmetric{\descendant} \;\;\}\,.
+    \end{array}
+  \]
+  \end{small}
+
+Note:  $\KBzeroone \Longrightarrow \{\child \Issub \relative\}$.
+\end{frame}
+
+\begin{frame}
+\frametitle{Kinship Ontology - $\sroiq$ (4/5) }
+
+Unfortunately, $\KBzeroone$ is not \sroiq, as irreflexivity and asymmetry cannot be stated for
+transitive roles in this description logic. 
+  \begin{small}
+  \[  
+   \begin{array}{rcl}
+    \KBzeroone & = & \{\;\; \exists\relative.\top \Issub \Persons,\\
+    &&\phantom{\{\;\;} \issymmetric{\relative},\\
+    &&\phantom{\{\;\;} \partner \Issub \relative,\\
+    &&\phantom{\{\;\;} \issymmetric{\partner},\\
+    &&\phantom{\{\;\;} \parent \equiv \child^{-},\\
+    &&\phantom{\{\;\;} \descendant \Issub \relative, \\
+    &&\phantom{\{\;\;} \isirreflexive{\partner},\\
+    &&\phantom{\{\;\;} \ancestor\equiv\descendant^{-},\\
+    &&\phantom{\{\;\;} \child\Issub\descendant, \\
+    &&\phantom{\{\;\;} \alert{\istransitive{\descendant}}, \\
+    &&\phantom{\{\;\;} \alert{\isirreflexive{\relative}},\\
+    &&\phantom{\{\;\;} \alert{\isantisymmetric{\descendant}} \;\;\}\,.
+    \end{array}
+  \]
+  \end{small}
+  
+NOTE: $\{\descendant \Issub \relative, \isirreflexive{\relative}\} \Longrightarrow \{\isirreflexive{\descendant}\}$. 
+\end{frame}
+
+\begin{frame}
+\frametitle{Kinship Ontology - $\sroiq$ (5/5) }
+
+Thus, we \emph{split} $\KBzeroone$ into two \sroiq ontologies \ldots
+
+  \begin{small}
+  \[  
+   \begin{array}{rcl}
+    \KBzero & = & \{\;\; \exists\relative.\top \Issub \Persons,\\
+    &&\phantom{\{\;\;} \issymmetric{\relative},\\
+    &&\phantom{\{\;\;} \partner \Issub \relative,\\
+    &&\phantom{\{\;\;} \issymmetric{\partner},\\
+    &&\phantom{\{\;\;} \parent \equiv \child^{-},\\
+    &&\phantom{\{\;\;} \descendant \Issub \relative, \\
+    &&\phantom{\{\;\;} \isirreflexive{\partner},\\
+    &&\phantom{\{\;\;} \ancestor\equiv\descendant^{-},\\
+    &&\phantom{\{\;\;} \child\Issub\descendant \;\;\}\,.\\
+    &&\\
+    \KBtra & = & \KBzero \cup \{ \istransitive{\descendant} \} \\
+    &&\\
+    \KBirr & = & \KBzero \cup \{ \isirreflexive{\relative},\\
+    &&\phantom{\KBzero \cup \{}  \isantisymmetric{\descendant} \}\,.
+    \end{array}  
+  \]
+  \end{small}  
+\end{frame}
+
+\begin{frame}
+\frametitle{Implementation - $\sroiq$ - Coherence }
+
+Clearly, both $\KBtra$ and $\KBirr$ are coherent with $\KBsets$, as
+
+\[
+\begin{array}{rclr}
+ \KBtra & \subseteq & \KBsets \cup \KBlcons & \mbox{ and }\\
+ \KBirr & \subseteq & \KBsets \cup \KBlcons . 
+\end{array}
+\]
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Kinship Ontology - $\sroiq$ - Inferencing Capability (1/2) }
+
+Then, we compare them in terms of expected inference types.
+\vspace{\baselineskip}
+\begin{center}
+\begin{small}
+\begin{tabular}{|c|l|c|c|}
+\hline
+\bf{Premises} & \bf{Consequence} & $\KBtra$ & $\KBirr$ \\
+\hline
+$\Alice\,\relative\,\Bob$ & $\Alice \in \Persons$ & \testpassed & \testpassed\\
+\hline
+$\Alice\,\relative\,\Bob$ & $\Bob\,\relative\,\Alice$ & \testpassed & \testpassed \\
+\hline
+$\Alice\,\relative\,\Bob$ & $\Alice\,\relative\,\Charlie$ & \testfailed & \testfailed\\
+$\Bob\,\relative\,\Charlie$&&&\\
+$\Alice\,\neq\,\Bob\,\neq\,\Charlie$&&&\\
+\hline
+$\Alice\,\partner\,\Bob$ & $\Alice\,\relative\,\Bob$ & \testpassed & \testpassed\\
+\hline
+$\Alice\,\partner\,\Bob$ & $\Bob\,\partner\,\Alice$ & \testpassed & \testpassed\\
+\hline
+$\Alice\,\child\,\Bob$ & $\Alice\,\relative\,\Bob$  & \testpassed & \testpassed\\
+\hline
+$\Alice\,\parent\,\Bob$ & $\Bob\,\child\,\Alice$ & \testpassed & \testpassed\\
+\hline
+$\Alice\,\descendant\,\Bob$ & $\Alice\,\descendant\,\Charlie$ & \testpassed & \testfailed\\
+$\Bob\,\descendant\,\Charlie$ & & &\\
+$\Alice \neq \Bob \neq \Charlie$ & & &\\
+\hline
+$\Alice\,\descendant\,\Bob$ & $\Alice\,\relative\,\Bob$ & \testpassed & \testpassed\\
+\hline
+$\Alice\,\ancestor\,\Bob$ & $\Alice\,\ancestor\,\Charlie$ & \testpassed & \testfailed\\
+$\Bob\,\ancestor\,\Charlie$ & & &\\
+$\Alice\neq\Bob\neq\Charlie$& & &\\
+\hline
+$\Alice\,\relative\,\Bob$ & $\Bob \in \Persons$ & \testpassed & \testpassed\\
+\hline
+$\Alice\,\relative\,x$ & $\Alice\neq x$ & \testfailed & \testpassed\\
+\hline
+$\Alice\,\partner\,x$ & $\Alice\neq x$ & \testpassed & \testpassed\\
+\hline
+$\Alice\,\child\,x$ & $\Alice \neq x$ & \testfailed & \testpassed\\
+\hline
+$\Alice\,\child\,\Bob$ & $\neg ( \Bob\,\child\,\Alice)$ & \testfailed & \testpassed\\
+\hline
+$\Alice\,\parent\,\Bob$ & $\Alice\,\relative\,\Bob$ & \testpassed & \testpassed\\
+\hline
+\end{tabular}
+\end{small}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Kinship Ontology - $\sroiq$ - Inferencing Capability (2/2) }
+\begin{center}
+\begin{small}
+\begin{tabular}{|c|l|c|c|}
+\hline
+\bf{Premises} & \bf{Consequence} & $\KBtra$ & $\KBirr$\\
+\hline
+$\Alice\,\parent\,x$ & $\Alice\,\neq\,x$ & \testfailed & \testpassed\\
+\hline
+$\Alice\,\parent\,\Bob$ & $\neg( \Bob\,\parent\,\Alice )$ & \testfailed & \testpassed\\
+\hline
+$\Alice\,\descendant\,x$ & $\Alice \neq x$ & \testfailed & \testpassed\\
+\hline
+$\Alice\,\descendant\,\Bob$ & $\neg( \Bob\,\descendant\,\Alice )$ & \testfailed & \testpassed\\
+\hline
+$\Alice\,\child\,\Bob$ & $\Alice\,\descendant\,\Bob$ & \testpassed & \testpassed\\
+\hline
+$\Alice\,\ancestor,\Bob$ & $\Bob\,\descendant\,\Alice$ & \testpassed & \testpassed\\
+\hline
+$\Alice\,\ancestor\,\Bob$ & $\Alice\,\relative\,\Bob$ & \testpassed & \testpassed\\
+\hline
+$\Alice\,\ancestor\,x$ & $\Alice \neq x$& \testfailed & \testpassed\\
+\hline
+$\Alice\,\ancestor\,\Bob$ & $\neg( \Bob\,\ancestor\,\Alice )$& \testfailed & \testpassed\\
+\hline
+$\Alice\,\parent\,\Bob$ & $\Alice\,\ancestor\,\Bob$& \testpassed & \testpassed\\
+\hline
+$\Alice\,\child\,\Bob$ & $\Bob\,\ancestor\,\Alice$ & \testpassed & \testpassed\\
+\hline
+$\Alice\,\ancestor\,\Bob$ & $\neg( \Alice\,\descendant\,\Bob )$ & \testfailed & \testpassed\\
+\hline
+\end{tabular}
+\end{small}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Kinship Ontology - $\sroiq$ - Use Case (1/4)}
+
+$\KBirr$ overtakes $\KBtra$ in terms of inferencing capability, but
+it does not enforce the transitivity of $\ancestor$ and $\descendant$.
+\vspace{\baselineskip}
+
+But transitivity can be somehow \emph{emulated}.
+\vspace{\baselineskip}
+
+Let us consider a use case in which a user needs to retrieve all 
+the persons with an Italian ancestor.
+\end{frame}
+
+\begin{frame}
+\frametitle{Kinship Ontology - $\sroiq$ - Use Case (2/4)}
+The intuitive description is extended with:
+\begin{small}
+\[
+  \KBsetsq = \{\; \italian \Issub \Persons,~~ \withitanc \equiv \exists
+  \descendant.\italian \;\} \,.
+\]
+\end{small}%
+
+Some additional use cases are provided:
+\vspace{\baselineskip}
+
+\begin{center}
+\begin{small}
+\begin{tabular}{|l|l|}
+\hline
+\bf{Premises} & \bf{Consequence}\\
+\hline
+  $\Alice\,\descendant\,\Bob$ & $\Alice \in \withitanc$\\
+  $\Bob \in \italian$ & \\
+\hline
+  $\Alice\,\descendant\,\Bob$ & $\Alice \in \withitanc$\\
+  $\Bob\,\descendant\,\Charlie$  &\\
+  $\Charlie \in \italian$  &\\
+\hline
+  $\Alice\,\child\,\Bob$ & $\Alice \in \withitanc$\\
+  $\Bob \in \italian$  &\\
+\hline
+  $\Bob\,\ancestor\,\Alice$ & $\Alice \in \withitanc$\\
+  $\Bob \in \italian$  &\\
+\hline
+  $\Bob\,\ancestor\,\Alice$ & $\Alice \in \withitanc$\\
+  $\Charlie\,\ancestor\,\Bob$  &\\
+  $\Charlie \in \italian$ &\\
+\hline
+  $\Bob\,\parent\,\Alice$ & $\Alice \in \withitanc$\\
+  $\Bob \in \italian$  &\\
+\hline
+\end{tabular}
+\end{small}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Kinship Ontology - $\sroiq$ - Use Case (3/4)}
+As expected, just extending $\KBirr$ with $\KBq$ is not satisfactory.
+\vspace{\baselineskip}
+
+\begin{small}
+\begin{center}
+\begin{tabular}{|l|l|c|c|c|c|}
+\hline
+\bf{Premises} & \bf{Consequence} & $\KBtra \cup \KBsetsq$ & $\KBirr \cup \KBsetsq$\\
+\hline
+  $\Alice\,\descendant\,\Bob$ & $\Alice \in \withitanc$ & \testpassed & \testpassed \\
+  $\Bob \in \italian$ & & &\\
+\hline
+  $\Alice\,\descendant\,\Bob$ & $\Alice \in \withitanc$ & \testpassed & \testfailed\\
+  $\Bob\,\descendant\,\Charlie$ & & &\\
+  $\Charlie \in \italian$ & & &\\
+\hline
+  $\Alice\,\child\,\Bob$ & $\Alice \in \withitanc$ & \testpassed & \testpassed\\
+  $\Bob \in \italian$ & & & \\
+\hline
+  $\Bob\,\ancestor\,\Alice$ & $\Alice \in \withitanc$ & \testpassed & \testpassed\\
+  $\Bob \in \italian$ & & & \\
+\hline
+  $\Bob\,\ancestor\,\Alice$ & $\Alice \in \withitanc$ & \testpassed & \testfailed\\
+  $\Charlie\,\ancestor\,\Bob$ & & &\\
+  $\Charlie \in \italian$ & & &\\
+\hline
+  $\Bob\,\parent\,\Alice$ & $\Alice \in \withitanc$ & \testpassed & \testpassed\\
+  $\Bob \in \italian$ & & &\\
+\hline
+\end{tabular}
+\end{center}
+\end{small}
+\end{frame}
+
+\begin{frame}
+\frametitle{Kinship Ontology - $\sroiq$ - Use Case (4/4)}
+Thus, we adopt a \emph{less intuitive} definition for $\withitanc$.
+\begin{small}
+\[
+ \begin{array}{rcl}
+  \KBq & = & \{\; \italian \Issub \Persons, \\
+  && \phantom{\{\;} \withitanc \equiv \exists\descendant.\italian 
+  \sqcup \exists\descendant.\withitanc \;\}\;.
+ \end{array} 
+\] 
+\end{small}
+
+\uncover<2->{
+\emph{Coherence : OK}
+\[
+ \KBsets \cup \KBsetsq \Longrightarrow \KBirr \cup \KBq
+\]
+}
+
+\uncover<3->{
+\begin{small}
+\begin{center}
+\begin{tabular}{|l|l|c|c|c|}
+\hline
+\bf{Premises} & \bf{Consequence} & $\KBtra \cup \KBsetsq$ & $\KBirr \cup \KBsetsq$ & $\KBirr \cup \KBq$\\
+\hline
+  $\Alice\,\descendant\,\Bob$ & $\Alice \in \withitanc$ & \testpassed & \testpassed & \testpassed \\
+  $\Bob \in \italian$ & & & &\\
+\hline
+  $\Alice\,\descendant\,\Bob$ & $\Alice \in \withitanc$ & \testpassed & \testfailed& \testpassed \\
+  $\Bob\,\descendant\,\Charlie$ & & & &\\
+  $\Charlie \in \italian$ & & & &\\
+\hline
+  $\Alice\,\child\,\Bob$ & $\Alice \in \withitanc$ & \testpassed & \testpassed& \testpassed \\
+  $\Bob \in \italian$ & & & &\\
+\hline
+  $\Bob\,\ancestor\,\Alice$ & $\Alice \in \withitanc$ & \testpassed & \testpassed& \testpassed \\
+  $\Bob \in \italian$ & & & &\\
+\hline
+  $\Bob\,\ancestor\,\Alice$ & $\Alice \in \withitanc$ & \testpassed & \testfailed & \testpassed \\
+  $\Charlie\,\ancestor\,\Bob$ & & & &\\
+  $\Charlie \in \italian$ & & & &\\
+\hline
+  $\Bob\,\parent\,\Alice$ & $\Alice \in \withitanc$ & \testpassed & \testpassed & \testpassed\\
+  $\Bob \in \italian$ & & & &\\
+\hline
+\end{tabular}
+\end{center}
+\end{small}
+}
+\end{frame}
+
+\section{\elplusplus}
+\begin{frame}
+\frametitle{Kinship Ontology - $\elplusplus$}
+\elplusplus is a description logic which admits \emph{polynomial-time} reasoning algorithms.
+\vspace{\baselineskip}
+
+It has some relevant expressive limitations, e.g., concepts disjunction is not allowed.
+\vspace{\baselineskip}
+
+Thus, \elplusplus is suitable for applications when the amount of available resources is
+limited.
+\vspace{\baselineskip}
+
+\begin{center}
+\begin{small}
+\[
+ \begin{array}{rcl}
+  \KBel& = & \{\; \dom(\relative) \Issub \Persons,\\
+  && \phantom{\{\;} \partner\Issub\relative,  \\
+  && \phantom{\{\;} \descendant\Issub\relative,\\
+  && \phantom{\{\;} \istransitive{\descendant},\\
+  && \phantom{\{\;} \ancestor\Issub\relative,\\
+  && \phantom{\{\;} \parent\Issub\ancestor \\  
+  && \phantom{\{\;} \range(\relative) \Issub \Persons,\\
+  && \phantom{\{\;} \child\Issub\descendant,\\
+  && \phantom{\{\;} \istransitive{\ancestor} \;\}\,.
+ \end{array}
+\]
+\end{small}%
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Kinship Ontology - $\elplusplus$ - Coherence}
+$\KBel$ is coherent with the intuitive description we provided for the kinship domain.
+\[
+\begin{array}{cccl}
+ \KBsets &\Longrightarrow& \KBel & \mbox{ as } \KBel \subseteq \KBsets \cup \KBlcons\mbox{, and }\\
+ &&&\\
+ \KBsets \cup \KBsetsq & \Longrightarrow & \KBel \cup \KBsetsq & \mbox{ easily follows.}
+\end{array} 
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{Kinship Ontology - $\elplusplus$ - Inferencing Capability (1/2)}
+
+\begin{center}
+\begin{small}
+\begin{tabular}{|c|l|c|c|c|}
+\hline
+\bf{Premises} & \bf{Consequence} & $\KBtra$ & $\KBirr$ & $\KBel$\\
+\hline
+$\Alice\,\relative\,\Bob$ & $\Alice \in \Persons$ & \testpassed & \testpassed & \testpassed \\
+\hline
+$\Alice\,\relative\,\Bob$ & $\Bob\,\relative\,\Alice$ & \testpassed & \testpassed & \testfailed \\
+\hline
+$\Alice\,\relative\,\Bob$ & $\Alice\,\relative\,\Charlie$ & \testfailed & \testfailed & \testfailed \\
+$\Bob\,\relative\,\Charlie$&&&&\\
+$\Alice\,\neq\,\Bob\,\neq\,\Charlie$&&&&\\
+\hline
+$\Alice\,\partner\,\Bob$ & $\Alice\,\relative\,\Bob$ & \testpassed & \testpassed & \testpassed \\
+\hline
+$\Alice\,\partner\,\Bob$ & $\Bob\,\partner\,\Alice$ & \testpassed & \testpassed & \testfailed \\
+\hline
+$\Alice\,\child\,\Bob$ & $\Alice\,\relative\,\Bob$  & \testpassed & \testpassed & \testpassed \\
+\hline
+$\Alice\,\parent\,\Bob$ & $\Bob\,\child\,\Alice$ & \testpassed & \testpassed & \testfailed \\
+\hline
+$\Alice\,\descendant\,\Bob$ & $\Alice\,\descendant\,\Charlie$ & \testpassed & \testfailed & \testpassed \\
+$\Bob\,\descendant\,\Charlie$ & & & &\\
+$\Alice \neq \Bob \neq \Charlie$ & & & &\\
+\hline
+$\Alice\,\descendant\,\Bob$ & $\Alice\,\relative\,\Bob$ & \testpassed & \testpassed & \testpassed \\
+\hline
+$\Alice\,\ancestor\,\Bob$ & $\Alice\,\ancestor\,\Charlie$ & \testpassed & \testfailed & \testpassed \\
+$\Bob\,\ancestor\,\Charlie$ & & & &\\
+$\Alice\neq\Bob\neq\Charlie$& & & &\\
+\hline
+$\Alice\,\relative\,\Bob$ & $\Bob \in \Persons$ & \testpassed & \testpassed & \testpassed \\
+\hline
+$\Alice\,\relative\,x$ & $\Alice\neq x$ & \testfailed & \testpassed & \testfailed \\
+\hline
+$\Alice\,\partner\,x$ & $\Alice\neq x$ & \testpassed & \testpassed & \testfailed \\
+\hline
+$\Alice\,\child\,x$ & $\Alice \neq x$ & \testfailed & \testpassed & \testfailed \\
+\hline
+$\Alice\,\child\,\Bob$ & $\neg ( \Bob\,\child\,\Alice)$ & \testfailed & \testpassed & \testfailed \\
+\hline
+$\Alice\,\parent\,\Bob$ & $\Alice\,\relative\,\Bob$ & \testpassed & \testpassed & \testpassed \\
+\hline
+\end{tabular}
+\end{small}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Kinship Ontology - $\elplusplus$ - Inferencing Capability (2/2)}
+\begin{center}
+\begin{small}
+\begin{tabular}{|c|l|c|c|c|}
+\hline
+\bf{Premises} & \bf{Consequence} & $\KBtra$ & $\KBirr$ & $\KBel$\\
+\hline
+$\Alice\,\parent\,x$ & $\Alice\,\neq\,x$ & \testfailed & \testpassed & \testfailed \\
+\hline
+$\Alice\,\parent\,\Bob$ & $\neg( \Bob\,\parent\,\Alice )$ & \testfailed & \testpassed & \testfailed \\
+\hline
+$\Alice\,\descendant\,x$ & $\Alice \neq x$ & \testfailed & \testpassed & \testfailed \\
+\hline
+$\Alice\,\descendant\,\Bob$ & $\neg( \Bob\,\descendant\,\Alice )$ & \testfailed & \testpassed & \testfailed \\
+\hline
+$\Alice\,\child\,\Bob$ & $\Alice\,\descendant\,\Bob$ & \testpassed & \testpassed & \testpassed \\
+\hline
+$\Alice\,\ancestor,\Bob$ & $\Bob\,\descendant\,\Alice$ & \testpassed & \testpassed & \testfailed \\
+\hline
+$\Alice\,\ancestor\,\Bob$ & $\Alice\,\relative\,\Bob$ & \testpassed & \testpassed & \testpassed \\
+\hline
+$\Alice\,\ancestor\,x$ & $\Alice \neq x$& \testfailed & \testpassed & \testfailed \\
+\hline
+$\Alice\,\ancestor\,\Bob$ & $\neg( \Bob\,\ancestor\,\Alice )$& \testfailed & \testpassed & \testfailed \\
+\hline
+$\Alice\,\parent\,\Bob$ & $\Alice\,\ancestor\,\Bob$& \testpassed & \testpassed & \testpassed \\
+\hline
+$\Alice\,\child\,\Bob$ & $\Bob\,\ancestor\,\Alice$ & \testpassed & \testpassed & \testfailed \\
+\hline
+$\Alice\,\ancestor\,\Bob$ & $\neg( \Alice\,\descendant\,\Bob )$ & \testfailed & \testpassed & \testfailed \\
+\hline
+\end{tabular}
+\end{small}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Kinship Ontology - $\elplusplus$ - Use Case}
+\begin{small}
+\begin{center}
+\begin{tabular}{|l|l|c|c|c|c|}
+\hline
+\bf{Premises} & \bf{Consequence} & $\KBtra \cup \KBsetsq$ & $\KBirr \cup \KBsetsq$ & $\KBirr \cup \KBq$ & $\KBel \cup \KBsetsq$\\
+\hline
+  $\Alice\,\descendant\,\Bob$ & $\Alice \in \withitanc$ & \testpassed & \testpassed & \testpassed & \testpassed\\
+  $\Bob \in \italian$ & & & & &\\
+\hline
+  $\Alice\,\descendant\,\Bob$ & $\Alice \in \withitanc$ & \testpassed & \testfailed& \testpassed  & \testpassed\\
+  $\Bob\,\descendant\,\Charlie$ & & & & &\\
+  $\Charlie \in \italian$ & & & & &\\
+\hline
+  $\Alice\,\child\,\Bob$ & $\Alice \in \withitanc$ & \testpassed & \testpassed& \testpassed & \testpassed\\
+  $\Bob \in \italian$ & & & & &\\
+\hline
+  $\Bob\,\ancestor\,\Alice$ & $\Alice \in \withitanc$ & \testpassed & \testpassed& \testpassed & \testfailed\\
+  $\Bob \in \italian$ & & & & &\\
+\hline
+  $\Bob\,\ancestor\,\Alice$ & $\Alice \in \withitanc$ & \testpassed & \testfailed & \testpassed & \testfailed\\
+  $\Charlie\,\ancestor\,\Bob$ & & & & &\\
+  $\Charlie \in \italian$ & & & &&\\
+\hline
+  $\Bob\,\parent\,\Alice$ & $\Alice \in \withitanc$ & \testpassed & \testpassed & \testpassed & \testfailed\\
+  $\Bob \in \italian$ & & & & &\\
+\hline
+\end{tabular}
+\end{center}
+\end{small}
+\end{frame}
+
+\section{Conclusions}
+\begin{frame}
+\frametitle{Conclusions}
+With reference to some basic kinship relations, in this work we have provided:
+\begin{itemize}
+ \item an intuitive but formal description of the relations, using a very expressive description logic
+ \item a set of test cases, to measure the inferencing capability of candidate kinship ontologies
+ \item a (limited) real word use case
+ \item two $\sroiq$ ontologies and an $\elplusplus$ ontology for kinship
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Future Works - Kinship}
+About kinship:
+\begin{itemize}
+ \item other aspectcs of kinship have to be explored, for example \emph{gender-specific}
+  relations like $\mathtt{isFatherOf}$
+ \item coherence and inference capabilities of existing ontologies and large KB will be investigated
+\end{itemize}
+\vspace{\baselineskip}
+
+\uncover<2->{
+About the ontology design methods:
+\begin{itemize}
+ \item a standard format for test cases and test results for inferencing capabilities
+ can be useful to investigate (see \emph{EARL})
+ \item coherence proofs should be automatically verifiable
+\end{itemize}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Conclusions}
+  \vspace{1.5cm}
+  \begin{center}
+  \Large{Thank You!}
+   
+  \end{center}
+\end{frame}
+
+\end{document}
