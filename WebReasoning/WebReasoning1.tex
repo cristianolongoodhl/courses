@@ -145,7 +145,7 @@ information in a machine processable form.
 \end{frame}
 
 \begin{frame}
-\frametitle{Il Web Semantico (2/2)}
+\frametitle{Il Web Semantico - Sintassi}
 
  Il \emph{Web Semantico} nasce per associare informazioni 
  \emph{strutturate} alle pagine web, che solitamente sono
@@ -154,7 +154,7 @@ information in a machine processable form.
 
 \uncover<2->{
 I \emph{linguaggi di rappresentazione} usati nel Web semantico 
-hanno una \emph{sintassi rigorosa} e sono dotati di una \emph{semantica formale}.
+hanno una \emph{sintassi rigorosa}.
 \vspace{\baselineskip}
 }
 
@@ -168,6 +168,91 @@ Q = “Luoghi di nascita di Federico II e dei suoi parenti stretti” .
 }
 \end{frame}
 
+\begin{frame}
+\frametitle{Il Web Semantico - Vocabolari}
+
+ L'utilizzo di \emph{vocabolari} condivisi e universalmente riconisciuti,
+ spesso dedicati a specifici domini di conoscenza, garantisce
+ l'interoperabilit\`a applicativa.
+ 
+\uncover<2->{
+ Un esempio di vocabolario \`e \emph{ISA Programme Location Core Vocabulary
+ (LOCN).}\footnote{\url{https://www.w3.org/ns/locn}} 
+ 
+ \begin{quote}
+ The ISA Programme Location Core Vocabulary provides a minimum set of classes
+ and properties for describing any place in terms of its name, address or geometry.
+ \end{quote}
+}
+
+\uncover<3->{
+ \`E possibile realizzare applicativi in grado di trattare informazioni espresse
+ con questo vocabolario senza tener conto di chi pubblica le informazioni e
+ come.
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Il Web Semantico - Semantica}
+
+I \emph{linguaggi di rappresentazione} usati nel Web semantico 
+sono dotati di una \emph{semantica formale} mutuata dai 
+\emph{sistemi di rappresentazione della conoscenza}\footnote{Vedi
+Brachman, Schmolze (1985) \emph{An Overview of the KL-ONE Knowledge
+Representation System}} e dalle \emph{logiche descrittive}.\footnote{Vedi 
+Baader, Calvanese, McGuinness, Nardi, Patel-Schneider \emph{The Description 
+Logic Handbook: Theory, Implementation, and Applications, 2nd Edition}.}
+\vspace{\baselineskip}
+
+\uncover<2->{
+Questo permette di effettuare attivit\`a di \emph{reasoning} (in genere,
+inferenze) per
+estrarre \emph{conoscenza implicita}.
+\vspace{\baselineskip}
+
+Ad esempio, se \`e noto che ``Tutti gli esseri umani sono mortali''
+un reasoning engine potr\`a dedurre che ``Socrate \`e mortale''
+dal fatto che ``Socrate \`e umano''.
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Ontologie - definizione}
+ I linguaggi di rappresentazione usati nel Web Semantico
+ si basano tutti sulla nozione di \emph{ontologia},\footnote{spesso ci si riferisce alle ontologie usando il
+termine \emph{dataset}.} mutuata
+ dall'ambito dei sistemi di rappresentazione della conoscenza.
+\vspace{\baselineskip}
+
+Una \emph{ontologia} \`e una descrizione \emph{parziale} del mondo:
+\begin{itemize}
+ \item descrive una porzione del mondo, spesso \`e limitata ad un'unico \emph{dominio di conoscenza};
+ \item non si assume che i fatti non esplicitamente presenti nell'ontologia siano falsi (\emph{Open World Assumption}).
+\end{itemize}
+\vspace{\baselineskip}
+
+\uncover<2->{
+Essa \`e costituita da un insieme finito di \emph{affermazioni}. Ad esempio le
+seguenti affermazioni possono essere espresse in una ontologia:
+\begin{itemize}
+ \item Tutti gli esseri umani sono mortali;
+ \item Socrate \`e mortale;
+ \item Alice \`e la madre di Roberto.
+\end{itemize}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{The Semantic Web Stack}
+Il Web Semantico \`e un insieme di ontologie presenti sul Web
+e rese disponibili usando le tecnologie del Semantic Web Stack.
+ 
+\begin{figure}
+    \includegraphics[width=180px]{Semantic_Web_Stack.png}
+    \caption{The Semantic Web Stack} 
+\end{figure}
+
+\end{frame}
 \begin{frame}
 \frametitle{Linked Data (1/3)}
 \begin{quote}
@@ -183,8 +268,7 @@ The Semantic Web is a web of data, in some ways like a global database.
 \begin{frame}
 \frametitle{Linked Data (2/3)}
 Nel \emph{Linked Open Data Cloud} sono presenti 365
-\emph{ontologie}(fonte \url{http://stats.lod2.eu/}).\footnote{spesso ci si riferisce alle ontologie usando il
-termine \emph{dataset}.}
+\emph{ontologie}(fonte \url{http://stats.lod2.eu/}).
 \vspace{\baselineskip}
 
 Alcune di queste sono:
