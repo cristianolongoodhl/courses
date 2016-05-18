@@ -323,43 +323,8 @@ anche presi in esame alcuni linguaggi generici per la programmazione web.
 \begin{frame}
  \frametitle{Ontologie}
  
- I linguaggi di rappresentazione usati nel Web Semantico
- si basano tutti sulla nozione di \emph{ontologia}, mutuata
+ La nozione di \emph{ontologia} usata nel Web Semantico \`e mutuata
  dall'ambito dei sistemi di rappresentazione della conoscenza.
- \vspace{\baselineskip}
-
- Una \emph{ontologia} \`e una descrizione \emph{parziale} del mondo.
- Essa \`e costituita da un insieme finito di \emph{affermazioni}
- dei seguenti tipi:
- \vspace{\baselineskip}
-
-\uncover<2->{ 
- \emph{Constraints:} impongono dei vincoli \emph{semantici} sul dominio di conoscenza 
-che si va a rappresentare. La notazione richiama quella insiemistica;
-\vspace{\baselineskip}
-\[
- HumanBeing \Issub Mortal 
-\]
-}
-
-\uncover<3->{ 
-\emph{Property Assertions}: impongono una relazione tra due elementi del dominio;
-\[
- Alice\,motherOf\,Bob 
-\]
-}
-
-\uncover<4->{ 
-\emph{Class Assertions}: indicano l'appartenenza di un elemento ad un insieme.
-\[
- HumanBeing(Socrate) 
-\]
-}
-\end{frame}
-
-\begin{frame}
-\frametitle{Ontologie - Sintassi}
-
 Riportiamo la definizione formale per la sintassi delle ontologie.
 \vspace{\baselineskip}
 
@@ -378,7 +343,7 @@ Una \emph{ontologia} \`e un insieme finito di asserzioni dei seguenti tipi:
   &\\
   \mbox{(Class Assertions)} & C(a)\\
   &\\
-  \mbox{Property Assertions} & a\,P\,b\;(\mbox{equivalente }P(a,b))\\
+  \mbox{(Property Assertions)} & a\,P\,b\;(\mbox{equivalente }P(a,b))\\
  \end{array}
 \]
 dove $C, D \in \CNames$, $P, Q \in \PNames$ e $a, b \in \INames$.
