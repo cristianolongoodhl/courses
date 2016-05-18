@@ -29,7 +29,7 @@ Lezione 1}
 
 
 
-\date{Universit\`a di Catania, TODO 2015}
+\date{Universit\`a di Catania}
 \newcommand{\urlsingle}[1]{{\small {\center {\url{#1}}}}}
 \begin{document}
 \maketitle
@@ -300,5 +300,124 @@ Q = “Strutture ricettive nei luoghi di nascita di Federico II e dei suoi paren
 \end{center}
 \end{frame}
 
+\section{Ontologie}
+
+\begin{frame}
+ \frametitle{Ontologie}
+ 
+ I linguaggi di rappresentazione usati nel Web Semantico
+ si basano tutti sulla nozione di \emph{ontologia}, mutuata
+ dall'ambito dei sistemi di rappresentazione della conoscenza.
+ \vspace{\baselineskip}
+
+ Una \emph{ontologia} \`e una descrizione \emph{parziale} del mondo.
+ Essa \`e costituita da un insieme finito di \emph{affermazioni}
+ dei seguenti tipi:
+ \vspace{\baselineskip}
+
+\uncover<2->{ 
+ \emph{Constraints:} impongono dei vincoli \emph{semantici} sul dominio di conoscenza 
+che si va a rappresentare. La notazione richiama quella insiemistica;
+\vspace{\baselineskip}
+\[
+ HumanBeing \Issub Mortal 
+\]
+}
+
+\uncover<3->{ 
+\emph{Property Assertions}: impongono una relazione tra due elementi del dominio;
+\[
+ Alice\,motherOf\,Bob 
+\]
+}
+
+\uncover<4->{ 
+\emph{Class Assertions}: indicano l'appartenenza di un elemento ad un insieme.
+\[
+ HumanBeing(Socrate) 
+\]
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Ontologie - Sintassi}
+
+Riportiamo la definizione formale per la sintassi delle ontologie.
+\vspace{\baselineskip}
+
+Siano $\CNames$, $\PNames$, $\INames$ tre insiemi infiniti, numerabili e 
+a due a due disgiunti di nomi di \emph{classe}, \emph{propriet\`a} e \emph{individuo},
+rispettivamente.
+\vspace{\baselineskip}
+
+Una \emph{ontologia} \`e un insieme finito di asserzioni dei seguenti tipi:
+\[
+ \begin{array}{ll}
+  \mbox{(Constraints)} & C \Issub D\\
+  & P \Issub Q \\
+  & \dom(P) \Issub C \\
+  & \range(P) \Issub C \\
+  &\\
+  \mbox{(Class Assertions)} & C(a)\\
+  &\\
+  \mbox{Property Assertions} & a\,P\,b\;(\mbox{equivalente }P(a,b))\\
+ \end{array}
+\]
+dove $C, D \in \CNames$, $P, Q \in \PNames$ e $a, b \in \INames$.
+\vspace{\baselineskip}
+
+Si noti che la grammatica per i vincoli ivi riportata \`e \emph{minimale}.
+Esistono linguaggi di rappresentazione che permettono di esprimere vincoli
+pi\`u complessi.
+\end{frame}
+
+\begin{frame}
+\frametitle{Ontologie - Sintassi}
+
+ Segue una ontologia presentata a titolo di esempio
+\[
+\begin{array}{ccl}
+ \Ont = & \{ & Woman \Issub Human, \\
+ &&Man \Issub Human, \\
+ &&Woman \Issub Female, \\
+ &&Man \Issub Male, \\
+ &&Woman(Alice), \\
+ &&Man(Bob),\\
+ &&Alice\,relative\,Bob,\\ 
+ &&Alice\,child\,Charlie \}
+\end{array} 
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{Ontologie - L'Editor Prot\'eg\'e}
+
+  \emph{Prot\'eg\'e}\footnote{\url{http://protege.stanford.edu/products.php}} 
+  \`e una suite per la modellazione di ontologie del Web Semantico, disponibile 
+  sia in versione web, che in versione installabile localmente (\emph{Prot\'eg\'e Desktop}).
+  \vspace{\baselineskip}
+
+\uncover<2->{
+  Permette di definire gerarchie di classi (tab \emph{Classes}) a partire dalla
+  classe radice \texttt{Thing}. Per ogni classe \`e possibile definire \emph{label} 
+  e \emph{comment} come annotazioni.
+  \vspace{\baselineskip}
+}
+
+\uncover<3->{
+  Analogamente \`e possibile definire gerarchie di propriet\`a (tab \emph{Object Poperties}) 
+  a partire dalla propriet\`a radice \texttt{topObjectProperty} e di definire annotazioni
+  per le propriet\`a. Inoltre, \`e possibile imporre dei vincoli di dominio e codominio
+  per le propriet\`a.
+  \vspace{\baselineskip}
+}
+
+\uncover<4->{
+  Infine \`e possibile definire degli individui (tab \emph{Individuals}) associarli 
+  a delle classi di appartenenza e metterli in relazione tra loro attraverso delle
+  propriet\`a.
+  \vspace{\baselineskip}
+}
+\end{frame}
 
 \end{document}
