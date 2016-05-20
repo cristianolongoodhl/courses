@@ -1,22 +1,138 @@
-%%This is a very basic article template.
-%%There is just one section and two subsections.
-\documentclass{article}
+\documentclass[8pt]{beamer}
+\usepackage[nobglogo]{beamerthemedmi-owled}
+\usepackage[utf8x]{inputenc}
+\usepackage{default}
+\usepackage{url}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{mathrsfs}
+\usepackage{dl}
+\usepackage{mls}
 
+\mode<presentation>
+{
+  \usetheme{dmi-owled}
+  %\usetheme{Warsaw}
+  % or ...
+
+  \setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+
+\title{Web Reasoning 2015/2016\\
+Lezione 2}
+
+\author{Cristiano Longo\\ 
+{\small{longo@dmi.unict.it}}}
+
+
+
+\date{Universit\`a di Catania}
+\newcommand{\urlsingle}[1]{{\small {\center {\url{#1}}}}}
 \begin{document}
+\maketitle
+\setcounter{tocdepth}{1}
 
+\section{URI/IRI}
 
-\section{Title}
+\begin{frame}
+	\frametitle{The Semantic Web Stack}
+	L'insieme delle tecnologie impiegate nel Web Semantico
+	costituisce il \emph{Semantic Web Stack}.
 
-\subsection{Subtitle}
+	\phantom{Tratteremo la gran parte di queste.}
 
-Plain text.
+	\begin{figure}
+	    \includegraphics[width=180px]{imgs/Semantic_Web_Stack0.png}
+	    \caption{The Semantic Web Stack}
+	\end{figure}
+\end{frame}
 
-\subsection{Another subtitle}
+\begin{frame}
+	\frametitle{The Semantic Web Stack}
+	L'insieme delle tecnologie impiegate nel Web Semantico 
+	costituisce il \emph{Semantic Web Stack}.
+	
+	Tratteremo la gran parte di queste.
+	
+	\begin{figure}
+	    \includegraphics[width=180px]{imgs/Semantic_Web_Stack0all.png}
+	    \caption{The Semantic Web Stack} 
+	\end{figure}
+\end{frame}
 
-More plain text.
+\begin{frame}
+	\frametitle{URI/IRI}
+	
+	\begin{itemize}
+	  \item \emph{Uniform Resource Identifiers} (URI) - RFC3986
+	  \item \emph{Internationalized Resource Identifiers (IRIs)} (IRI) - RFC3987
+	\end{itemize}	
+	
+	Nel Web Semantico le IRI servono ad \emph{indicare} oggetti di qualsiasi
+	natura, concreti o astratti.
+	
+	\begin{figure}
+	    \includegraphics[width=180px]{imgs/Semantic_Web_Stack_uri.png}
+	    \caption{The Semantic Web Stack} 
+	\end{figure}
+\end{frame}
 
-%https://www.ietf.org/rfc/rfc3987.txt
-%RFC 3986 - IETF
+\begin{frame}
+	\frametitle{URI/IRI - ABNF}
+	TODO
+\end{frame}
 
+\begin{frame}
+	\frametitle{URI/IRI - percent encoding}
+	TODO
+\end{frame}
 
+\begin{frame}[fragile]
+	\frametitle{URI/IRI - caratteri riservati}
+	
+	I caratteri riservati solitamente ricoprono la funzione di 
+	separatori per delimitare le varie parti della URI.
+	
+	\begin{verbatim}
+ reserved    = gen-delims / sub-delims
+ 
+ gen-delims  = ":" / "/" / "?" / "#" / "[" / "]" / "@"
+
+ sub-delims  = "!" / "$" / "&" / "'" / "(" / ")"
+                  / "*" / "+" / "," / ";" / "=" 
+	\end{verbatim}
+	\vspace{\baselineskip}
+	
+\uncover<2->{
+	Nel caso in cui si abbia la necessit\`a di usare caratteri riservati
+	nel corpo di alcune parti della URI e non come separatori, \'e possibile
+	farlo applicando il percent-encodind.
+}	
+\end{frame}
+
+% The process for registration of new URI schemes is
+%    defined separately by [BCP35].  Advice for designers of new URI
+%    schemes can be found in [RFC2718]. 
+
+% Each URI begins with a scheme name, as defined in Section 3.1, that
+%    refers to a specification for assigning identifiers within that
+%    scheme.  As such, the URI syntax is a federated and extensible naming
+%    system wherein each scheme's specification may further restrict the
+%    syntax and semantics of identifiers using that scheme.
+
+% URI "resolution" is the process of
+%    determining an access mechanism and the appropriate parameters
+%    necessary to dereference a URI; this resolution may require several
+%    iterations.  To use that access mechanism to perform an action on the
+%    URI's resource is to "dereference" the URI.
+
+% A percent-encoding mechanism is used to represent a data octet in a
+%    component when that octet's corresponding character is outside the
+%    allowed set or is being used as a delimiter of, or within, the
+%    component.  A percent-encoded octet is encoded as a character
+%    triplet, consisting of the percent character "%" followed by the two
+%    hexadecimal digits representing that octet's numeric value.  For
+%    example, "%20" is the percent-encoding for the binary octet
+%    "00100000" (ABNF: %x20)
 \end{document}
