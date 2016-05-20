@@ -79,17 +79,17 @@ Lezione 2}
 \end{frame}
 
 \begin{frame}
-	\frametitle{URI/IRI - ABNF}
+	\frametitle{URI - ABNF}
 	TODO
 \end{frame}
 
 \begin{frame}
-	\frametitle{URI/IRI - percent encoding}
+	\frametitle{URI - percent encoding}
 	TODO
 \end{frame}
 
 \begin{frame}[fragile]
-	\frametitle{URI/IRI - caratteri riservati}
+	\frametitle{URI - caratteri riservati}
 	
 	I caratteri riservati solitamente ricoprono la funzione di 
 	separatori per delimitare le varie parti della URI.
@@ -101,6 +101,9 @@ Lezione 2}
 
  sub-delims  = "!" / "$" / "&" / "'" / "(" / ")"
                   / "*" / "+" / "," / ";" / "=" 
+                  
+
+                  
 	\end{verbatim}
 	\vspace{\baselineskip}
 	
@@ -108,7 +111,83 @@ Lezione 2}
 	Nel caso in cui si abbia la necessit\`a di usare caratteri riservati
 	nel corpo di alcune parti della URI e non come separatori, \'e possibile
 	farlo applicando il percent-encodind.
+	\vspace{\baselineskip}
+}
+
+\phantom{
+ 	I caratteri che possono comparire all'interno delle parti di una URI
+ 	sono detti \emph{non riservati}. In alre parole, i caratteri non riservati
+ 	sono tutti i caratteri permessi in una URI ad esclusione di quelli riservati.
 }	
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{URI - caratteri riservati}
+	
+	I caratteri riservati solitamente ricoprono la funzione di 
+	separatori per delimitare le varie parti della URI.
+	
+	\begin{verbatim}
+ reserved    = gen-delims / sub-delims
+ 
+ gen-delims  = ":" / "/" / "?" / "#" / "[" / "]" / "@"
+
+ sub-delims  = "!" / "$" / "&" / "'" / "(" / ")"
+                  / "*" / "+" / "," / ";" / "=" 
+                  
+ unreserved  = ALPHA / DIGIT / "-" / "." / "_" / "~"
+                  
+	\end{verbatim}
+	\vspace{\baselineskip}
+	
+	Nel caso in cui si abbia la necessit\`a di usare caratteri riservati
+	nel corpo di alcune parti della URI e non come separatori, \'e possibile
+	farlo applicando il percent-encodind.
+	\vspace{\baselineskip}
+
+ 	I caratteri che possono comparire all'interno delle parti di una URI
+ 	sono detti \emph{non riservati}. In alre parole, i caratteri non riservati
+ 	sono tutti i caratteri permessi in una URI ad esclusione di quelli riservati.	
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{URI - componenti di una URI}
+	
+	La sintassi delle URI \`e definita come segue:
+	
+	\begin{verbatim}
+  URI = scheme ":" hier-part [ "?" query ] [ "#" fragment ]
+
+  hier-part   = "//" authority path-abempty
+              / path-absolute
+              / path-rootless
+              / path-empty                  
+	\end{verbatim}
+	\vspace{\baselineskip}
+	
+	Riportiamo due esempi di uri.
+	\vspace{\baselineskip}
+
+	\begin{figure}
+	    \includegraphics[width=250px]{imgs/uri-pieces.png}
+	    \caption{Esempi di URI}
+	\end{figure}
+	
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{URI - componenti - schema}
+    Ogni URI inizia con uno \emph{schema}. Ogni schema identificana
+    ulteriori restrizioni sintattiche nelle URI che vi ricadono.
+    Alcuni schemi noti sono \tt{http}, \tt{mail}, \tt{tel}.\footnote{Un elenco
+    esaustivo di URI scheme \`e disponibile alla pagina
+    \url{http://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml}.}
+    \vspace{\baselineskip}
+    
+    Gli schemi hanno la seguente sintassi
+    \begin{verbatim}
+  scheme = ALPHA *( ALPHA / DIGIT / "+" / "-" / "." )
+    \end{verbatim}    
 \end{frame}
 
 % The process for registration of new URI schemes is
