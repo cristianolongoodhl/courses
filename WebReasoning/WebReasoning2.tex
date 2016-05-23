@@ -78,14 +78,29 @@ Lezione 2}
 	\end{figure}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
 	\frametitle{URI - ABNF}
-	TODO
-\end{frame}
+	La specifica \emph{Uniform Resource Identifier (URI)} ingloba
+	le nozioni di Uniform Resource Name e Uniform Resource Locator
+	ed \`e definita nell'RFC 3986.
+	\vspace{\baselineskip}
+	
+	La \emph{grammatica} delle URI \`e espressa usando la notazione
+	\emph{Augmented BNF for Syntax Specifications (ABNF)}, definita
+	nell'RFC 2234. 
+	\vspace{\baselineskip}
 
-\begin{frame}
-	\frametitle{URI - percent encoding}
-	TODO
+	I simboli terminali \tt{ALPHA} e \tt{DIGIT} indicano rispettivamente
+	lettere e numeri disponibili nell'encoding \tt{US-Ascii}.
+	\vspace{\baselineskip}
+	
+	\`E previsto un meccanismo di \emph{percent-encoding} per utilizzare
+	caratteri non in \tt{US-Ascii}.
+	
+	\begin{verbatim}
+  pct-encoded = "%" HEXDIG HEXDIG	
+	\end{verbatim}	
+	
 \end{frame}
 
 \begin{frame}[fragile]
@@ -109,7 +124,7 @@ Lezione 2}
 	
 \uncover<2->{
 	Nel caso in cui si abbia la necessit\`a di usare caratteri riservati
-	nel corpo di alcune parti della URI e non come separatori, \'e possibile
+	nel corpo di alcune parti della URI e non come separatori, \`e possibile
 	farlo applicando il percent-encodind.
 	\vspace{\baselineskip}
 }
@@ -246,7 +261,29 @@ Lezione 2}
   path-absolute = "/" [ segment-nz *( "/" segment ) ] 
               ; begins with "/" but not "//"
   path-rootless = segment-nz *( "/" segment ) ; begins with a segment
-  path-empty    = 0<pchar> ; zero characters
+  path-empty    = 0<pchar> ; zero characters  
+
+  pchar = unreserved / pct-encoded / sub-delims / ":" / "@"  
+	\end{verbatim}
+	
+	\begin{figure}
+	    \includegraphics[width=250px]{imgs/uri-pieces.png}
+	    \caption{Esempi di URI}
+	\end{figure}
+	
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{URI - componenti - query}
+	
+	La \emph{query} \`e un componente opzionale non gerarchico che serve
+	a specificare ulteriormente i parametri di indirizzamento della
+	risorsa. Usualmente viene utilizzata per il passaggio dei parametri.
+	
+	\begin{verbatim}
+  URI = scheme ":" hier-part [ "?" query ] [ "#" fragment ]
+
+  query = *( pchar / "/" / "?" )
 	\end{verbatim}
 	
 	\vspace{\baselineskip}
@@ -258,7 +295,29 @@ Lezione 2}
 	
 \end{frame}
 
-% TODO pct-encoded / sub-delims
+\begin{frame}[fragile]
+	\frametitle{URI - componenti - fragment}
+	
+	Il \emph{fragment} permette infine di indirizzare una risorsa
+	\emph{secondaria} in riferimento ad una \emph{primaria}, ad esempio un
+	frammento di una pagina web o un dato istante in un video.
+	
+	\begin{verbatim}
+  URI = scheme ":" hier-part [ "?" query ] [ "#" fragment ]
+
+  fragment    = *( pchar / "/" / "?" )
+	\end{verbatim}
+	
+	\vspace{\baselineskip}
+	
+	\begin{figure}
+	    \includegraphics[width=250px]{imgs/uri-pieces.png}
+	    \caption{Esempi di URI}
+	\end{figure}
+	
+\end{frame}
+
+% TODO pct-encoded / sub-delims 
 % The process for registration of new URI schemes is
 %    defined separately by [BCP35].  Advice for designers of new URI
 %    schemes can be found in [RFC2718]. 
