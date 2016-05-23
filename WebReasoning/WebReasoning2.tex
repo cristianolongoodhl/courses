@@ -190,6 +190,75 @@ Lezione 2}
     \end{verbatim}    
 \end{frame}
 
+\begin{frame}[fragile]
+	\frametitle{URI - componenti - authority}
+	
+	Molti URI scheme prevedono l'indicazione di una parte
+	gerarchica denominata \emph{authority}. L'authority indica
+	generalmente l'organizzazione responsabile delle risorse
+	indicate dalla URI con l'authority in questione.
+	Un esempio di authority (dello schema \tt{http}) \`e \tt{www.google.it}.
+    \vspace{\baselineskip}
+    
+    La sintassi dell'authority \`e la seguente:
+    \begin{verbatim}
+  authority   = [ userinfo "@" ] host [ ":" port ]
+    \end{verbatim}    
+
+	\tt{userinfo} contiene il nome utente ed eventuali altre informazioni 
+	necessarie per l'accesso alla risorsa indicata dalla URI (ad esempio la
+	password).
+    \begin{verbatim}
+  userinfo    = *( unreserved / pct-encoded / sub-delims / ":" ) .
+    \end{verbatim}    
+    
+    \tt{host} \`e fondamentalmente un indirizzo IP o un nome di
+    dominio.\footnote{per le definizioni di \tt{IP-literal}, \tt{IPv4address} e
+    \tt{reg-name} consultare lo RFC3986.}
+    \begin{verbatim}
+  host        = IP-literal / IPv4address / reg-name
+    \end{verbatim}    
+    
+    Infine, \tt{port} \`e una indicazione sull'eventual porta di rete (vedi
+    stack TCP/IP) per accedere al servizio.
+    \begin{verbatim}
+  port        = *DIGIT
+    \end{verbatim}  
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{URI - componenti - path}
+	
+	Il \emph{path} permette di specificare ulteriormente un percorso,
+	usualmente gerarchico, per indicare una risorsa nell'amito dello
+	schema e della eventuale authority. Un path \`e costituito da una
+	sequenza di  \emph{segmenti} separati dal carattere \tt{/}.
+	
+	\begin{verbatim}
+  URI = scheme ":" hier-part [ "?" query ] [ "#" fragment ]
+
+  hier-part   = "//" authority path-abempty
+              / path-absolute
+              / path-rootless
+              / path-empty                  
+
+  path-abempty  = *( "/" segment ) ; begins with "/" or is empty
+  path-absolute = "/" [ segment-nz *( "/" segment ) ] 
+              ; begins with "/" but not "//"
+  path-rootless = segment-nz *( "/" segment ) ; begins with a segment
+  path-empty    = 0<pchar> ; zero characters
+	\end{verbatim}
+	
+	\vspace{\baselineskip}
+	
+	\begin{figure}
+	    \includegraphics[width=250px]{imgs/uri-pieces.png}
+	    \caption{Esempi di URI}
+	\end{figure}
+	
+\end{frame}
+
+% TODO pct-encoded / sub-delims
 % The process for registration of new URI schemes is
 %    defined separately by [BCP35].  Advice for designers of new URI
 %    schemes can be found in [RFC2718]. 
