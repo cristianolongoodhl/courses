@@ -403,4 +403,1009 @@ pi\`u complessi.
 }
 \end{frame}
 
+\section{Interrogazioni}
+
+\begin{frame}
+\frametitle{Interrogazioni}
+
+Il metodo pi\`u immediato per ottenere informazioni da una ontologia \`e il 
+\emph{Conjunctive Query Answering}. Consideriamo ad esempio la seguente ontologia:
+
+\begin{tabular}{cc}
+\hline
+$\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise), Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}
+ \end{array}$ & \includegraphics[width=120px]{family.png} \\
+\hline
+\end{tabular}
+
+Alcune interrogazioni che \`e possibile effettuare con il conjunctive query 
+answering sono:
+\begin{itemize}
+ \item ``Trova tutti gli individui maschi.''
+ \item ``Chi sono gli individui con almeno un figlio maschio?''
+ \item ``Chi sono i figli di $Alice$?''
+ \item ``Chi sono gli individui con almeno un figlio maschio ed una femmina?''
+ \item ``Chi sono gli individui maschi con almeno un figlio maschio?''
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Formule Atomiche}
+
+Per definire in maniera rigorosa le query congiuntive \`e necessario
+definire preliminarmente l'insieme delle \emph{formule atomiche}. 
+\vspace{\baselineskip}
+
+Sia $\VNames = \{x, y, z, ... \}$ l'insieme infinito, numerabile 
+e disgiunto da $\CNames$, $\PNames$ e $\INames$ delle \emph{variabili}.
+Le \emph{formule atomiche} sono espressioni dei due seguenti tipi:
+\[
+ C(\alpha), \quad P(\alpha, \beta)
+\]
+con $\alpha, \beta \in \INames \cup \VNames$, $C \in \CNames$ e $P \in \PNames$.
+\vspace{\baselineskip}
+
+Esempi di formule atomiche sono:
+\begin{itemize}
+ \item $HumanBeing(x)$,
+ \item $x\,childOf\,Alice$,
+ \item $Bob\,childOf\,x$,
+ \item $x\,childOf\,y$,
+ \item $Mortal(Socrate)$,
+ \item $Alice\,childOf\,Elise$
+\end{itemize}
+con $HumanBeing, Mortal \in \CNames$, $childOf \in \PNames$, 
+$Alice, Bob, Elise \in \INames$ e $x, y \in \VNames$.
+\end{frame}
+
+\begin{frame}
+\frametitle{Formule Atomiche Chiuse}
+Una formula atomica nella quale non compaiano variabili si dice \emph{chiusa}.
+\vspace{\baselineskip}
+
+Negli esempi che seguono sono evidenziate le formule atomiche chiuse:
+\begin{itemize}
+ \item $HumanBeing(x)$,
+ \item $x\,childOf\,Alice$,
+ \item $Bob\,childOf\,x$,
+ \item $x\,childOf\,y$,
+ \item $Mortal(Socrate)$,
+ \item $Alice\,childOf\,Elise$
+\end{itemize}
+con $HumanBeing, Mortal \in \CNames$, $childOf \in \PNames$, 
+$Alice, Bob, Elise \in \INames$ e $x, y \in \VNames$.
+\vspace{\baselineskip}
+
+\phantom{Le asserzioni presenti nelle ontologie sono formule atomiche chiuse.}
+\end{frame}
+
+\begin{frame}
+\frametitle{Formule Atomiche Chiuse}
+Una formula atomica nella quale non compaiano variabili si dice \emph{chiusa}.
+\vspace{\baselineskip}
+
+Negli esempi che seguono sono evidenziate le formule atomiche chiuse:
+\begin{itemize}
+ \item $HumanBeing(x)$,
+ \item $x\,childOf\,Alice$,
+ \item $Bob\,childOf\,x$,
+ \item $x\,childOf\,y$,
+ \item $\mathbf{Mortal(Socrate)}$,
+ \item $\mathbf{Alice\,childOf\,Elise}$
+\end{itemize}
+con $HumanBeing, Mortal \in \CNames$, $childOf \in \PNames$, 
+$Alice, Bob, Elise \in \INames$ e $x, y \in \VNames$.
+\vspace{\baselineskip}
+
+Le asserzioni presenti nelle ontologie sono formule atomiche chiuse.
+\end{frame}
+
+\begin{frame}
+\frametitle{Query Congiuntive - }
+Una \emph{query congiuntiva} \`e una congiunzione finita di formule atomiche $T_1 \wedge \ldots \wedge T_n$.
+\vspace{\baselineskip}
+
+Alcuni esempi di query congiuntive:
+\begin{itemize}
+ \item ``Trova tutti gli individui maschi.''
+ \[
+  Male(x)
+ \]
+ \item ``Chi sono gli individui con almeno un figlio maschio?''
+\[
+ y\,childOf\,x\,\wedge\,Male(y)  
+\]
+ \item ``Chi sono i figli di $Alice$?''
+\[
+ x\,childOf\,Alice
+\]
+%  \item ``Chi sono gli individui con almeno un figlio maschio ed una femmina?''
+% \[
+%  y\,childOf\,x\,\wedge\,Male(y)\,\wedge\,z\,childOf\,x\,\wedge\,Female(z)   
+% \]
+%  \item ``Chi sono gli individui maschi con almeno un figlio maschio?''
+% \[
+%  Male(x)\,\wedge\,y\,childOf\,x\,\wedge\,Male(y)
+% \]
+% con $x, y \in \VNames$, $Male, Female \in \CNames$, $childOf \in \PNames$ e $Alice \in \INames$.
+ \end{itemize}
+con $x, y \in \VNames$, $Male \in \CNames$, $childOf \in \PNames$ e $Alice \in
+\INames$.
+\end{frame}
+
+\begin{frame}
+\frametitle{Sostituzioni (1/2)}
+
+Per definire le \emph{soluzioni} (risposte) delle query congiuntive introduciamo la
+nozione di \emph{sostituzione}.
+\vspace{\baselineskip}
+
+Una \emph{sostituzione} $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$
+($x_1, \ldots, x_n \in \VNames$, $a_1, \ldots, a_n \in \INames$)
+\`e una mappa finita che associa nomi di individui a variabili.
+\vspace{\baselineskip}
+
+Sia $T$ una formula atomica e $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$
+una sostituzione. L'\emph{applicazione} $T\sigma$ di $\sigma$ a $T$ \`e la formula atomica 
+che si ottiene sostituendo in $T$ ad ogni occorrenza della variabile $x_i$ il
+corrispondente nome di individuo $a_i$, per ogni $1\leq i\leq n$.
+\vspace{\baselineskip}
+
+Alcuni esempi:
+\[
+ \begin{array}{lcl}
+  Male(x)[x \rightarrow Bob] & = & Male(Bob) \\
+  Male(x)[y \rightarrow Bob] & = & \phantom{Male(x)} \\
+  (x\,childOf\,y)[x \rightarrow Alice] & = & \phantom{Alice\,childOf\,y} \\
+  (x\,childOf\,y)[x \rightarrow Alice, y \rightarrow Elise] & = & \phantom{Alice\,childOf\,Elise}
+ \end{array}
+\]
+con $x,y \in \VNames$, $Male \in \CNames$, $childOf \in \PNames$ e $Alice, Bob, Elise \in \INames$.
+\end{frame}
+
+\begin{frame}
+\frametitle{Sostituzioni (1/2)}
+
+Per definire le \emph{soluzioni} (risposte) delle query congiuntive introduciamo la
+nozione di \emph{sostituzione}.
+\vspace{\baselineskip}
+
+Una \emph{sostituzione} $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$
+($x_1, \ldots, x_n \in \VNames$, $a_1, \ldots, a_n \in \INames$)
+\`e una mappa finita che associa nomi di individui a variabili.
+\vspace{\baselineskip}
+
+Sia $T$ una formula atomica e $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$
+una sostituzione. L'\emph{applicazione} $T\sigma$ di $\sigma$ a $T$ \`e la formula atomica 
+che si ottiene sostituendo in $T$ ad ogni occorrenza della variabile $x_i$ il
+corrispondente nome di individuo $a_i$, per ogni $1\leq i\leq n$.
+\vspace{\baselineskip}
+
+Alcuni esempi:
+\[
+ \begin{array}{lcl}
+  Male(x)[x \rightarrow Bob] & = & Male(Bob) \\
+  Male(x)[y \rightarrow Bob] & = & Male(x) \\
+  (x\,childOf\,y)[x \rightarrow Alice] & = & \phantom{Alice\,childOf\,y} \\
+  (x\,childOf\,y)[x \rightarrow Alice, y \rightarrow Elise] & = & \phantom{Alice\,childOf\,Elise}
+ \end{array}
+\]
+con $x,y \in \VNames$, $Male \in \CNames$, $childOf \in \PNames$ e $Alice, Bob, Elise \in \INames$.
+\end{frame}
+
+\begin{frame}
+\frametitle{Sostituzioni (1/2)}
+
+Per definire le \emph{soluzioni} (risposte) delle query congiuntive introduciamo la
+nozione di \emph{sostituzione}.
+\vspace{\baselineskip}
+
+Una \emph{sostituzione} $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$
+($x_1, \ldots, x_n \in \VNames$, $a_1, \ldots, a_n \in \INames$)
+\`e una mappa finita che associa nomi di individui a variabili.
+\vspace{\baselineskip}
+
+Sia $T$ una formula atomica e $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$
+una sostituzione. L'\emph{applicazione} $T\sigma$ di $\sigma$ a $T$ \`e la formula atomica
+che si ottiene sostituendo in $T$ ad ogni occorrenza della variabile $x_i$ il
+corrispondente nome di individuo $a_i$, per ogni $1\leq i\leq n$.
+\vspace{\baselineskip}
+
+Alcuni esempi:
+\[
+ \begin{array}{lcl}
+  Male(x)[x \rightarrow Bob] & = & Male(Bob) \\
+  Male(x)[y \rightarrow Bob] & = & Male(x) \\
+  (x\,childOf\,y)[x \rightarrow Alice] & = & Alice\,childOf\,y \\
+  (x\,childOf\,y)[x \rightarrow Alice, y \rightarrow Elise] & = & \phantom{Alice\,childOf\,Elise}
+ \end{array}
+\]
+con $x,y \in \VNames$, $Male \in \CNames$, $childOf \in \PNames$ e $Alice, Bob, Elise \in \INames$.
+\end{frame}
+
+\begin{frame}
+\frametitle{Sostituzioni (1/2)}
+
+Per definire le \emph{soluzioni} (risposte) delle query congiuntive introduciamo la
+nozione di \emph{sostituzione}.
+\vspace{\baselineskip}
+
+Una \emph{sostituzione} $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$
+($x_1, \ldots, x_n \in \VNames$, $a_1, \ldots, a_n \in \INames$)
+\`e una mappa finita che associa nomi di individui a variabili.
+\vspace{\baselineskip}
+
+Sia $T$ una formula atomica e $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$
+una sostituzione. L'\emph{applicazione} $T\sigma$ di $\sigma$ a $T$ \`e la formula atomica
+che si ottiene sostituendo in $T$ ad ogni occorrenza della variabile $x_i$ il
+corrispondente nome di individuo $a_i$, per ogni $1\leq i\leq n$.
+\vspace{\baselineskip}
+
+Alcuni esempi:
+\[
+ \begin{array}{lcl}
+  Male(x)[x \rightarrow Bob] & = & Male(Bob) \\
+  Male(x)[y \rightarrow Bob] & = & Male(x) \\
+  (x\,childOf\,y)[x \rightarrow Alice] & = & Alice\,childOf\,y \\
+  (x\,childOf\,y)[x \rightarrow Alice, y \rightarrow Elise] & = & Alice\,childOf\,Elise
+ \end{array}
+\]
+con $x,y \in \VNames$, $Male \in \CNames$, $childOf \in \PNames$ e $Alice, Bob, Elise \in \INames$.
+\end{frame}
+
+\begin{frame}
+\frametitle{Sostituzioni (2/2)}
+
+L'applicazione di sostituzioni a query congiuntive si definisce come segue.
+\vspace{\baselineskip}
+
+Sia $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$ una sostituzione
+e siano $T_1, \ldots, T_m$ formule atomiche. Allora
+\[
+ (T_1 \wedge \ldots \wedge T_m)\sigma \defAs T_1\sigma \wedge \ldots \wedge T_m\sigma . 
+\]
+\vspace{\baselineskip}
+
+Alcuni esempi:
+\[
+ \begin{array}{lcl}
+ (y\,childOf\,x\,\wedge\,Male(y))[x \rightarrow Alice] & \defAs & \phantom{y\,childOf\,Alice\,\wedge\,Male(y)}  \\
+ (y\,childOf\,x\,\wedge\,Male(y))[x \rightarrow Alice, z \rightarrow Bob] & \defAs & \phantom{y\,childOf\,Alice\,\wedge\,Male(y)}  \\
+ (y\,childOf\,x\,\wedge\,Male(y))[x \rightarrow Alice, y \rightarrow Bob] & \defAs & \phantom{Bob\,childOf\,Alice\,\wedge\,Male(Bob)}  \\
+ \end{array}
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{Sostituzioni (2/2)}
+
+L'applicazione di sostituzioni a query congiuntive si definisce come segue.
+\vspace{\baselineskip}
+
+Sia $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$ una sostituzione
+e siano $T_1, \ldots, T_m$ formule atomiche. Allora
+\[
+ (T_1 \wedge \ldots \wedge T_m)\sigma \defAs T_1\sigma \wedge \ldots \wedge T_m\sigma . 
+\]
+\vspace{\baselineskip}
+
+Alcuni esempi:
+\[
+ \begin{array}{lcl}
+ (y\,childOf\,x\,\wedge\,Male(y))[x \rightarrow Alice] & \defAs & y\,childOf\,Alice\,\wedge\,Male(y)  \\
+ (y\,childOf\,x\,\wedge\,Male(y))[x \rightarrow Alice, z \rightarrow Bob] & \defAs & \phantom{y\,childOf\,Alice\,\wedge\,Male(y)}  \\
+ (y\,childOf\,x\,\wedge\,Male(y))[x \rightarrow Alice, y \rightarrow Bob] & \defAs & \phantom{Bob\,childOf\,Alice\,\wedge\,Male(Bob)}  \\
+ \end{array}
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{Sostituzioni (2/2)}
+
+L'applicazione di sostituzioni a query congiuntive si definisce come segue.
+\vspace{\baselineskip}
+
+Sia $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$ una sostituzione
+e siano $T_1, \ldots, T_m$ formule atomiche. Allora
+\[
+ (T_1 \wedge \ldots \wedge T_m)\sigma \defAs T_1\sigma \wedge \ldots \wedge T_m\sigma . 
+\]
+\vspace{\baselineskip}
+
+Alcuni esempi:
+\[
+ \begin{array}{lcl}
+ (y\,childOf\,x\,\wedge\,Male(y))[x \rightarrow Alice] & \defAs & y\,childOf\,Alice\,\wedge\,Male(y)  \\
+ (y\,childOf\,x\,\wedge\,Male(y))[x \rightarrow Alice, z \rightarrow Bob] & \defAs & y\,childOf\,Alice\,\wedge\,Male(y)  \\
+ (y\,childOf\,x\,\wedge\,Male(y))[x \rightarrow Alice, y \rightarrow Bob] & \defAs & \phantom{Bob\,childOf\,Alice\,\wedge\,Male(Bob)}  \\
+ \end{array}
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{Sostituzioni (2/2)}
+
+L'applicazione di sostituzioni a query congiuntive si definisce come segue.
+\vspace{\baselineskip}
+
+Sia $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$ una sostituzione
+e siano $T_1, \ldots, T_m$ formule atomiche. Allora
+\[
+ (T_1 \wedge \ldots \wedge T_m)\sigma \defAs T_1\sigma \wedge \ldots \wedge T_m\sigma . 
+\]
+\vspace{\baselineskip}
+
+Alcuni esempi:
+\[
+ \begin{array}{lcl}
+ (y\,childOf\,x\,\wedge\,Male(y))[x \rightarrow Alice] & \defAs & y\,childOf\,Alice\,\wedge\,Male(y)  \\
+ (y\,childOf\,x\,\wedge\,Male(y))[x \rightarrow Alice, z \rightarrow Bob] & \defAs & y\,childOf\,Alice\,\wedge\,Male(y)  \\
+ (y\,childOf\,x\,\wedge\,Male(y))[x \rightarrow Alice, y \rightarrow Bob] & \defAs & Bob\,childOf\,Alice\,\wedge\,Male(Bob)  \\
+ \end{array}
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{Soluzioni per una Query}
+Siano $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$ una sostituzione,
+$Q=T_1 \wedge \ldots \wedge T_m$ una query congiuntiva e $\Ont$ una ontologia.
+\vspace{\baselineskip}
+
+$\sigma$ \`e detta essere una \emph{soluzione} per $Q$ rispetto ad $\Ont$ se
+e solo se 
+\[
+	T_i\sigma \in \Ont
+\]
+per ogni $1\leq i\leq m$. In altre parole, $T_i\sigma$ deve essere in $\Ont$ 
+per ogni $T_i$ nella query.
+\vspace{\baselineskip}
+
+Consideriamo l'ontologia $\Ont$ e la query $Q$ definite come segue:
+\[
+\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise), Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}\\
+  &\\
+  Q = & y\,childOf\,x\,\wedge\,Male(y) .
+ \end{array}
+\]
+Sia $\sigma_1=[x \rightarrow Alice, y \rightarrow Daniel]$. $\sigma_1$ \`e una soluzione per $Q$
+rispetto ad $\Ont$?
+\end{frame}
+
+\begin{frame}
+\frametitle{Soluzioni per una Query - Esempio 1}
+Siano $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$ una sostituzione,
+$Q=T_1 \wedge \ldots \wedge T_m$ una query congiuntiva e $\Ont$ una ontologia.
+\vspace{\baselineskip}
+
+$\sigma$ \`e detta essere una \emph{soluzione} per $Q$ rispetto ad $\Ont$ se
+e solo se $T_1\sigma, \ldots, T_2\sigma$ compaiono in $\Ont$. 
+\vspace{\baselineskip}
+
+Consideriamo l'ontologia $\Ont$ e la query $Q$ (``Chi sono gli individui con almeno un figlio maschio?'') definite come segue:
+\[
+\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise), Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), \textbf{Male(Daniel)}, \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}\textbf{Daniel\,childOf\,Alice}, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}\\
+  &\\
+  Q = & y\,childOf\,x\,\wedge\,Male(y) .
+ \end{array}
+\]
+Sia $\sigma_1=[x \rightarrow Alice, y \rightarrow Daniel]$. $\sigma_1$ \`e una soluzione per $Q$
+rispetto ad $\Ont$? \textbf{SI}.
+\[
+ Q\sigma_1 = Daniel\,childOf\,Alice\,\wedge\,Male(Daniel) .
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{Soluzioni per una Query - Esempio 2}
+Siano $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$ una sostituzione,
+$Q=T_1 \wedge \ldots \wedge T_m$ una query congiuntiva e $\Ont$ una ontologia.
+\vspace{\baselineskip}
+
+$\sigma$ \`e detta essere una \emph{soluzione} per $Q$ rispetto ad $\Ont$ se
+e solo se $T_1\sigma, \ldots, T_2\sigma$ compaiono in $\Ont$. 
+\vspace{\baselineskip}
+
+Consideriamo l'ontologia $\Ont$ e la query $Q$ definite come segue:
+\[
+\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise), Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}\\
+  &\\
+  Q = & y\,childOf\,x\,\wedge\,Male(y) .
+ \end{array}
+\]
+Sia $\sigma_2=[x \rightarrow Alice, y \rightarrow Bob]$. $\sigma_2$ \`e una soluzione per $Q$
+rispetto ad $\Ont$?
+\end{frame}
+
+\begin{frame}
+\frametitle{Soluzioni per una Query - Esempio 2}
+Siano $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$ una sostituzione,
+$Q=T_1 \wedge \ldots \wedge T_m$ una query congiuntiva e $\Ont$ una ontologia.
+\vspace{\baselineskip}
+
+$\sigma$ \`e detta essere una \emph{soluzione} per $Q$ rispetto ad $\Ont$ se
+e solo se $T_1\sigma, \ldots, T_2\sigma$ compaiono in $\Ont$. 
+\vspace{\baselineskip}
+
+Consideriamo l'ontologia $\Ont$ e la query $Q$ (``Chi sono gli individui con almeno un figlio maschio?'') definite come segue:
+\[
+\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise), Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}\\
+  &\\
+  Q = & y\,childOf\,x\,\wedge\,Male(y) .
+ \end{array}
+\]
+Sia $\sigma_2=[x \rightarrow Alice, y \rightarrow Bob]$. $\sigma_2$ \`e una soluzione per $Q$
+rispetto ad $\Ont$? \textbf{NO}.
+\[
+ Q\sigma_2 = \mathbf{Bob\,childOf\,Alice}\,\wedge\,Male(Bob) .
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{Soluzioni per una Query - Esempio 3}
+Siano $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$ una sostituzione,
+$Q=T_1 \wedge \ldots \wedge T_m$ una query congiuntiva e $\Ont$ una ontologia.
+\vspace{\baselineskip}
+
+$\sigma$ \`e detta essere una \emph{soluzione} per $Q$ rispetto ad $\Ont$ se
+e solo se $T_1\sigma, \ldots, T_2\sigma$ compaiono in $\Ont$. 
+\vspace{\baselineskip}
+
+Consideriamo l'ontologia $\Ont$ e la query $Q$ definite come segue:
+\[
+\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise), Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}\\
+  &\\
+  Q = & y\,childOf\,x\,\wedge\,Male(y) .
+ \end{array}
+\]
+Sia $\sigma_3=[x \rightarrow Charlie, y \rightarrow Francis]$. $\sigma_3$ \`e una soluzione per $Q$
+rispetto ad $\Ont$?
+\end{frame}
+
+\begin{frame}
+\frametitle{Soluzioni per una Query - Esempio 3}
+Siano $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$ una sostituzione,
+$Q=T_1 \wedge \ldots \wedge T_m$ una query congiuntiva e $\Ont$ una ontologia.
+\vspace{\baselineskip}
+
+$\sigma$ \`e detta essere una \emph{soluzione} per $Q$ rispetto ad $\Ont$ se
+e solo se $T_1\sigma, \ldots, T_2\sigma$ compaiono in $\Ont$. 
+\vspace{\baselineskip}
+
+Consideriamo l'ontologia $\Ont$ e la query $Q$ (``Chi sono gli individui con almeno un figlio maschio?'') definite come segue:
+\[
+\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise), Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}\\
+  &\\
+  Q = & y\,childOf\,x\,\wedge\,Male(y) .
+ \end{array}
+\]
+Sia $\sigma_3=[x \rightarrow Charlie, y \rightarrow Francis]$. $\sigma_2$ \`e una soluzione per $Q$
+rispetto ad $\Ont$? \textbf{NO}.
+\[
+ Q\sigma_3 = Francis\,childOf\,Charlie\,\wedge\,\mathbf{Male(Francis)} .
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{Soluzioni per una Query - Esempio 4}
+Siano $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$ una sostituzione,
+$Q=T_1 \wedge \ldots \wedge T_m$ una query congiuntiva e $\Ont$ una ontologia.
+\vspace{\baselineskip}
+
+$\sigma$ \`e detta essere una \emph{soluzione} per $Q$ rispetto ad $\Ont$ se
+e solo se $T_1\sigma, \ldots, T_2\sigma$ compaiono in $\Ont$. 
+\vspace{\baselineskip}
+
+Consideriamo l'ontologia $\Ont$ e la query $Q$ definite come segue:
+\[
+\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise), Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}\\
+  &\\
+  Q = & y\,childOf\,x\,\wedge\,Male(y) .
+ \end{array}
+\]
+Sia $\sigma_4=[y \rightarrow Daniel]$. $\sigma_4$ \`e una soluzione per $Q$
+rispetto ad $\Ont$?
+\phantom{Affinch\`e una sostituzione $\sigma$ sia una soluzione per una query $Q$
+(a prescindere dall'ontologia) \`e necessario che in $\sigma$ compaiano
+tutte le variabili di $Q$.}
+\end{frame}
+
+\begin{frame}
+\frametitle{Soluzioni per una Query - Esempio 4}
+Siano $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$ una sostituzione,
+$Q=T_1 \wedge \ldots \wedge T_m$ una query congiuntiva e $\Ont$ una ontologia.
+\vspace{\baselineskip}
+
+$\sigma$ \`e detta essere una \emph{soluzione} per $Q$ rispetto ad $\Ont$ se
+e solo se $T_1\sigma, \ldots, T_2\sigma$ compaiono in $\Ont$. 
+\vspace{\baselineskip}
+
+Consideriamo l'ontologia $\Ont$ e la query $Q$ (``Chi sono gli individui con almeno un figlio maschio?'') definite come segue:
+\[
+\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise), Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}\\
+  &\\
+  Q = & y\,childOf\,x\,\wedge\,Male(y) .
+ \end{array}
+\]
+Sia $\sigma_4=[y \rightarrow Daniel]$. $\sigma_2$ \`e una soluzione per $Q$
+rispetto ad $\Ont$? \textbf{NO}.
+\[
+ Q\sigma_4 = \mathbf{Daniel\,childOf\,x}\,\wedge\,Male(Daniel) .
+\]
+Affinch\`e una sostituzione $\sigma$ sia una soluzione per una query $Q$
+(a prescindere dall'ontologia) \`e necessario che in $\sigma$ compaiano
+tutte le variabili di $Q$.
+\end{frame}
+
+\begin{frame}
+\frametitle{Soluzioni per una Query - Esempio 5}
+Siano $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$ una sostituzione,
+$Q=T_1 \wedge \ldots \wedge T_m$ una query congiuntiva e $\Ont$ una ontologia.
+\vspace{\baselineskip}
+
+$\sigma$ \`e detta essere una \emph{soluzione} per $Q$ rispetto ad $\Ont$ se
+e solo se $T_1\sigma, \ldots, T_2\sigma$ compaiono in $\Ont$. 
+\vspace{\baselineskip}
+
+Consideriamo l'ontologia $\Ont$ e la query $Q$ definite come segue:
+\[
+\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise), Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}\\
+  &\\
+  Q = & y\,childOf\,x\,\wedge\,Male(y) .
+ \end{array}
+\]
+Sia $\sigma_5=[x \rightarrow Elise, y \rightarrow Charlie, z \rightarrow Francis]$. $\sigma_5$ \`e una soluzione per $Q$
+rispetto ad $\Ont$?
+\end{frame}
+
+\begin{frame}
+\frametitle{Soluzioni per una Query - Esempio 5}
+Siano $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$ una sostituzione,
+$Q=T_1 \wedge \ldots \wedge T_m$ una query congiuntiva e $\Ont$ una ontologia.
+\vspace{\baselineskip}
+
+$\sigma$ \`e detta essere una \emph{soluzione} per $Q$ rispetto ad $\Ont$ se
+e solo se $T_1\sigma, \ldots, T_2\sigma$ compaiono in $\Ont$. 
+\vspace{\baselineskip}
+
+Consideriamo l'ontologia $\Ont$ e la query $Q$ (``Chi sono gli individui con almeno un figlio maschio?'') definite come segue:
+\[
+\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise), Female(Alice), Male(Bob), \\
+  &\phantom{\{}\mathbf{Male(Charlie)}, Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, \mathbf{Charlie\,childOf\,Elise}, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}\\
+  &\\
+  Q = & y\,childOf\,x\,\wedge\,Male(y) .
+ \end{array}
+\]
+Sia $\sigma_5=[x \rightarrow Elise, y \rightarrow Charlie, z \rightarrow Francis]$. $\sigma_5$ \`e una soluzione per $Q$
+rispetto ad $\Ont$? \textbf{SI}.
+\[
+ Q\sigma_5 = Charlie\,childOf\,Elise\,\wedge\,Male(Charlie) .
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{Soluzioni Minimali per una Query}
+Siano $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$ 
+una sostituzione, $Q$ una query congiuntiva e $\Ont$ una ontologia.
+\vspace{\baselineskip}
+
+$\sigma$ \`e una \emph{soluzione minimale} per $Q$ rispetto a $\Ont$
+se e solo se:
+\begin{enumerate}
+ \item $\sigma$ \`e una soluzione per $Q$ rispetto ad $\Ont$ e inoltre
+ \item tutte le variabili $x_1, \ldots, x_n$ che compaiono in $\sigma$
+ compaiono anche in $Q$ (criterio di minimalit\`a).
+\end{enumerate}
+Consideriamo ad esempio
+\[
+\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise), Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}\\
+  &\\
+  Q = & y\,childOf\,x\,\wedge\,Male(y) .
+ \end{array}
+\]
+$\sigma_5=[x \rightarrow Elise, y \rightarrow Charlie, z \rightarrow Francis]$ \`e una 
+soluzione minimale per $Q$ rispetto a $\Ont$? \phantom{\textbf{NO}.}
+\vspace{\baselineskip}
+
+\phantom{$\sigma_6=[x \rightarrow Elise, y \rightarrow Charlie]$ \`e una 
+soluzione minimale per $Q$ rispetto a $\Ont$? \textbf{SI}.}
+\end{frame}
+
+\begin{frame}
+\frametitle{Soluzioni Minimali per una Query}
+Siano $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$ 
+una sostituzione, $Q$ una query congiuntiva e $\Ont$ una ontologia.
+\vspace{\baselineskip}
+
+$\sigma$ \`e una \emph{soluzione minimale} per $Q$ rispetto a $\Ont$
+se e solo se:
+\begin{enumerate}
+ \item $\sigma$ \`e una soluzione per $Q$ rispetto ad $\Ont$ e inoltre
+ \item tutte le variabili $x_1, \ldots, x_n$ che compaiono in $\sigma$
+ compaiono anche in $Q$ (criterio di minimalit\`a).
+\end{enumerate}
+Consideriamo ad esempio
+\[
+\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise), Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}\\
+  &\\
+  Q = & y\,childOf\,x\,\wedge\,Male(y) .
+ \end{array}
+\]
+$\sigma_5=[x \rightarrow Elise, y \rightarrow Charlie, \mathbf{z} \rightarrow Francis]$ \`e una 
+soluzione minimale per $Q$ rispetto a $\Ont$? \textbf{NO}.
+\vspace{\baselineskip}
+
+$\sigma_6=[x \rightarrow Elise, y \rightarrow Charlie]$ \`e una 
+soluzione minimale per $Q$ rispetto a $\Ont$? \phantom{\textbf{SI}}.
+\end{frame}
+
+\begin{frame}
+\frametitle{Soluzioni Minimali per una Query}
+Siano $\sigma=[x_1 \rightarrow a_1, \ldots, x_n \rightarrow a_n]$ 
+una sostituzione, $Q$ una query congiuntiva e $\Ont$ una ontologia.
+\vspace{\baselineskip}
+
+$\sigma$ \`e una \emph{soluzione minimale} per $Q$ rispetto a $\Ont$
+se e solo se:
+\begin{enumerate}
+ \item $\sigma$ \`e una soluzione per $Q$ rispetto ad $\Ont$ e inoltre
+ \item tutte le variabili $x_1, \ldots, x_n$ che compaiono in $\sigma$
+ compaiono anche in $Q$ (criterio di minimalit\`a).
+\end{enumerate}
+Consideriamo ad esempio
+\[
+\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise), Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}\\
+  &\\
+  Q = & y\,childOf\,x\,\wedge\,Male(y) .
+ \end{array}
+\]
+$\sigma_5=[x \rightarrow Elise, y \rightarrow Charlie, \mathbf{z} \rightarrow Francis]$ \`e una 
+soluzione minimale per $Q$ rispetto a $\Ont$? \textbf{NO}.
+\vspace{\baselineskip}
+
+$\sigma_6=[x \rightarrow Elise, y \rightarrow Charlie]$ \`e una 
+soluzione minimale per $Q$ rispetto a $\Ont$? \textbf{SI}.
+\end{frame}
+
+\begin{frame}
+\frametitle{Conjunctive Query Answering}
+Il problema del \emph{Conjunctive Query Answering} consiste nel trovare
+tutte le soluzioni minimali di una query congiuntiva rispetto ad una ontologia.
+\vspace{\baselineskip}
+
+Esse sono sempre in numero finito, infatti:
+\begin{itemize}
+ \item le variabili che compaiono nelle soluzioni sono esattamente quelle che compaiono nella query,
+ \item i nomi di individui che compaiono nelle soluzioni sono un sottoinsieme di quelli che compaiono
+ nell'ontologia.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Conjunctive Query Answering}
+Il problema del \emph{Conjunctive Query Answering} consiste nel trovare
+tutte le soluzioni minimali di una query congiuntiva rispetto ad una ontologia.
+\vspace{\baselineskip}
+
+\begin{center}
+Esempio 1:``Trova tutti gli individui maschi.'' 
+\end{center}
+%\vspace{\baselineskip}
+
+\begin{tabular}{lc}
+$\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise),  Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}\\
+\end{array}$ &   \includegraphics[width=130px]{family.png} \\
+ $Q=Male(x)$ &
+ $\begin{array}{|c|}
+  \hline
+  x\\
+  \hline
+  Bob\\
+  Charlie\\
+  Daniel\\
+  \hline
+\end{array}$ \\
+\end{tabular}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Conjunctive Query Answering - Esempio 2}
+\begin{center}
+``Chi sono gli individui con almeno un figlio maschio?'' 
+\end{center}
+
+\begin{tabular}{lc}
+$\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise),  Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}\\
+\end{array}$ &   \includegraphics[width=130px]{family.png} \\
+ $Q=y\,childOf\,x\,\wedge\,Male(y)$ &
+$\begin{array}{|c|c|}
+  \hline
+  x & y\\
+  \hline
+  Elise&Charlie\\
+  Alice&Daniel\\
+  Bob&Daniel\\
+  \hline
+\end{array}$\\
+\end{tabular}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Conjunctive Query Answering - Esempio 3}
+\begin{center}
+``Chi sono i figli di $Elise$?''
+\end{center}
+
+\begin{tabular}{lc}
+$\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise),  Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}\\
+\end{array}$ & \includegraphics[width=130px]{family.png} \\
+$Q=x\,childOf\,Elise$ &
+$\begin{array}{|c|}
+  \hline
+  x\\
+  \hline
+  \phantom{Alice}\\
+  \phantom{Charlie}\\
+  \hline
+\end{array}$ \\
+\end{tabular}
+\end{frame}
+
+\begin{frame}
+\frametitle{Conjunctive Query Answering - Esempio 3}
+\begin{center}
+``Chi sono i figli di $Elise$?''
+\end{center}
+
+\begin{tabular}{lc}
+$\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise),  Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}\\
+\end{array}$ & \includegraphics[width=130px]{family.png} \\
+$Q=x\,childOf\,Elise$ &
+$\begin{array}{|c|}
+  \hline
+  x\\
+  \hline
+  Alice\\
+  Charlie\\
+  \hline
+\end{array}$ \\
+\end{tabular}
+\end{frame}
+
+\begin{frame}
+\frametitle{Conjunctive Query Answering - Esempio 4}
+\begin{center}
+``Chi sono gli individui con almeno un figlio maschio ed una femmina?''
+\end{center}
+
+\begin{tabular}{lc}
+$\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise),  Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}\\
+\end{array}$ & \includegraphics[width=130px]{family.png} \\
+$\phantom{Q=y\,childOf\,x\,\wedge\,z\,childOf\,x\,\wedge\,Male(y)\,\wedge\,Female(z)}$ &
+$\begin{array}{|c|c|c|}
+  \hline
+  x&y&z\\
+  \hline
+  \phantom{Elise}&\phantom{Charlie}&\phantom{Alice}\\
+  \hline
+\end{array}$ \\
+\end{tabular}
+\end{frame}
+
+\begin{frame}
+\frametitle{Conjunctive Query Answering - Esempio 4}
+\begin{center}
+``Chi sono gli individui con almeno un figlio maschio ed una femmina?''
+\end{center}
+
+\begin{tabular}{lc}
+$\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise),  Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}\\
+\end{array}$ & \includegraphics[width=130px]{family.png} \\
+$Q=y\,childOf\,x\,\wedge\,z\,childOf\,x\,\wedge\,Male(y)\,\wedge\,Female(z)$ &
+$\begin{array}{|c|c|c|}
+  \hline
+  x&y&z\\
+  \hline
+  \phantom{Elise}&\phantom{Charlie}&\phantom{Alice}\\
+  \hline
+\end{array}$ \\
+\end{tabular}
+\end{frame}
+
+\begin{frame}
+\frametitle{Conjunctive Query Answering - Esempio 4}
+\begin{center}
+``Chi sono gli individui con almeno un figlio maschio ed una femmina?''
+\end{center}
+
+\begin{tabular}{lc}
+$\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise),  Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}\\
+\end{array}$ & \includegraphics[width=130px]{family.png} \\
+$Q=y\,childOf\,x\,\wedge\,z\,childOf\,x\,\wedge\,Male(y)\,\wedge\,Female(z)$ &
+$\begin{array}{|c|c|c|}
+  \hline
+  x&y&z\\
+  \hline
+  Elise&Charlie&Alice\\
+  \hline
+\end{array}$ \\
+\end{tabular}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Conjunctive Query Answering - Esempio 5}
+\begin{center}
+``Chi sono gli individui maschi con almeno una figlia femmina?''
+\end{center}
+
+\begin{tabular}{lc}
+$\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise), Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}\\
+\end{array}$ & \includegraphics[width=130px]{family.png} \\
+$\phantom{Q=Male(x)\,\wedge\,y\,childOf\,x\,\wedge\,Female(y)}$ &
+$\begin{array}{|c|c|}
+  \hline
+  x&y\\
+  \hline
+  &\\
+  &\\
+  \hline
+\end{array}$\\
+\end{tabular}
+\end{frame}
+
+\begin{frame}
+\frametitle{Conjunctive Query Answering - Esempio 5}
+\begin{center}
+``Chi sono gli individui maschi con almeno una figlia femmina?''
+\end{center}
+
+\begin{tabular}{lc}
+$\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise), Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}\\
+\end{array}$ & \includegraphics[width=130px]{family.png} \\
+$Q=Male(x)\,\wedge\,y\,childOf\,x\,\wedge\,Female(y)$ &
+$\begin{array}{|c|c|}
+  \hline
+  x&y\\
+  \hline
+  &\\
+  &\\
+  \hline
+\end{array}$\\
+\end{tabular}
+\end{frame}
+
+\begin{frame}
+\frametitle{Conjunctive Query Answering - Esempio 5}
+\begin{center}
+``Chi sono gli individui maschi con almeno una figlia femmina?''
+\end{center}
+
+\begin{tabular}{lc}
+$\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise), Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}\\
+\end{array}$ & \includegraphics[width=130px]{family.png} \\
+$Q=Male(x)\,\wedge\,y\,childOf\,x\,\wedge\,Female(y)$ & Nessuna soluzione\\
+\end{tabular}
+\end{frame}
+
 \end{document}
