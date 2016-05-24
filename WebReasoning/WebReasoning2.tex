@@ -79,7 +79,7 @@ Lezione 2}
 \end{frame}
 
 \begin{frame}[fragile]
-	\frametitle{URI - ABNF}
+	\frametitle{Uniform Resource Identifier (URI)}
 	La specifica \emph{Uniform Resource Identifier (URI)} ingloba
 	le nozioni di Uniform Resource Name e Uniform Resource Locator
 	ed \`e definita nell'RFC 3986.
@@ -317,29 +317,25 @@ Lezione 2}
 	
 \end{frame}
 
-% TODO pct-encoded / sub-delims 
-% The process for registration of new URI schemes is
-%    defined separately by [BCP35].  Advice for designers of new URI
-%    schemes can be found in [RFC2718]. 
+\begin{frame}[fragile]
+	\frametitle{Internationalized Resource Identifiers (IRIs)}
 
-% Each URI begins with a scheme name, as defined in Section 3.1, that
-%    refers to a specification for assigning identifiers within that
-%    scheme.  As such, the URI syntax is a federated and extensible naming
-%    system wherein each scheme's specification may further restrict the
-%    syntax and semantics of identifiers using that scheme.
+	La specifica delle \emph{Internationalized Resource Identifier (IRI)}
+	estende quella delle URI con delle funzionali\`a per l'internazionalizzazione.
+	\vspace{\baselineskip}
+	 
+	Una IRI \`e una sequenza di caratteri nell'\emph{Universal Character Set
+	(Unicode/ISO 10646)}.
+	
+	La grammatica delle IRI pu\`o essere definita a partire da quella delle URI
+	estendendo l'insieme dei caratteri non riservati per comprendere i caratteri
+	nell'UCS.
+	\begin{verbatim}
+  iunreserved = ALPHA / DIGIT / "-" / "." / "_" / "~" / ucschar
+	\end{verbatim}
+	\vspace{\baselineskip}
+	
+	Per maggiori approfondimenti si veda l'RFC 3987.
+\end{frame}
 
-% URI "resolution" is the process of
-%    determining an access mechanism and the appropriate parameters
-%    necessary to dereference a URI; this resolution may require several
-%    iterations.  To use that access mechanism to perform an action on the
-%    URI's resource is to "dereference" the URI.
-
-% A percent-encoding mechanism is used to represent a data octet in a
-%    component when that octet's corresponding character is outside the
-%    allowed set or is being used as a delimiter of, or within, the
-%    component.  A percent-encoded octet is encoded as a character
-%    triplet, consisting of the percent character "%" followed by the two
-%    hexadecimal digits representing that octet's numeric value.  For
-%    example, "%20" is the percent-encoding for the binary octet
-%    "00100000" (ABNF: %x20)
 \end{document}
