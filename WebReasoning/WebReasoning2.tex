@@ -8,6 +8,8 @@
 \usepackage{mathrsfs}
 \usepackage{dl}
 \usepackage{mls}
+\usepackage[official]{eurosym}
+
 
 \mode<presentation>
 {
@@ -35,18 +37,18 @@ Lezione 2}
 
 \section{URI/IRI}
 
-\begin{frame}
-	\frametitle{The Semantic Web Stack}
-	L'insieme delle tecnologie impiegate nel Web Semantico
-	costituisce il \emph{Semantic Web Stack}.
-
-	\phantom{Tratteremo la gran parte di queste.}
-
-	\begin{figure}
-	    \includegraphics[width=180px]{imgs/Semantic_Web_Stack0.png}
-	    \caption{The Semantic Web Stack}
-	\end{figure}
-\end{frame}
+% \begin{frame}
+% 	\frametitle{The Semantic Web Stack}
+% 	L'insieme delle tecnologie impiegate nel Web Semantico
+% 	costituisce il \emph{Semantic Web Stack}.
+% 
+% 	\phantom{Tratteremo la gran parte di queste.}
+% 
+% 	\begin{figure}
+% 	    \includegraphics[width=180px]{imgs/Semantic_Web_Stack0.png}
+% 	    \caption{The Semantic Web Stack}
+% 	\end{figure}
+% \end{frame}
 
 \begin{frame}
 	\frametitle{The Semantic Web Stack}
@@ -336,6 +338,278 @@ Lezione 2}
 	\vspace{\baselineskip}
 	
 	Per maggiori approfondimenti si veda l'RFC 3987.
+\end{frame}
+
+\section{XML}
+\begin{frame}
+	\frametitle{XML}
+	 Il linguaggio \emph{eXtended Markup Language} (in breve \emph{XML})\footnote{\url{http://www.w3.org/XML/}} 
+ \`e un liguaggio di marcatura basato su SGML ed \`e alla base del 
+ linguaggio HTML (in particolare xHTML). XML \`e una specifica
+ w3c, attualmente alla versione 1.1.\footnote{\url{http://www.w3.org/TR/2006/REC-xml11-20060816/}}
+	
+	\begin{figure}
+	    \includegraphics[width=180px]{imgs/Semantic_Web_Stack_xml.png}
+	    \caption{The Semantic Web Stack} 
+	\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Sintassi XML}
+ Un documento XML \`e un documento di testo (codificato in UTF-8 o UTF16) 
+ che rispetta le regole di produzione indicate nella specifica. 
+ Un validatore per XML \`e disponibile al seguente indirizzo.
+\begin{center}
+\begin{small}
+  \url{http://www.w3schools.com/xml/xml_validator.asp}
+\end{small} 
+\end{center}
+ \vspace{\baselineskip}
+
+ Escludendo le dichiarazioni, un documento XML \`e strutturato ad albero.
+ Ogni nodo dell'albero pu\`o essere un \emph{elemento}, che pu\`o
+ a sua volta contenere altri elementi, o un nodo di testo(TextNode).
+ Segue un esempio di documento XML.\footnote{L'esempio \`e stato preso da
+ \url{http://www.w3schools.com/xml/}.}
+ \begin{verbatim}
+  <?xml version="1.0" encoding="UTF-8"?>
+  <note>
+    <to>Tove</to>
+    <from>Jani</from>
+    <heading>Reminder</heading>
+    <body>Don't forget me this weekend!</body>
+  </note>  
+ \end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{Sintassi XML - Elementi}
+
+ 
+ Un elemento \`e caratterizzato da un \emph{element name}
+ ed \`e delimitato da uno \emph{start tag} e un \emph{end tag},
+ tranne nel caso di elementi vuoti.
+ Un esempio di elemento con element name \texttt{myElement} \`e
+ il seguente:
+\begin{verbatim}
+  <myElement>
+    just a text content
+  </myElement>
+\end{verbatim}
+
+ L'esempio seguente mostra un elemento vuoto.
+\begin{verbatim}
+  <emptyElement />
+\end{verbatim}
+  
+ Ogni elemento pu\`o avere altri nodi come figli.
+ Nell'esempio seguente viene mostrato un elemento 
+ di tipo \texttt{myElement} con due nodi figli:
+ un secondo element di tipo \texttt{elementChild}
+ ed un nodo di testo.
+\begin{verbatim}
+  <myElement>
+    <elementChild>child text content</elementChild>
+    another text node
+  </myElement>
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{XML - Attributi}
+ Ogni elemento pu\`o avere degli \emph{attributi}.
+ Un attributo di un elemento \`e una coppia nome-valore. 
+ Nell'esempio seguente viene mostrato un elemento vuoto 
+ di tipo \texttt{myElement} con un attributo \texttt{myAttr} 
+ con valore \texttt{attrValue}.
+\begin{verbatim}
+  <myElement myAttribute="attrValue" />
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{XML - Struttura}
+ Un \emph{documento XML} \`e suddiviso in due parti: prologo e 
+ contenuto. Il prologo deve contenere la \emph{XML Declaration},
+ mentre il contenuto \`e riservato agli elementi e deve contenere
+ almeno un elemento (la radice).
+ \vspace{\baselineskip}
+
+ Riportiamo un esempio di documento XML:\footnote{Esempio da \url{http://www.w3schools.com/xml/xml_tree.asp} e lievemente modificato.}
+\begin{small}
+\begin{verbatim}
+<?xml version="1.1" encoding="UTF-16"?> <!-- Prologo -->
+
+<!-- Contenuto -->
+<bookstore> <!-- Elemento radice -->
+  <book category="COOKING">
+    <title lang="en">Everyday Italian</title>
+    <author>Giada De Laurentiis</author>
+    <year>2005</year>
+    <price>30.00</price>
+  </book>
+  <book category="WEB">
+    <title lang="en">Learning XML</title>
+    <author>Erik T. Ray</author>
+    <year>2003</year>
+    <price>39.95</price>
+  </book>
+</bookstore> 
+\end{verbatim}
+\end{small}
+\end{frame}
+
+\begin{frame}
+ \frametitle{XML - Entit\`a}
+ 
+ Le \emph{Entity References} sono particolari token che 
+ vengono sostituiti con dei valori predefiniti (o dichiarati nel prologo)
+ quando viene effettuato il parsing XML. Le entity references possono 
+ comparire nei nodi di testo e come valore degli attributi degli elementi.
+ \vspace{\baselineskip}
+ 
+ Una entity reference inizia con il carttere \texttt{\&} e termina con \texttt{;}.
+ Le entit\`a predefinite nel linguaggio XML sono le seguenti:
+\[
+ \begin{array}{|c|c|}
+  \hline
+    Entity Reference & Carattere \\
+    \hline
+    \mathtt{\&lt;} & \mathtt{<} \\
+    \mathtt{\&gt;} & \mathtt{>} \\
+    \mathtt{\&amp;} & \mathtt{\&}\\ 
+    \mathtt{\&apos;} & \mathtt{'}\\
+    \mathtt{\&quot;} & \mathtt{"}\\
+  \hline
+ \end{array}
+\]
+ \vspace{\baselineskip}
+
+ Inoltre, \`e possibile fare riferimento ad uno specifico carattere
+ mediante il codice attraverso il quale \`e identificato il carattere.
+ In questo caso, si usa la sintassi \texttt{\&\#code;}, sostituendo 
+ a \texttt{<code>} il codice unicode del carattere che si vuole inserire
+ nel documento
+ ad esempio, tutte le occorrenze di \texttt{\&\#8364;} verranno 
+ sostituite con il carattere \texttt{\euro} durante il parsing di un 
+ documento.
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{XML - Entit\`a - Esempio}
+ Riportiamo un esempio di documento XML che contiene delle entit\`a:
+ \vspace{\baselineskip}
+ 
+ \emph{Documento Originale}
+\begin{small}
+\begin{verbatim}
+<?xml version="1.1" encoding="UTF-16"?>
+<message>
+  Non usare il tag &lt;euro /&gt; &#33;
+</message>
+\end{verbatim}
+\end{small}
+
+ \emph{Documento Interpretato} (33 \`e il codice unicode per \texttt{!})
+\begin{small}
+\begin{verbatim}
+<?xml version="1.1" encoding="UTF-16"?>
+<message>
+  Non usare il tag <euro /> !
+</message>
+\end{verbatim}
+\end{small} 
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{XML - Document Type Declaration (1/3)}
+Nel prologo di un documento XML pu\`o essere specificata una
+\emph{Document Type Declaration}. 
+\vspace{\baselineskip}
+
+La document type declaration
+specifica il \emph{tipo} di documento in termini di struttura
+(tipi elementi, possibili annidamenti, attributi degli elementi).
+\vspace{\baselineskip}
+
+Riportiamo un esempio di documento xml che segue la specifica
+(leggi \emph{\'e di tipo}) HTML5:\footnote{\url{http://www.w3.org/TR/html5/}}
+
+\begin{small}
+\begin{verbatim}
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE html> <!-- the doctype declaration -->
+
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Title of the document</title>
+   </head>
+   <body>
+     Content of the document......
+   </body>
+</html> 
+\end{verbatim}
+\end{small}
+\vspace{\baselineskip}
+
+NB: nei documenti HTML5 la XML Declaration pu\`o essere omessa.
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{XML - Document Type Declaration (2/3)}
+ 
+ La struttura pu\`o essere specificata:
+ \vspace{\baselineskip}
+ 
+ - usando i formati DTD e XML Schema;
+ \vspace{\baselineskip}
+
+ - internamente alla Document Type Declaration, ad esempio\footnote{Esempio da \url{http://www.w3schools.com/xml/xml_dtd_intro.asp} .}
+\begin{small}
+\begin{verbatim}
+<!DOCTYPE note [
+  <!ELEMENT note (to,from,heading,body)>
+  <!ELEMENT to (#PCDATA)>
+  <!ELEMENT from (#PCDATA)>
+  <!ELEMENT heading (#PCDATA)>
+  <!ELEMENT body (#PCDATA)>
+]> 
+\end{verbatim}
+\end{small}
+
+ - o come risorsa esterna al documento, ad esempio
+\begin{small}
+\begin{verbatim}
+<!DOCTYPE note SYSTEM "note.dtd">
+\end{verbatim}
+\end{small}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{XML - Document Type Declaration (3/3)}
+ Inoltre, all'interno della document type declaration possono essere
+ specificate nuove entity refence.
+
+\begin{small}
+\begin{verbatim}
+<!DOCTYPE rdf:RDF [
+    <!ENTITY org "http://www.w3.org/ns/org#" >
+    <!ENTITY dcterms "http://purl.org/dc/terms/" >
+    <!ENTITY locn "http://www.w3.org/ns/locn#" >
+    <!ENTITY foaf "http://xmlns.com/foaf/0.1/" >
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY geo "http://www.w3.org/2003/01/geo/wgs84_pos#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY odt "http://www.dmi.unict.it/~longo/opendatatour/" >
+    <!ENTITY event "http://purl.org/NET/c4dm/event.owl#" >
+    <!ENTITY time "http://www.w3.org/2006/time#" >
+    <!ENTITY cct "http://www.comune.catania.it/comunect.owl/" >
+]>
+\end{verbatim}
+\end{small}
 \end{frame}
 
 \end{document}
