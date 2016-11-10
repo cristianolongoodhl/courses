@@ -30,7 +30,7 @@ Parte Prima}
 
 
 
-\date{Universit\`a di Catania, 04/12/2015}
+\date{Universit\`a di Catania, 11/11/2016}
 \newcommand{\urlsingle}[1]{{\small {\center {\url{#1}}}}}
 \begin{document}
 \maketitle
@@ -367,6 +367,46 @@ WSDL, Javascript.
 
 \section{Semantic Web}
 \begin{frame}
+\frametitle{World Wide Web - nascita}
+\begin{quote}
+Imagine, then, the references in this document all being associated with 
+the network address of the thing to which they referred, so that while 
+reading this document you could skip to them with a click of the mouse.
+\end{quote}
+\vspace{\baselineskip}
+\emph{Semantic Web Roadmap}, Tim Berners-Lee, 1989.
+\vspace{\baselineskip}
+
+\uncover<2->{
+Nel 1993 il CERN rilascer\`a di pubblico dominio i primi software per il
+world wide web, tra cui il primo browser chiamato per l'appunto \emph{World
+Wide Web}.\footnote{\url{http://home.cern/topics/birth-web}} 
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{World Wide Web - definizione}
+\begin{quote}
+The World Wide Web (WWW, or simply Web) is an information space in which
+the items of interest, referred to as resources, are identified by global
+identifiers called Uniform Resource Identifiers (URI).
+\end{quote}
+\vspace{\baselineskip}
+\emph{Architecture of the World Wide Web, Volume
+I}\footnote{\url{https://www.w3.org/TR/webarch/}}
+\vspace{\baselineskip}
+
+\uncover<2->{
+Le prime specifiche rilasciate furono:
+\begin{itemize}
+  \item Uniform Resource Locators (URLs),
+  \item Hypertext Transfer Protocol (HTTP),
+  \item Hypertext Markup Language (HTML).
+\end{itemize}
+}
+\end{frame}
+
+\begin{frame}
 \frametitle{Limiti del World Wide Web (1/4)}
 \begin{quote}
 The Web was designed as an information space, with the goal that it should be 
@@ -434,7 +474,7 @@ information in a machine processable form.
 \end{frame}
 
 \begin{frame}
-\frametitle{Il Web Semantico}
+\frametitle{Il Web Semantico (2/2)}
 
  Il \emph{Web Semantico} nasce per associare informazioni 
  \emph{strutturate} alle pagine web, che solitamente sono
@@ -454,6 +494,54 @@ ottenendo dei risultati precisi anche se a volte parziali:
 \begin{center}
 Q = “Luoghi di nascita di Federico II e dei suoi parenti stretti” . 
 \end{center}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Il Web Semantico - Vocabolari}
+
+ L'utilizzo di \emph{vocabolari} condivisi e universalmente riconisciuti,
+ spesso dedicati a specifici domini di conoscenza, garantisce
+ l'interoperabilit\`a applicativa.
+ 
+\uncover<2->{
+ Un esempio di vocabolario \`e \emph{ISA Programme Location Core Vocabulary
+ (LOCN).}\footnote{\url{https://www.w3.org/ns/locn}} 
+ 
+ \begin{quote}
+ The ISA Programme Location Core Vocabulary provides a minimum set of classes
+ and properties for describing any place in terms of its name, address or geometry.
+ \end{quote}
+}
+
+\uncover<3->{
+ \`E possibile realizzare applicativi in grado di trattare informazioni espresse
+ con questo vocabolario senza tener conto di chi pubblica le informazioni e
+ come.
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Il Web Semantico - Semantica}
+
+I \emph{linguaggi di rappresentazione} usati nel Web semantico 
+sono dotati di una \emph{semantica formale} mutuata dai 
+\emph{sistemi di rappresentazione della conoscenza}\footnote{Vedi
+Brachman, Schmolze (1985) \emph{An Overview of the KL-ONE Knowledge
+Representation System}} e dalle \emph{logiche descrittive}.\footnote{Vedi 
+Baader, Calvanese, McGuinness, Nardi, Patel-Schneider \emph{The Description 
+Logic Handbook: Theory, Implementation, and Applications, 2nd Edition}.}
+\vspace{\baselineskip}
+
+\uncover<2->{
+Questo permette di effettuare attivit\`a di \emph{reasoning} (in genere,
+inferenze) per
+estrarre \emph{conoscenza implicita}.
+\vspace{\baselineskip}
+
+Ad esempio, se \`e noto che ``Tutti gli esseri umani sono mortali''
+un reasoning engine potr\`a dedurre che ``Socrate \`e mortale''
+dal fatto che ``Socrate \`e umano''.
 }
 \end{frame}
 
@@ -516,6 +604,13 @@ Alcuni dataset:
   \item \emph{AGROVOC} (\url{http://aims.fao.org/agrovoc}) \`e il dataset della FAO (\url{http://fao.org});
   \item \emph{Europeana} (\url{http://pro.europeana.eu/linked-open-data}) contiene dati su beni culturali e tradizioni Europee. 
 \end{itemize}
+
+\uncover<2->{
+  \emph{LodLive}\footnote{\url{http://lodlive.it}}
+  e \emph{LodView}\footnote{\url{http://lodview.it}} sono due servizi online
+  che permettono di navigare il Linked Open Data Cloud ed esaminare le informazioni
+  in esso contenute in merito ad uno specifico elemento.
+}  
 \end{frame}
 
 
