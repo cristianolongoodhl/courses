@@ -531,8 +531,8 @@ Data una qualsiasi ontologia (nel senso appena visto) $\Ont$, indicheremo con:
 
 %Inoltre, indichiamo con $\IRI$ l'insieme di tutti i possibili IRI.
 \end{frame}
+\section{SPARQL}
 
-\section{RDF}
 
 \begin{frame}
  \frametitle{Semantic Web Stack}
@@ -548,6 +548,251 @@ Data una qualsiasi ontologia (nel senso appena visto) $\Ont$, indicheremo con:
  codificati ed esposti attraverso queste tecnologie.
 \end{frame}
 
+\begin{frame}
+ \frametitle{Il protocollo SPARQL}
+ Le basi di conoscenza presenti sul Web Semantico usualmente mettono 
+ a disposizione uno \emph{SPARQL endpoint} che permette di interrogarle e,
+ ove permesso, di modificarle.
+ 
+ \begin{table}
+ \begin{tabular}{|c|l|}
+  \hline
+  \bf{Knowledge Base} & \bf{Endpoint IRI} \\
+  Europeana & \url{http://europeana.ontotext.com/sparql} \\
+  CNR & \url{http://data.cnr.it/sparql/}\\
+  Camera dei Deputati & \url{http://dati.camera.it/sparql}\\
+  DBPedia & \url{http://dbpedia.org/sparql}\\
+  \hline
+ \end{tabular} 
+ \caption{Alcuni endpoint sparql}
+ \end{table}
+
+\uncover<2->{
+Il \emph{protocollo SPARQL} (vedi \url{http://www.w3.org/TR/sparql11-protocol/})
+\`e basato sul protocollo HTTP le richieste SPARQL vengono inviate agli
+endpoint come richieste GET o POST e l'endpoint risponde con un \emph{esito}.
+\vspace{\baselineskip}
+}
+
+\uncover<3>{
+Le richieste si suddividono in richieste di \emph{query} o \emph{update}.
+
+In caso di richieste di tipo query effettuate con successo, la risposta alla
+chiamata GET o POST conterr\`a anche tutte le \emph{soluzioni} dell'interrogazione
+in uno dei formati XML, JSON o CSV (il formato di risposta va specificato 
+nella richesta).
+}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{SPARQL Query Language}
+Le richieste di tipo \emph{query} vanno specificate nel linguaggio
+denominato \emph{SPARQL Query}.
+%
+La specifica di questo linguaggio \`e disponibile all'indirizzo
+\begin{center}
+ \url{http://www.w3.org/TR/sparql11-query/} .
+\end{center}
+
+Una \emph{query SPARQL} ha la seguente sintassi
+\begin{Verbatim}[fontsize=\small]
+BASE <iriBase>
+PREFIX p1 : <iriP1>
+...
+PREFIX pn : <iriPn>
+
+SELECT ?x1 ... ?xm WHERE { GraphPattern }
+\end{Verbatim}
+dove: 
+\begin{itemize}
+ \item la sezione $BASE\,<iriBase>$ \`e opzionale;
+ \item $p1, \ldots, pn$ sono prefissi di namespace ($n\geq0$, se $n=0$ non \`e presente alcun prefisso);
+ \item $<iriP1>, \ldots, <iriPn>$ sono IRI;
+ \item $?x1, \ldots, ?xm$ sono \emph{variabili} ($m>0$);
+ \item $GraphPattern$ \`e un \emph{graph pattern} di uno dei tipi che vedremo in seguito.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{SPARQL Query Language - Triple Pattern}
+Il tipo di graph pattern più basilare \`e quello dei \emph{triple pattern}.
+Un triple pattern \`e una espressione di uno dei seguenti tipi:
+\[
+ s \, p \, o \,, \quad s \, \mathtt{a} \, o
+\]
+ove $s$ e $p$ possono essere IRI o variabili, \texttt{a} \`e una parola riservata, e $o$ pu\`o essere una
+IRI, una variabile o un letterale.
+\vspace{\baselineskip}
+
+\uncover<2->{
+  Le formule atomiche nelle query congiuntive possono essere facilmente tradotte in triple patterns:
+  \begin{small}
+  \[
+    \begin{array}{lclr}
+    C(?a) & \Longrightarrow & ?a\, \mathtt{a} \,C \quad | \quad ?a\, \mathtt{rdf:type}\, C \mbox{(le due formulazioni sono equivalenti)}\\    
+    \\
+    ?a\,P\,?b & \Longrightarrow & ?a\, P \,?b . 
+    \end{array}
+  \]
+  \end{small}
+
+  Si noti che la propriet\`a \texttt{rdf:type} viene utilizzata per esprimere l'appartenenza 
+  nel linguaggio RDF.
+\vspace{\baselineskip}
+}
+
+\uncover<3->{
+  A differenza delle query congiuntive, in SPARQL le variabili possono comparire anche
+  al posto del nome della classe o della propriet\`a. Ad esempio i seguenti due sono 
+  triple pattern validi:
+  
+    \begin{small}
+  \[
+    \begin{array}{lr}
+    ?C(a) & \mbox{``Trova tutte le classi cui appartiene }a\mbox{''}\\    
+    \\
+    ?a\,?p\,?b & \mbox{``Trova tutte le triple nell'ontologia''.}   
+    \end{array}
+  \]
+  \end{small}
+}
+% Esempi di triple pattern sono
+% 
+% \begin{quote}
+% ``Trova tutti gli individui maschi''
+% \end{quote}
+% \begin{Verbatim}[fontsize=\small]
+% ?x rdf:type Male . 
+% \end{Verbatim}
+% 
+% \begin{quote}
+% ``Trova tutte le coppie [?x, ?y] in relazione \url{childOf}''
+% \end{quote}
+% \begin{Verbatim}[fontsize=\small]
+% ?x childOf ?y . 
+% \end{Verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{SPARQL Query Language - Soluzioni}
+Analogamente a quanto accade nell'ambito del conjunctive query answering,
+le \emph{soluzioni} per un triple pattern $T$ rispetto a una ontologia $\Ont$ 
+sono tutte le sostituzioni $\sigma$ che associano ad ogni variabile presente 
+in $T$ una IRI o un letterale in modo tale che $\sigma T$ sia presente in $\Ont$.
+\vspace{\baselineskip}
+
+Il risultato di una query $Q$, avente come pattern un triple pattern $T$
+e come variabili nella select $x_1, \ldots, x_n$,
+rispetto all'ontologia $\Ont$ \`e l'insieme delle sostituzioni $\sigma$,
+ristrette alle variabili $x_1, \ldots, x_n$, tali che
+$\sigma T$ appartiene ad $\Ont$.
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{SPARQL Query Language - Triple Pattern - Esempio}
+ Consideriamo ad esempio la seguente ontologia (base prefix \url{http://ex.org/})
+\begin{tabular}{cc}
+$\begin{array}{cl}
+  \Ont  =  &  \{Female(Elise), Female(Alice), Male(Bob), \\
+  &\phantom{\{}Male(Charlie), Male(Daniel), \\
+  &\phantom{\{}Alice\,childOf\,Elise, Charlie\,childOf\,Elise, \\
+  &\phantom{\{}Daniel\,childOf\,Alice, Daniel\,childOf\,Bob, \\
+  &\phantom{\{}Francis\,childOf\,Charlie \}
+ \end{array}$ & \includegraphics[width=120px]{family.png} \\
+\end{tabular}
+
+Consideriamo inoltre la query $Q$ definita come segue.
+
+\begin{Verbatim}[fontsize=\small]
+BASE <http://ex.org/>
+
+SELECT ?x ?y WHERE { ?x childOf ?y . }
+\end{Verbatim}
+
+Le soluzioni di $Q$ rispetto a $\Ont$ sono
+\begin{tabular}{|c|c|}
+\hline 
+?x & ?y \\
+\hline
+\url{<http://ex.org/Eliza>} & \url{<http://ex.org/Giorgia>} \\
+\url{<http://ex.org/Eliza>} & \url{<http://ex.org/Francis>} \\
+\hline 
+\end{tabular}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{SPARQL Query Language - Basic Graph Pattern}
+Un \emph{basic graph pattern} \`e un insieme di triple pattern, separati
+dal carattere ``.''. Una sostituzione \`e una soluzione per un basic graph
+pattern se e solo se \`e una soluzione per tutti i triple pattern
+che compaiono in esso.
+\vspace{\baselineskip}
+
+Un esempio di query con il basic graph pattern \`e il seguente:
+\begin{quote}
+``Trova tutte le persone con almeno un figlo maschio''
+\end{quote}
+\begin{Verbatim}[fontsize=\small]
+BASE <http://ex.org/>
+
+SELECT ?x  WHERE { 
+  ?y childOf ?x .
+  ?y a Male
+}
+\end{Verbatim}
+\vspace{\baselineskip}
+
+\uncover<2->{
+Da una query congiuntiva si pu\`o ottenere il basic graph pattern
+corrispondente come segue:
+\begin{itemize}
+ \item applicare la trasformazione vista in precedenza ai triple pattern che lo costituiscono;
+ \item sostituire i caratteri ``.'' con l'operatore logico di congiunzione $\wedge$.
+\end{itemize}
+Ad esempio
+\[
+ C(?x) \wedge ?x\,P\,b \quad \Longrightarrow \quad ?x\,\mathtt{a}\,C\,.\,?x\,P\,b\,.
+\]
+}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{SPARQL Query Language - Filtri sui letterali}
+\`E possibile specificare dei filtri sui letterali che compaiono nei pattern.
+Essi sono dei predicati, che dipendono dal tipo di dato dei letterali.\footnote{\url{http://www.w3.org/TR/sparql11-query/\#OperatorMapping}}
+Permettono di selezionare tutte le soluzioni nelle quali ad una 
+determinata variabile viene associato un letterale che soddisfa un predicato.
+\vspace{\baselineskip}
+
+La seguente query ad esempio permette di ottenere tutti
+gli individui con un figlio il cui nome inizia con la lettera 'R'.
+\begin{Verbatim}[fontsize=\small]
+BASE <http://ex.org/>
+
+SELECT ?x  WHERE { 
+  ?y childOf ?x .
+  ?y fullName ?name .
+  FILTER regex(?name, "^R.*") .
+}
+\end{Verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{SPARQL Query Language - Optional Pattern Matching}
+
+ Dati due graph pattern $P_1$ e $P_2$, il seguente \`e un \emph{optional graph pattern}:
+\[
+ P_1 \mathtt{OPTIONAL} P_2 .
+\]
+
+ Le sostituzioni che sono soluzioni per questo pattern sono quelle che
+\begin{itemize}
+ \item sono soluzioni per $P_1$ e $P_2$, oppure
+ \item sono soluzioni per $P_1$
+\end{itemize}
+\end{frame}
+
+\section{RDF}
 \begin{frame}
  \frametitle{Resource Description Framework (RDF)}
  Il \emph{linguaggio di rappresentazione} pi\`u basilare nella pila
@@ -1324,192 +1569,4 @@ $\I$.
 	\end{array}
 	\]
 \end{frame}
-
-\section{SPARQL}
-
-\begin{frame}
- \frametitle{Il protocollo SPARQL}
- Le basi di conoscenza presenti sul Web Semantico usualmente mettono 
- a disposizione uno \emph{SPARQL endpoint} che permette di interrogarle e,
- ove permesso, di modificarle.
- 
- \begin{table}
- \begin{tabular}{|c|l|}
-  \hline
-  \bf{Knowledge Base} & \bf{Endpoint IRI} \\
-  Europeana & \url{http://europeana.ontotext.com/sparql} \\
-  CNR & \url{http://data.cnr.it/sparql/}\\
-  Camera dei Deputati & \url{http://dati.camera.it/sparql}\\
-  DBPedia & \url{http://dbpedia.org/sparql}\\
-  \hline
- \end{tabular} 
- \caption{Alcuni endpoint sparql}
- \end{table}
-
-\uncover<2->{
-Il \emph{protocollo SPARQL} (vedi \url{http://www.w3.org/TR/sparql11-protocol/})
-\`e basato sul protocollo HTTP le richieste SPARQL vengono inviate agli
-endpoint come richieste GET o POST e l'endpoint risponde con un \emph{esito}.
-\vspace{\baselineskip}
-}
-
-\uncover<3>{
-Le richieste si suddividono in richieste di \emph{query} o \emph{update}.
-
-In caso di richieste di tipo query effettuate con successo, la risposta alla
-chiamata GET o POST conterr\`a anche tutte le \emph{soluzioni} dell'interrogazione
-in uno dei formati XML, JSON o CSV (il formato di risposta va specificato 
-nella richesta).
-}
-\end{frame}
-
-
-\begin{frame}[fragile]
-\frametitle{SPARQL Query Language}
-Le richieste di tipo \emph{query} vanno specificate nel linguaggio
-denominato \emph{SPARQL Query}.
-%
-La specifica di questo linguaggio \`e disponibile all'indirizzo
-\begin{center}
- \url{http://www.w3.org/TR/sparql11-query/} .
-\end{center}
-
-Una \emph{query SPARQL} ha la seguente sintassi
-\begin{Verbatim}[fontsize=\small]
-BASE <iriBase>
-PREFIX p1 : <iriP1>
-...
-PREFIX pn : <iriPn>
-
-SELECT ?x1 ... ?xm WHERE { GraphPattern }
-\end{Verbatim}
-dove: 
-\begin{itemize}
- \item la sezione $BASE\,<iriBase>$ \`e opzionale;
- \item $p1, \ldots, pn$ sono prefissi di namespace ($n\geq0$, se $n=0$ non \`e presente alcun prefisso);
- \item $<iriP1>, \ldots, <iriPn>$ sono IRI;
- \item $?x1, \ldots, ?xm$ sono \emph{variabili} ($m>0$);
- \item $GraphPattern$ \`e un \emph{graph pattern} di uno dei tipi che vedremo in seguito.
-\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-\frametitle{SPARQL Query Language - Triple Pattern}
-Il tipo di graph pattern più basilare \`e quello dei \emph{triple pattern}.
-Un triple pattern \`e una tripla del tipo
-\[
- s \, p \, o . 
-\]
-ove $s$ e $p$ possono essere IRI o variabili, mentre $o$ pu\`o essere una
-IRI, una variabile o un letterale.
-\vspace{\baselineskip}
-
-Esempi di triple pattern sono
-
-\begin{quote}
-``Trova tutti gli individui maschi''
-\end{quote}
-\begin{Verbatim}[fontsize=\small]
-?x rdf:type Male . 
-\end{Verbatim}
-
-\begin{quote}
-``Trova tutte le coppie [?x, ?y] in relazione \url{childOf}''
-\end{quote}
-\begin{Verbatim}[fontsize=\small]
-?x childOf ?y . 
-\end{Verbatim}
-\end{frame}
-
-\begin{frame}[fragile]
-\frametitle{SPARQL Query Language - Soluzioni}
-Analogamente a quanto accade nell'ambito del conjunctive query answering,
-le \emph{soluzioni} per un triple pattern $T$ rispetto ad un grafo RDF $G$ 
-sono tutte le sostituzioni $\sigma$ che associano ad ogni variabile presente 
-in $T$ una IRI o un letterale in modo tale che $T\sigma$ sia presente in $G$.
-\vspace{\baselineskip}
-
-Il risultato di una query $Q$, avente come pattern un triple pattern $T$
-e come variabili nella select $x_1, \ldots, x_n$,
-rispetto ad un grafo RDF $G$ \`e l'insieme delle soluzioni minimali di $T$
-rispetto a $G$, ristretto alle variabili $x_1, \ldots, x_n$.
-\end{frame}
-
-\begin{frame}[fragile]
- \frametitle{SPARQL Query Language - Triple Pattern - Esempio}
- Consideriamo ad esempio il grafo RDF $G$ visto in precedenza e riportato nel 
- seguito.
- \begin{Verbatim}[fontsize=\small]
-BASE <http://ex.org/> .
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> .
-
-<Eliza> a <Person> .
-<Giorgia> a <Person> .
-<Francis> a <Person> .
-<Eliza> <childOf> <Giorgia> ,
-                  <Francis> .
-<Eliza>  <fullName> "Eliza Smith" ;
-         <age> "63"^^<xsd:nonNegativeInteger> .
-\end{Verbatim}
-
-Consideriamo inoltre la query $Q$ definita come segue.
-
-\begin{Verbatim}[fontsize=\small]
-BASE <http://ex.org/>
-
-SELECT ?x ?y WHERE { ?x childOf ?y . }
-\end{Verbatim}
-
-Le soluzioni di $Q$ rispetto a $G$ sono
-\begin{tabular}{|c|c|}
-\hline 
-?x & ?y \\
-\hline
-\url{<http://ex.org/Eliza>} & \url{<http://ex.org/Giorgia>} \\
-\url{<http://ex.org/Eliza>} & \url{<http://ex.org/Francis>} \\
-\hline 
-\end{tabular}
-\end{frame}
-
-\begin{frame}[fragile]
- \frametitle{SPARQL Query Language - Basic Graph Pattern}
-Un \emph{basic graph pattern} \`e un insieme di triple pattern, separati
-dal carattere ``.''. La nozione di soluzioni per i triple pattern si estende 
-immediatamente ai basic graph pattern.
-\vspace{\baselineskip}
-
-Un esempio di basic graph pattern \`e il seguente:
-\begin{quote}
-``Trova tutte le persone con almeno un figlo maschio''
-\end{quote}
-\begin{Verbatim}[fontsize=\small]
-?x rdf:type Person .
-?y childOf ?x .
-?y rdf:type Male .
-\end{Verbatim}
-\end{frame}
-
-\begin{frame}[fragile]
- \frametitle{SPARQL Query Language - Filtri sui letterali}
-\`E possibile specificare dei filtri sui letterali che compaiono nei pattern.
-Essi sono dei predicati, che dipendono dal tipo di dato dei letterali.
-Permettono di selezionare tutte le soluzioni nelle quali ad una 
-determinata variabile viene associato un letterale che soddisfa un predicato.
-\vspace{\baselineskip}
-
-La seguente query ad esempio permette di ottenere tutti
-gli individui con un figlio il cui nome inizia con la lettera 'R'.
-\begin{Verbatim}[fontsize=\small]
-BASE <http://ex.org/>
-
-SELECT ?x  WHERE { 
-  ?y childOf ?x .
-  ?y fullName ?name .
-  FILTER regex(?name, "^R.*") .
-}
-\end{Verbatim}
-\end{frame}
-
-
 \end{document}
