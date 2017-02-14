@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="21cm" height="16cm" viewBox="74 72 402 307" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="112.213" y1="258.175" x2="183.179" y2="246.572"/>
+  <g>
+    <path style="fill: #b7b79d" d="M 74.8968 263.814 L 114.865,263.814 L 114.865,271.2 L 74.8968,271.2 L 74.8968,263.814z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 74.8968 263.814 L 114.865,263.814 L 114.865,271.2 L 74.8968,271.2 L 74.8968,263.814"/>
+    <path style="fill: #c9c9b6" d="M 74.8968 263.814 L 79.1348,259.796 L 119.103,259.796 L 114.865,263.814 L 74.8968,263.814z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 74.8968 263.814 L 79.1348,259.796 L 119.103,259.796 L 114.865,263.814 L 74.8968,263.814"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2.12; stroke: #000000" d="M 112.63 267.176 L 103.039,267.176"/>
+    <path style="fill: #7a7a5a" d="M 114.865 271.2 L 119.103,266.95 L 119.103,259.796 L 114.865,263.814 L 114.865,271.2z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 114.865 271.2 L 119.103,266.95 L 119.103,259.796 L 114.865,263.814 L 114.865,271.2"/>
+    <path style="fill: #c9c9b6" d="M 75.1235 275.885 L 79.5819,270.3 L 110.401,270.3 L 105.942,275.885 L 75.1235,275.885z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 75.1235 275.885 L 79.5819,270.3 L 110.401,270.3 L 105.942,275.885 L 75.1235,275.885"/>
+    <path style="fill: #7a7a5a" d="M 105.942 277 L 110.401,272.315 L 110.401,270.3 L 105.942,275.885 L 105.942,277z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 105.942 277 L 110.401,272.315 L 110.401,270.3 L 105.942,275.885 L 105.942,277"/>
+    <path style="fill: #b7b79d" d="M 75.1235 275.885 L 105.942,275.885 L 105.942,277 L 75.1235,277 L 75.1235,275.885z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 75.1235 275.885 L 105.942,275.885 L 105.942,277 L 75.1235,277 L 75.1235,275.885"/>
+    <path style="fill: #000000" d="M 80.9232 262.926 L 84.2797,259.796 L 112.63,259.796 L 109.513,262.926 L 80.9232,262.926z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" d="M 80.9232 262.926 L 84.2797,259.796 L 112.63,259.796 L 109.513,262.926 L 80.9232,262.926"/>
+    <path style="fill: #c9c9b6" d="M 80.6965 239.903 L 83.8326,237 L 112.195,237 L 109.059,239.903 L 80.6965,239.903z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 80.6965 239.903 L 83.8326,237 L 112.195,237 L 109.059,239.903 L 80.6965,239.903"/>
+    <path style="fill: #b7b79d" d="M 80.6965 239.903 L 109.286,239.903 L 109.286,262.472 L 80.6965,262.472 L 80.6965,239.903z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 80.6965 239.903 L 109.273,239.903 L 109.273,262.466 L 80.6965,262.466 L 80.6965,239.903"/>
+    <path style="fill: #ffffff" d="M 83.1525 242.8 L 106.824,242.8 L 106.824,260.237 L 83.1525,260.237 L 83.1525,242.8z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 83.1525 242.8 L 106.824,242.8 L 106.824,260.23 L 83.1525,260.23 L 83.1525,242.8"/>
+    <path style="fill: #7a7a5a" d="M 109.059 262.258 L 112.195,259.128 L 112.195,237 L 109.059,239.903 L 109.059,262.258z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 109.059 262.258 L 112.195,259.128 L 112.195,237 L 109.059,239.903 L 109.059,262.258"/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #00ff00" x1="182.209" y1="339.206" x2="205.655" y2="266.022"/>
+    <polygon style="fill: #00ff00" points="207.943,258.879 209.653,269.928 205.655,266.022 200.13,266.877 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #00ff00" points="207.943,258.879 209.653,269.928 205.655,266.022 200.13,266.877 "/>
+  </g>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="183.179" y1="195.679" x2="130.232" y2="162.573"/>
+  <g>
+    <path style="fill: #b7b79d" d="M 432.226 112.936 L 472.195,112.936 L 472.195,120.323 L 432.226,120.323 L 432.226,112.936z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 432.226 112.936 L 472.195,112.936 L 472.195,120.323 L 432.226,120.323 L 432.226,112.936"/>
+    <path style="fill: #c9c9b6" d="M 432.226 112.936 L 436.464,108.919 L 476.433,108.919 L 472.195,112.936 L 432.226,112.936z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 432.226 112.936 L 436.464,108.919 L 476.433,108.919 L 472.195,112.936 L 432.226,112.936"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2.12; stroke: #000000" d="M 469.959 116.299 L 460.368,116.299"/>
+    <path style="fill: #7a7a5a" d="M 472.195 120.323 L 476.433,116.072 L 476.433,108.919 L 472.195,112.936 L 472.195,120.323z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 472.195 120.323 L 476.433,116.072 L 476.433,108.919 L 472.195,112.936 L 472.195,120.323"/>
+    <path style="fill: #c9c9b6" d="M 432.453 125.008 L 436.911,119.423 L 467.73,119.423 L 463.271,125.008 L 432.453,125.008z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 432.453 125.008 L 436.911,119.423 L 467.73,119.423 L 463.271,125.008 L 432.453,125.008"/>
+    <path style="fill: #7a7a5a" d="M 463.271 126.123 L 467.73,121.438 L 467.73,119.423 L 463.271,125.008 L 463.271,126.123z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 463.271 126.123 L 467.73,121.438 L 467.73,119.423 L 463.271,125.008 L 463.271,126.123"/>
+    <path style="fill: #b7b79d" d="M 432.453 125.008 L 463.271,125.008 L 463.271,126.123 L 432.453,126.123 L 432.453,125.008z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 432.453 125.008 L 463.271,125.008 L 463.271,126.123 L 432.453,126.123 L 432.453,125.008"/>
+    <path style="fill: #000000" d="M 438.252 112.048 L 441.609,108.919 L 469.959,108.919 L 466.842,112.048 L 438.252,112.048z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" d="M 438.252 112.048 L 441.609,108.919 L 469.959,108.919 L 466.842,112.048 L 438.252,112.048"/>
+    <path style="fill: #c9c9b6" d="M 438.026 89.0258 L 441.162,86.1228 L 469.524,86.1228 L 466.388,89.0258 L 438.026,89.0258z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 438.026 89.0258 L 441.162,86.1228 L 469.524,86.1228 L 466.388,89.0258 L 438.026,89.0258"/>
+    <path style="fill: #b7b79d" d="M 438.026 89.0258 L 466.615,89.0258 L 466.615,111.595 L 438.026,111.595 L 438.026,89.0258z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 438.026 89.0258 L 466.603,89.0258 L 466.603,111.589 L 438.026,111.589 L 438.026,89.0258"/>
+    <path style="fill: #ffffff" d="M 440.482 91.9225 L 464.153,91.9225 L 464.153,109.36 L 440.482,109.36 L 440.482,91.9225z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 440.482 91.9225 L 464.153,91.9225 L 464.153,109.353 L 440.482,109.353 L 440.482,91.9225"/>
+    <path style="fill: #7a7a5a" d="M 466.388 111.381 L 469.524,108.251 L 469.524,86.1228 L 466.388,89.0258 L 466.388,111.381z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 466.388 111.381 L 469.524,108.251 L 469.524,86.1228 L 466.388,89.0258 L 466.388,111.381"/>
+  </g>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="376.808" y1="168.461" x2="433.035" y2="126.126"/>
+  <g>
+    <path style="fill: #b7b79d" d="M 86.025 159.436 L 125.994,159.436 L 125.994,166.823 L 86.025,166.823 L 86.025,159.436z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 86.025 159.436 L 125.994,159.436 L 125.994,166.823 L 86.025,166.823 L 86.025,159.436"/>
+    <path style="fill: #c9c9b6" d="M 86.025 159.436 L 90.263,155.419 L 130.232,155.419 L 125.994,159.436 L 86.025,159.436z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 86.025 159.436 L 90.263,155.419 L 130.232,155.419 L 125.994,159.436 L 86.025,159.436"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2.12; stroke: #000000" d="M 123.758 162.799 L 114.167,162.799"/>
+    <path style="fill: #7a7a5a" d="M 125.994 166.823 L 130.232,162.572 L 130.232,155.419 L 125.994,159.436 L 125.994,166.823z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 125.994 166.823 L 130.232,162.572 L 130.232,155.419 L 125.994,159.436 L 125.994,166.823"/>
+    <path style="fill: #c9c9b6" d="M 86.2517 171.508 L 90.7101,165.923 L 121.529,165.923 L 117.07,171.508 L 86.2517,171.508z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 86.2517 171.508 L 90.7101,165.923 L 121.529,165.923 L 117.07,171.508 L 86.2517,171.508"/>
+    <path style="fill: #7a7a5a" d="M 117.07 172.623 L 121.529,167.938 L 121.529,165.923 L 117.07,171.508 L 117.07,172.623z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 117.07 172.623 L 121.529,167.938 L 121.529,165.923 L 117.07,171.508 L 117.07,172.623"/>
+    <path style="fill: #b7b79d" d="M 86.2517 171.508 L 117.07,171.508 L 117.07,172.623 L 86.2517,172.623 L 86.2517,171.508z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 86.2517 171.508 L 117.07,171.508 L 117.07,172.623 L 86.2517,172.623 L 86.2517,171.508"/>
+    <path style="fill: #000000" d="M 92.0514 158.548 L 95.4079,155.419 L 123.758,155.419 L 120.641,158.548 L 92.0514,158.548z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" d="M 92.0514 158.548 L 95.4079,155.419 L 123.758,155.419 L 120.641,158.548 L 92.0514,158.548"/>
+    <path style="fill: #c9c9b6" d="M 91.8247 135.526 L 94.9608,132.623 L 123.323,132.623 L 120.187,135.526 L 91.8247,135.526z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 91.8247 135.526 L 94.9608,132.623 L 123.323,132.623 L 120.187,135.526 L 91.8247,135.526"/>
+    <path style="fill: #b7b79d" d="M 91.8247 135.526 L 120.414,135.526 L 120.414,158.095 L 91.8247,158.095 L 91.8247,135.526z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 91.8247 135.526 L 120.402,135.526 L 120.402,158.089 L 91.8247,158.089 L 91.8247,135.526"/>
+    <path style="fill: #ffffff" d="M 94.2807 138.423 L 117.952,138.423 L 117.952,155.86 L 94.2807,155.86 L 94.2807,138.423z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 94.2807 138.423 L 117.952,138.423 L 117.952,155.853 L 94.2807,155.853 L 94.2807,138.423"/>
+    <path style="fill: #7a7a5a" d="M 120.187 157.881 L 123.323,154.751 L 123.323,132.623 L 120.187,135.526 L 120.187,157.881z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 120.187 157.881 L 123.323,154.751 L 123.323,132.623 L 120.187,135.526 L 120.187,157.881"/>
+  </g>
+  <g>
+    <path style="fill: #b7b79d" d="M 152.025 366.036 L 191.994,366.036 L 191.994,373.422 L 152.025,373.422 L 152.025,366.036z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 152.025 366.036 L 191.994,366.036 L 191.994,373.422 L 152.025,373.422 L 152.025,366.036"/>
+    <path style="fill: #c9c9b6" d="M 152.025 366.036 L 156.263,362.018 L 196.232,362.018 L 191.994,366.036 L 152.025,366.036z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 152.025 366.036 L 156.263,362.018 L 196.232,362.018 L 191.994,366.036 L 152.025,366.036"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2.12; stroke: #000000" d="M 189.758 369.398 L 180.167,369.398"/>
+    <path style="fill: #7a7a5a" d="M 191.994 373.422 L 196.232,369.172 L 196.232,362.018 L 191.994,366.036 L 191.994,373.422z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 191.994 373.422 L 196.232,369.172 L 196.232,362.018 L 191.994,366.036 L 191.994,373.422"/>
+    <path style="fill: #c9c9b6" d="M 152.252 378.107 L 156.71,372.522 L 187.529,372.522 L 183.07,378.107 L 152.252,378.107z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 152.252 378.107 L 156.71,372.522 L 187.529,372.522 L 183.07,378.107 L 152.252,378.107"/>
+    <path style="fill: #7a7a5a" d="M 183.07 379.222 L 187.529,374.537 L 187.529,372.522 L 183.07,378.107 L 183.07,379.222z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 183.07 379.222 L 187.529,374.537 L 187.529,372.522 L 183.07,378.107 L 183.07,379.222"/>
+    <path style="fill: #b7b79d" d="M 152.252 378.107 L 183.07,378.107 L 183.07,379.222 L 152.252,379.222 L 152.252,378.107z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 152.252 378.107 L 183.07,378.107 L 183.07,379.222 L 152.252,379.222 L 152.252,378.107"/>
+    <path style="fill: #000000" d="M 158.051 365.148 L 161.408,362.018 L 189.758,362.018 L 186.641,365.148 L 158.051,365.148z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" d="M 158.051 365.148 L 161.408,362.018 L 189.758,362.018 L 186.641,365.148 L 158.051,365.148"/>
+    <path style="fill: #c9c9b6" d="M 157.825 342.125 L 160.961,339.222 L 189.323,339.222 L 186.187,342.125 L 157.825,342.125z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 157.825 342.125 L 160.961,339.222 L 189.323,339.222 L 186.187,342.125 L 157.825,342.125"/>
+    <path style="fill: #b7b79d" d="M 157.825 342.125 L 186.414,342.125 L 186.414,364.694 L 157.825,364.694 L 157.825,342.125z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 157.825 342.125 L 186.402,342.125 L 186.402,364.688 L 157.825,364.688 L 157.825,342.125"/>
+    <path style="fill: #ffffff" d="M 160.281 345.022 L 183.952,345.022 L 183.952,362.459 L 160.281,362.459 L 160.281,345.022z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 160.281 345.022 L 183.952,345.022 L 183.952,362.452 L 160.281,362.452 L 160.281,345.022"/>
+    <path style="fill: #7a7a5a" d="M 186.187 364.48 L 189.323,361.35 L 189.323,339.222 L 186.187,342.125 L 186.187,364.48z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 186.187 364.48 L 189.323,361.35 L 189.323,339.222 L 186.187,342.125 L 186.187,364.48"/>
+  </g>
+  <g>
+    <path style="fill: #b7b79d" d="M 222.026 99.6364 L 261.995,99.6364 L 261.995,107.023 L 222.026,107.023 L 222.026,99.6364z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 222.026 99.6364 L 261.995,99.6364 L 261.995,107.023 L 222.026,107.023 L 222.026,99.6364"/>
+    <path style="fill: #c9c9b6" d="M 222.026 99.6364 L 226.264,95.6188 L 266.233,95.6188 L 261.995,99.6364 L 222.026,99.6364z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 222.026 99.6364 L 226.264,95.6188 L 266.233,95.6188 L 261.995,99.6364 L 222.026,99.6364"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2.12; stroke: #000000" d="M 259.759 102.999 L 250.168,102.999"/>
+    <path style="fill: #7a7a5a" d="M 261.995 107.023 L 266.233,102.772 L 266.233,95.6188 L 261.995,99.6364 L 261.995,107.023z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 261.995 107.023 L 266.233,102.772 L 266.233,95.6188 L 261.995,99.6364 L 261.995,107.023"/>
+    <path style="fill: #c9c9b6" d="M 222.253 111.708 L 226.711,106.123 L 257.53,106.123 L 253.071,111.708 L 222.253,111.708z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 222.253 111.708 L 226.711,106.123 L 257.53,106.123 L 253.071,111.708 L 222.253,111.708"/>
+    <path style="fill: #7a7a5a" d="M 253.071 112.823 L 257.53,108.138 L 257.53,106.123 L 253.071,111.708 L 253.071,112.823z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 253.071 112.823 L 257.53,108.138 L 257.53,106.123 L 253.071,111.708 L 253.071,112.823"/>
+    <path style="fill: #b7b79d" d="M 222.253 111.708 L 253.071,111.708 L 253.071,112.823 L 222.253,112.823 L 222.253,111.708z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 222.253 111.708 L 253.071,111.708 L 253.071,112.823 L 222.253,112.823 L 222.253,111.708"/>
+    <path style="fill: #000000" d="M 228.052 98.7485 L 231.409,95.6188 L 259.759,95.6188 L 256.642,98.7485 L 228.052,98.7485z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" d="M 228.052 98.7485 L 231.409,95.6188 L 259.759,95.6188 L 256.642,98.7485 L 228.052,98.7485"/>
+    <path style="fill: #c9c9b6" d="M 227.826 75.7258 L 230.962,72.8228 L 259.324,72.8228 L 256.188,75.7258 L 227.826,75.7258z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 227.826 75.7258 L 230.962,72.8228 L 259.324,72.8228 L 256.188,75.7258 L 227.826,75.7258"/>
+    <path style="fill: #b7b79d" d="M 227.826 75.7258 L 256.415,75.7258 L 256.415,98.2951 L 227.826,98.2951 L 227.826,75.7258z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 227.826 75.7258 L 256.403,75.7258 L 256.403,98.2888 L 227.826,98.2888 L 227.826,75.7258"/>
+    <path style="fill: #ffffff" d="M 230.282 78.6225 L 253.953,78.6225 L 253.953,96.0596 L 230.282,96.0596 L 230.282,78.6225z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 230.282 78.6225 L 253.953,78.6225 L 253.953,96.0533 L 230.282,96.0533 L 230.282,78.6225"/>
+    <path style="fill: #7a7a5a" d="M 256.188 98.081 L 259.324,94.9513 L 259.324,72.8228 L 256.188,75.7258 L 256.188,98.081z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 256.188 98.081 L 259.324,94.9513 L 259.324,72.8228 L 256.188,75.7258 L 256.188,98.081"/>
+  </g>
+  <g>
+    <polygon style="fill: #0000ff" points="208.625,185.5 213.714,195.679 203.536,195.679 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #0000ff" points="208.625,185.5 213.714,195.679 203.536,195.679 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #0000ff" points="208.625,185.5 213.714,195.679 203.536,195.679 "/>
+    <ellipse style="fill: #0000ff" cx="208.625" cy="221.125" rx="20.3571" ry="20.3571"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #0000ff" cx="208.625" cy="221.125" rx="20.3571" ry="20.3571"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #0000ff" cx="208.625" cy="221.125" rx="20.3571" ry="20.3571"/>
+    <polygon style="fill: #0000ff" points="208.625,256.75 213.714,246.571 203.536,246.571 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #0000ff" points="208.625,256.75 213.714,246.571 203.536,246.571 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #0000ff" points="208.625,256.75 213.714,246.571 203.536,246.571 "/>
+    <polygon style="fill: #0000ff" points="173,221.125 183.179,226.214 183.179,216.036 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #0000ff" points="173,221.125 183.179,226.214 183.179,216.036 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #0000ff" points="173,221.125 183.179,226.214 183.179,216.036 "/>
+    <polygon style="fill: #0000ff" points="244.25,221.125 234.071,226.214 234.071,216.036 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #0000ff" points="244.25,221.125 234.071,226.214 234.071,216.036 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #0000ff" points="244.25,221.125 234.071,226.214 234.071,216.036 "/>
+    <polygon style="fill: #0000ff" points="193.357,200.768 188.268,205.857 183.179,195.679 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #0000ff" points="193.357,200.768 188.268,205.857 183.179,195.679 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #0000ff" points="193.357,200.768 188.268,205.857 183.179,195.679 "/>
+    <polygon style="fill: #0000ff" points="228.982,236.393 223.893,241.482 234.071,246.571 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #0000ff" points="228.982,236.393 223.893,241.482 234.071,246.571 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #0000ff" points="228.982,236.393 223.893,241.482 234.071,246.571 "/>
+    <polygon style="fill: #0000ff" points="228.982,205.857 223.893,200.768 234.071,195.679 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #0000ff" points="228.982,205.857 223.893,200.768 234.071,195.679 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #0000ff" points="228.982,205.857 223.893,200.768 234.071,195.679 "/>
+    <polygon style="fill: #0000ff" points="193.357,241.482 188.268,236.393 183.179,246.571 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #0000ff" points="193.357,241.482 188.268,236.393 183.179,246.571 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #0000ff" points="193.357,241.482 188.268,236.393 183.179,246.571 "/>
+  </g>
+  <g>
+    <path style="fill: #b7b79d" d="M 322.526 283.436 L 362.495,283.436 L 362.495,290.822 L 322.526,290.822 L 322.526,283.436z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 322.526 283.436 L 362.495,283.436 L 362.495,290.822 L 322.526,290.822 L 322.526,283.436"/>
+    <path style="fill: #c9c9b6" d="M 322.526 283.436 L 326.764,279.418 L 366.733,279.418 L 362.495,283.436 L 322.526,283.436z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 322.526 283.436 L 326.764,279.418 L 366.733,279.418 L 362.495,283.436 L 322.526,283.436"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2.12; stroke: #000000" d="M 360.259 286.798 L 350.668,286.798"/>
+    <path style="fill: #7a7a5a" d="M 362.495 290.822 L 366.733,286.572 L 366.733,279.418 L 362.495,283.436 L 362.495,290.822z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 362.495 290.822 L 366.733,286.572 L 366.733,279.418 L 362.495,283.436 L 362.495,290.822"/>
+    <path style="fill: #c9c9b6" d="M 322.753 295.507 L 327.211,289.922 L 358.03,289.922 L 353.571,295.507 L 322.753,295.507z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 322.753 295.507 L 327.211,289.922 L 358.03,289.922 L 353.571,295.507 L 322.753,295.507"/>
+    <path style="fill: #7a7a5a" d="M 353.571 296.622 L 358.03,291.937 L 358.03,289.922 L 353.571,295.507 L 353.571,296.622z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 353.571 296.622 L 358.03,291.937 L 358.03,289.922 L 353.571,295.507 L 353.571,296.622"/>
+    <path style="fill: #b7b79d" d="M 322.753 295.507 L 353.571,295.507 L 353.571,296.622 L 322.753,296.622 L 322.753,295.507z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 322.753 295.507 L 353.571,295.507 L 353.571,296.622 L 322.753,296.622 L 322.753,295.507"/>
+    <path style="fill: #000000" d="M 328.552 282.548 L 331.909,279.418 L 360.259,279.418 L 357.142,282.548 L 328.552,282.548z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" d="M 328.552 282.548 L 331.909,279.418 L 360.259,279.418 L 357.142,282.548 L 328.552,282.548"/>
+    <path style="fill: #c9c9b6" d="M 328.326 259.525 L 331.462,256.622 L 359.824,256.622 L 356.688,259.525 L 328.326,259.525z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 328.326 259.525 L 331.462,256.622 L 359.824,256.622 L 356.688,259.525 L 328.326,259.525"/>
+    <path style="fill: #b7b79d" d="M 328.326 259.525 L 356.915,259.525 L 356.915,282.094 L 328.326,282.094 L 328.326,259.525z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 328.326 259.525 L 356.903,259.525 L 356.903,282.088 L 328.326,282.088 L 328.326,259.525"/>
+    <path style="fill: #ffffff" d="M 330.782 262.422 L 354.453,262.422 L 354.453,279.859 L 330.782,279.859 L 330.782,262.422z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 330.782 262.422 L 354.453,262.422 L 354.453,279.852 L 330.782,279.852 L 330.782,262.422"/>
+    <path style="fill: #7a7a5a" d="M 356.688 281.88 L 359.824,278.75 L 359.824,256.622 L 356.688,259.525 L 356.688,281.88z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 356.688 281.88 L 359.824,278.75 L 359.824,256.622 L 356.688,259.525 L 356.688,281.88"/>
+  </g>
+  <g>
+    <polygon style="fill: #ff0000" points="351.361,132.836 356.45,143.015 346.272,143.015 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #ff0000" points="351.361,132.836 356.45,143.015 346.272,143.015 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #ff0000" points="351.361,132.836 356.45,143.015 346.272,143.015 "/>
+    <ellipse style="fill: #ff0000" cx="351.361" cy="168.461" rx="20.3571" ry="20.3571"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #ff0000" cx="351.361" cy="168.461" rx="20.3571" ry="20.3571"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #ff0000" cx="351.361" cy="168.461" rx="20.3571" ry="20.3571"/>
+    <polygon style="fill: #ff0000" points="351.361,204.086 356.45,193.907 346.272,193.907 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #ff0000" points="351.361,204.086 356.45,193.907 346.272,193.907 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #ff0000" points="351.361,204.086 356.45,193.907 346.272,193.907 "/>
+    <polygon style="fill: #ff0000" points="315.736,168.461 325.915,173.55 325.915,163.372 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #ff0000" points="315.736,168.461 325.915,173.55 325.915,163.372 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #ff0000" points="315.736,168.461 325.915,173.55 325.915,163.372 "/>
+    <polygon style="fill: #ff0000" points="386.986,168.461 376.807,173.55 376.807,163.372 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #ff0000" points="386.986,168.461 376.807,173.55 376.807,163.372 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #ff0000" points="386.986,168.461 376.807,173.55 376.807,163.372 "/>
+    <polygon style="fill: #ff0000" points="336.093,148.104 331.004,153.193 325.915,143.015 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #ff0000" points="336.093,148.104 331.004,153.193 325.915,143.015 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #ff0000" points="336.093,148.104 331.004,153.193 325.915,143.015 "/>
+    <polygon style="fill: #ff0000" points="371.718,183.729 366.629,188.818 376.807,193.907 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #ff0000" points="371.718,183.729 366.629,188.818 376.807,193.907 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #ff0000" points="371.718,183.729 366.629,188.818 376.807,193.907 "/>
+    <polygon style="fill: #ff0000" points="371.718,153.193 366.629,148.104 376.807,143.015 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #ff0000" points="371.718,153.193 366.629,148.104 376.807,143.015 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #ff0000" points="371.718,153.193 366.629,148.104 376.807,143.015 "/>
+    <polygon style="fill: #ff0000" points="336.093,188.818 331.004,183.729 325.915,193.907 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #ff0000" points="336.093,188.818 331.004,183.729 325.915,193.907 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #ff0000" points="336.093,188.818 331.004,183.729 325.915,193.907 "/>
+  </g>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="345.642" y1="256.622" x2="351.362" y2="193.907"/>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="234.072" y1="246.572" x2="322.526" y2="283.436"/>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #00ff00" x1="208.625" y1="185.5" x2="234.05" y2="121.864"/>
+    <polygon style="fill: #00ff00" points="236.832,114.899 237.765,126.041 234.05,121.864 228.479,122.33 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #00ff00" points="236.832,114.899 237.765,126.041 234.05,121.864 228.479,122.33 "/>
+  </g>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="325.914" y1="143.015" x2="262.437" y2="106.602"/>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="221" y="188">
+    <tspan x="221" y="188">Facebook</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="379" y="185">
+    <tspan x="379" y="185">Google+</tspan>
+  </text>
+</svg>
