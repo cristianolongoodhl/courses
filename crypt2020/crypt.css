@@ -1,0 +1,61 @@
+label{
+	display:block;
+	
+}
+
+*.match{
+	font-weight:bold;
+}
+
+p.crypt, textarea{
+padding:1em;
+border: solid gray 1px;
+width:90%;
+background-color : #fafafa;
+}
+
+table{
+	border-collapse: collapse;
+}
+
+td, th{
+	margin:0.1em;
+	padding:0.1em;
+	border: solid trasparent 0.1em;
+}
+
+td{
+	background-color : #f0f0ff;
+}
+
+th{
+	background-color : #fafaff;
+}
+
+tr.match{
+	border: solid red 0.1em;
+}
+
+fieldset.crypt{
+	min-width : 45em;
+	border:none;
+}
+
+fieldset.crypt textarea{
+	margin:0.5em;
+	padding:0.5em;
+	background-color : #f0f0ff;
+	float:left;
+	width:12em;
+}
+
+fieldset.crypt ul{
+	float:left;
+	list-style-type:none;
+	margin:0.5em;
+	padding:0.5em;	
+}
+
+fieldset.crypt input[type="submit"]{
+	width:10em;
+}
