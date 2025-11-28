@@ -1,0 +1,8 @@
+(0,X,FIRSTX,X,>)
+(0,Y,FIRSTY,Y,>)
+(FIRSTX,X,SND,C,>)
+(FIRSTX,Y,SND,C,>)
+(FIRSTX,-,SND,C,>)
+(FIRSTY,X,SND,D,>)
+(FIRSTY,Y,SND,D,>)
+(FIRSTY,-,SND,D,>)
